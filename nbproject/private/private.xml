@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/UserBundle/Entity/Person.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/DefaultController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/teacher.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/student.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/user.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/UserBundle/Controller/SecurityController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/UserBundle/Controller/RegistrationController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/exam.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/message.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Entity/TutionClass.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/RoleController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Form/RegistrationForm.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Entity/User.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/tutionClass.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/RegistrationController.php</file>
+        </group>
+    </open-files>
+</project-private>
