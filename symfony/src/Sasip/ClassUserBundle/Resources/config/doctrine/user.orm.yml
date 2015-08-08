@@ -1,0 +1,16 @@
+## YAML Template.
+Sasip\ClassUserBundle\Entity\User:
+    type: entity
+    table: users
+    
+    id:
+        id:
+            type: string
+            length: 6
+            
+    fields:
+        firstName:
+            type: text
+        lastName:
+            type: text
+        

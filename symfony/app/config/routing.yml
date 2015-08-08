@@ -1,3 +1,15 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+publicity_user:
+    resource: "@PublicityUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+class_user:
+    resource: "@ClassUserBundle/Resources/config/routing.yml"
+    prefix:   /class/
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+
+fos_user_registration:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /reg/

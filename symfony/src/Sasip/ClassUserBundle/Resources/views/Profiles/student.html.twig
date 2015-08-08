@@ -1,0 +1,19 @@
+{% extends "base.html.twig"%}
+{% block title %}
+    <h1 class="page-header">Student Profile</h1>
+    
+{% endblock %}
+
+{% block Content %}
+
+    <div class="container">
+        <div>
+            Name : {{ app.user.userName }}
+        </div>
+        <div>
+            email : {{ app.user.Email}}
+        </div>
+        
+    </div>
+
+{% endblock %}

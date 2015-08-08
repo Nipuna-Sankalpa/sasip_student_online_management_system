@@ -1,0 +1,17 @@
+Sasip\ClassUserBundle\Entity\TutionClass:
+    type: entity
+    table: class
+    
+    id:
+        id:
+            type: string
+            length: 6
+            
+    fields:
+        fees:
+            type: text
+        conductDay:
+            type: date
+        time:
+            type: time
+            

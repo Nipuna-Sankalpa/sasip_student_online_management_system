@@ -1,0 +1,28 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <h3 class="text-center">Welcome To Sasip Web Portal</h3>
+    <h3 class="text-center">Login</h3>
+    <div class="container">
+        <div class="col-lg-4 col-lg-offset-4" style="background-color: rgba(0,0,0,0.1);padding: 1em;border-radius: 1em;">
+            <form class="form-group" action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                <label class="control-label" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+                <label class="control-label" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                <input class="form-control" type="password" id="password" name="_password" required="required" />
+
+                <input  type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label class="control-label" for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                <br />
+                <input class="btn btn-info pull-right" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+            </form>
+        </div>
+    </div>
+{% endblock fos_user_content %}

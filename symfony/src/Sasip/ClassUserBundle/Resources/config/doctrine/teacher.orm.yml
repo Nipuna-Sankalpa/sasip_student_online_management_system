@@ -1,0 +1,17 @@
+## YAML Template.
+Sasip\ClassUserBundle\Entity\Teacher:
+    type: entity
+    table: teacher
+    
+    id:
+        id:
+            type: string
+            length: 6
+            
+    fields:
+        firstName:
+            type: text
+        lastName:
+            type: text
+        subject:
+            type: text        

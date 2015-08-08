@@ -1,0 +1,7 @@
+Sasip\UserBundle\Entity\Person:
+    type:  entity
+    table: person
+    id:
+        id:
+            type: string
+            

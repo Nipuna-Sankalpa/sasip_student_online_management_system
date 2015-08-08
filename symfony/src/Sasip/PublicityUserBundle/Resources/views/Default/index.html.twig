@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no" />
+
+        <link rel="icon" href="images/favicon.ico">
+        <link rel="shortcut icon" href="images/favicon.ico" />
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
+        <script>
+            $(window).load(function () {
+                $().UItoTop({easingType: 'easeOutQuart'});
+                $('#stuck_container').tmStickUp({});
+            });
+        </script>
+
+    </head>
+    <body class="page1" id="top">
+        <!--==============================
+                      header
+        =================================-->
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12 rel">
+                        <h1>
+                            <a href="index.html">
+                                <img src="{{asset('images/Front/logo.png')}}" alt="Logo alt">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <section id="stuck_container">
+                <!--==============================
+                            Stuck menu
+                =================================-->
+                <div class="container">
+                    <div class="row">
+                        <div class="grid_12 ">
+                            <div class="navigation ">
+                                <nav>
+                                    <ul class="sf-menu">
+                                        <li class="current"><a href="index.html">Home</a></li>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="services.html">Services</a></li>
+                                        <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="contacts.html">Contacts</a></li>
+                                        <li><a href="{{path('fos_user_security_login')}}">login</a></li>
+                                        <li><a href="{{path('fos_user_registration_register')}}">register</a></li>
+                                    </ul>
+                                </nav>
+                                <div class="clear"></div>
+                            </div>       
+                            <div class="clear"></div>  
+                        </div>
+                    </div> 
+                </div> 
+            </section>
+            <section class="page1_header">
+                <div class="container">
+                    <div class="row">
+                        <div class="grid_4">
+                            <a href="#" class="banner "><div class="maxheight">
+                                    <div class="fa fa-globe"></div>Global Research</div>
+                            </a>
+                            <a href="#" class="banner "><div class="maxheight">
+                                    <div class="fa fa-lightbulb-o"></div>Creative Ideas</div>
+                            </a>
+                            <a href="#" class="banner "><div class="maxheight1">
+                                    <div class="fa fa-cog"></div>New Services</div>
+                            </a>
+                            <a href="#" class="banner "><div class="maxheight1">
+                                    <div class="fa fa-briefcase"></div>Pro Management</div>
+                            </a>
+                        </div>
+                        <div class="grid_5">
+                            <h2>Strong <br> Stable <br> Safe</h2>
+                            We help you run your business  in a successful way
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </header>
+        <div class="block-1">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_3">
+                        <div class="block-1_count">10</div>
+                        Years of <br> Experience
+                        <div class="clear"></div>
+                    </div>
+                    <div class="grid_3">
+                        <div class="block-1_count">30</div>
+                        Successful <br> Projects
+                        <div class="clear"></div>
+                    </div>
+                    <div class="grid_3">
+                        <div class="block-1_count">20</div>
+                        Partner <br> Projects
+                        <div class="clear"></div>
+                    </div>
+                    <div class="grid_3">
+                        <a href="#" class="support"><img src="images/support.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="background-image: url({{asset('images/Front/footer.jpg')}})">
+            <div class="container">
+                <div class="row">
+                    <div>
+                        Student Access
+                    </div>
+                </div>
+
+                <div class="text-center" style="color: white;">
+                    <img src="{{asset('images/Front/footer-logo.gif')}}"> Copyright © 2015, Sasip Institute . All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+
+
+        <script src="{{asset('js/jquery.js')}}"></script>
+        <script src="{{asset('js/jquery-migrate-1.1.1.js')}}"></script>
+        <script src="{{asset('js/jquery.easing.1.3.js')}}"></script>
+        <script src="{{asset('js/script.js')}}"></script> 
+        <script src="{{asset('js/superfish.js')}}"></script>
+        <script src="{{asset('js/jquery.equalheights.js')}}"></script>
+        <script src="{{asset('js/jquery.mobilemenu.js')}}"></script>
+        <script src="{{asset('js/tmStickUp.js')}}"></script>
+        <script src="{{asset('js/jquery.ui.totop.js')}}"></script>
+
+    </body>
+</html>

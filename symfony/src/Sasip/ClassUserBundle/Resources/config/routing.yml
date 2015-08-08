@@ -1,0 +1,17 @@
+#------------------------User Profiles-------------------------
+Profile_user:
+    path:     /profile/user
+    defaults: { _controller: ClassUserBundle:Role:user }
+Profile_teacher:
+    path:     /profile/teacher
+    defaults: { _controller: ClassUserBundle:Role:teacher }
+Profile_student:
+    path:     /profile/student
+    defaults: { _controller: ClassUserBundle:Role:student }
+#    --------------------Profile Selector-----------------------------------
+Profile_selector:
+    path:     /profile/selection
+    defaults: { _controller: ClassUserBundle:Role:student }
+    
+#    -------------------------------------------------------
+    
