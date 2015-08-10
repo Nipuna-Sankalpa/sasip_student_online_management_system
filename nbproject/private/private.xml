@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/sasip/symfony/app/console</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/UserBundle/Entity/Person.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/DefaultController.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/teacher.orm.yml</file>
@@ -14,10 +15,15 @@
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/message.orm.yml</file>
             <file>file:/C:/wamp/www/sasip/symfony/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/ResultAnalyzeController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Test/WebTestCase.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Entity/TutionClass.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/app/phpunit.xml.dist</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/RoleController.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Form/RegistrationForm.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/composer.json</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Entity/User.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Tests/Controller/ResultAnalyzeControllerTest.php</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/tutionClass.orm.yml</file>
             <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/RegistrationController.php</file>
         </group>
