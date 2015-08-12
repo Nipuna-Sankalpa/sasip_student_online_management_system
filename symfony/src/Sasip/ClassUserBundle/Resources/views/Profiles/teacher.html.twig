@@ -1,4 +1,90 @@
 {% extends "base.html.twig"%}
 {% block title %}
-    <h1 class="page-header">Teacher Profile</h1>
+    <title>Teacher Profile</title>
 {% endblock %}
+
+{% block sideBarMenu %}
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+        <div class="menu_section">
+            <h3>General</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                </li>
+                <li><a><i class="fa fa-edit"></i> News Forum <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Messages</a>
+                        </li>                                            
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-desktop"></i> Attendance <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Exam</a>
+                        </li>
+                        <li><a href="#">Class</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-table"></i> Results <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Recent Exams</a>
+                        </li>
+                        <li><a href="#">View All Results</a>
+                        </li>
+                    </ul>
+                </li>                
+            </ul>
+        </div>
+        <div class="menu_section">
+            <h3>Accounts</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Account Settings</a>
+                        </li>
+                        <li><a href="#">Personal Settings</a>
+                        </li>
+                    </ul>
+                </li>                
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Plain Page</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Plain Page</h2>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

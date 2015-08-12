@@ -1,10 +1,10 @@
-{% extends "base.html.twig"%}
+{% extends "base.html.twig" %}
+
 {% block title %}
-    <title>Staff Profile</title>
+    <title>Administrator Profile</title>
 {% endblock %}
 
 {% block sideBarMenu %}
-
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
         <div class="menu_section">
@@ -12,31 +12,47 @@
             <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
                 </li>
-                <li><a><i class="fa fa-edit"></i> View Students <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i> User accounts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Add Profiles</a>
+                        </li>                                            
+                        <li><a href="#">User Profile Settings</a>
+                        </li>                                            
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-desktop"></i> Sasip Configurations <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Create exam</a>
+                        </li>
+                        <li><a href="#">Add class</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-table"></i> Notifications <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Post notifications</a>
+                        </li>
+                        <li><a href="#">View notifications</a>
+                        </li>
+                    </ul>
+                </li>
 
-                </li>
-                <li><a><i class="fa fa-desktop"></i> Notificatios <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">View Notifiactions</a>
-                        </li>
-                        <li><a href="#">Post Notifiactions</a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Class</a>
-                        </li>
-                        <li><a href="#">Exam</a>
-                        </li>
-                    </ul>
-                </li>                
             </ul>
-        </div>       
+        </div>
+        <div class="menu_section">
+            <h3>Accounts</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Account Settings</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
 
     </div>
-
-
 {% endblock %}
 
 {% block container %}

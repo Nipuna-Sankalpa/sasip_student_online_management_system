@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  *
  * @author Flash
  */
+
 class RoleController extends Controller {
 
 //basic user(staff) interface generator
@@ -33,26 +34,36 @@ class RoleController extends Controller {
         return $this->render("ClassUserBundle:Profiles:teacher.html.twig");
     }
 
+//basic super admin interface generator
+    public function superAdminAction() {
+        return $this->render("ClassUserBundle:Profiles:superAdmin.html.twig");
+    }
+
 //    this action is to decide which page should be redirected to as soon as logged in
 
     public function roleSelectAction() {
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $roles[] = $user->getRole();
-//        if role is default then load student student being treated as default role
-        if ($roles[0] == 'ROLE_DEFAULT') {
-            new RedirectResponse($this->generateUrl('Profile_student'));
+        $roles = $user->getRoles();
+
+//      if role is default then load student student being treated as default role
+        if ($roles[0] == 'ROLE_STUDENT') {
+//            return $this->redirect($this->generateUrl('Profile_student'))
+            return new RedirectResponse($this->generateUrl('Profile_student'));
         }
 //        if role is admin then load staff(user) being treated as admin role
-        else if ($roles[0] == 'ROLE_ADMIN') {
-            new RedirectResponse($this->generateUrl('Profile_user'));
+        else if ($roles[0] == 'ROLE_USER') {
+            return $this->redirect($this->generateUrl('Profile_user'));
+//            return new RedirectResponse($this->generateUrl('Profile_user'));
         }
 //        if role is teacher then load student being treated as teacher role
         else if ($roles[0] == 'ROLE_TEACHER') {
-            new RedirectResponse($this->generateUrl('Profile_teacher'));
+            return new RedirectResponse($this->generateUrl('Profile_teacher'));
         }
 //        if role is super admin then load student being treated as super admin role
         else if ($roles[0] == 'ROLE_SUPER_ADMIN') {
-            new RedirectResponse($this->generateUrl(''));
+            return new RedirectResponse($this->generateUrl('Profile_superAdmin'));
+        } else {
+            return new \Symfony\Component\HttpFoundation\Response('Error');
         }
     }
 

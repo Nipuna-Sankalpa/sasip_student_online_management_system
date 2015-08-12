@@ -1,0 +1,14 @@
+{# empty Twig template #}
+$('#details').on('click', function(){
+    var index = $(this).data('index');
+
+    var $whereToLoadContent = $("#divid") ; //where you want to load data
+    //__index__ is just a placeholder
+    var routeWithPlaceHolder= "{{ path('route_name',{'var':'_index_'}) }}" ; 
+    var routeToLoad = routeWithPlaceHolder.replace("_index_",index) ;
+
+
+    $whereToLoadContent.load(routeToLoad) ;
+
+
+});

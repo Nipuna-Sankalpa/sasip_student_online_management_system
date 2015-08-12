@@ -1,19 +1,109 @@
 {% extends "base.html.twig"%}
 {% block title %}
-    <h1 class="page-header">Student Profile</h1>
-    
+    <title>Student Profile</title>
 {% endblock %}
 
-{% block Content %}
+{% block sideBarMenu %}
 
-    <div class="container">
-        <div>
-            Name : {{ app.user.userName }}
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+        <div class="menu_section">
+
+            <h3>General</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                </li>
+
+                <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="#">Recent results</a>
+                        </li>                                            
+                        <li><a href="#">View all results</a>
+                        </li>                                            
+                        <li><a href="#">Result analysis</a>
+                        </li>                                            
+                    </ul>
+                </li>
+
+                <li><a><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
+                </li>
+
+                <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li id="details"><a href="#">Exams</a>
+                        </li>
+                        <li><a href="#">Class</a>
+                        </li>
+                    </ul>
+                </li>                
+            </ul>
         </div>
-        <div>
-            email : {{ app.user.Email}}
+        <div class="menu_section">
+            <h3>Accounts</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> Account Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: none">
+                        <li><a href="e_commerce.html">Personal Settings</a>
+                        </li>
+                        <li><a href="e_commerce.html">Account Settings</a>
+                        </li>
+                    </ul>
+                </li>              
+            </ul>
         </div>
-        
+
     </div>
 
 {% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Plain Page</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Plain Page</h2>
+                        <div id="divid"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        
+        $('#details').on('click', function () {
+            
+            var $whereToLoadContent = $("#divid"); //where you want to load data
+            //__index__ is just a placeholder
+            var routeWithPlaceHolder = "{{path('test')}}";            
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            
+        });
+    </script>
+{% endblock %}
+
+{% block footer %}{% endblock %}

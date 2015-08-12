@@ -8,10 +8,18 @@ Profile_teacher:
 Profile_student:
     path:     /profile/student
     defaults: { _controller: ClassUserBundle:Role:student }
+Profile_superAdmin:
+    path:     /profile/superAdmin
+    defaults: { _controller: ClassUserBundle:Role:superAdmin }
+    
+    
 #    --------------------Profile Selector-----------------------------------
 Profile_selector:
     path:     /profile/selection
-    defaults: { _controller: ClassUserBundle:Role:student }
+    defaults: { _controller: ClassUserBundle:Role:roleSelect }
     
-#    -------------------------------------------------------
+#    --------------------------test-----------------------------
     
+test:
+    path:   /test
+    defaults: {_controller: ClassUserBundle:Default:index}

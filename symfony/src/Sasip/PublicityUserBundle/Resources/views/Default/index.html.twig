@@ -7,7 +7,9 @@
 
         <link rel="icon" href="images/favicon.ico">
         <link rel="shortcut icon" href="images/favicon.ico" />
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
 
         <script>
             $(window).load(function () {
@@ -26,7 +28,7 @@
                 <div class="row">
                     <div class="grid_12 rel">
                         <h1>
-                            <a href="index.html">
+                            <a href="#">
                                 <img src="{{asset('images/Front/logo.png')}}" alt="Logo alt">
                             </a>
                         </h1>
@@ -43,13 +45,11 @@
                             <div class="navigation ">
                                 <nav>
                                     <ul class="sf-menu">
-                                        <li class="current"><a href="index.html">Home</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="services.html">Services</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="contacts.html">Contacts</a></li>
+                                        <li class="current"><a href="#">Home</a></li>
+                                        <li><a href="#">Classes</a></li>
+                                        <li><a href="#">Teachers</a></li>                                      
+                                        <li><a href="#">About us</a></li>                                      
                                         <li><a href="{{path('fos_user_security_login')}}">login</a></li>
-                                        <li><a href="{{path('fos_user_registration_register')}}">register</a></li>
                                     </ul>
                                 </nav>
                                 <div class="clear"></div>
@@ -63,65 +63,61 @@
                 <div class="container">
                     <div class="row">
                         <div class="grid_4">
-                            <a href="#" class="banner "><div class="maxheight">
-                                    <div class="fa fa-globe"></div>Global Research</div>
+                            <a href="#" class="banner"><div class="maxheight">
+                                    <div class="fa fa-globe"></div>Sasip</div>
                             </a>
-                            <a href="#" class="banner "><div class="maxheight">
-                                    <div class="fa fa-lightbulb-o"></div>Creative Ideas</div>
+                            <a href="#" class="banner"><div class="maxheight">
+                                    <div class="fa fa-users"></div>Teachers</div>
                             </a>
-                            <a href="#" class="banner "><div class="maxheight1">
-                                    <div class="fa fa-cog"></div>New Services</div>
+                            <a href="#" class="banner"><div class="maxheight1">
+                                    <div class="fa fa-university"></div>Classes</div>
                             </a>
-                            <a href="#" class="banner "><div class="maxheight1">
-                                    <div class="fa fa-briefcase"></div>Pro Management</div>
+                            <a href="#" class="banner"><div class="maxheight1">
+                                    <div class="fa fa-phone"></div>Contact us</div>
                             </a>
                         </div>
                         <div class="grid_5">
-                            <h2>Strong <br> Stable <br> Safe</h2>
-                            We help you run your business  in a successful way
+                            <h2>Strong <br> Stable <br> Dreams</h2>
+                            Your Enthusiasm Is The Key Of Your Success 
                         </div>
                     </div>
                 </div>
             </section>
         </header>
         <div class="block-1">
-            <div class="container">
+            <div class="container" style="font-size: 13pt;">
                 <div class="row">
-                    <div class="grid_3">
-                        <div class="block-1_count">10</div>
-                        Years of <br> Experience
+                    <div class="grid_4">
+                        Staff login<br />
+                        Classes<br />
+                        Teachers
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="grid_4" style="border-left: 1px solid white;padding-left: 1em;">                        
+                        282/7, High Level Rd.,<br />
+                        Nugegoda,<br />
+                        Sri Lanka<br />
+                        Tel: 09411-2825193
                         <div class="clear"></div>
                     </div>
                     <div class="grid_3">
-                        <div class="block-1_count">30</div>
-                        Successful <br> Projects
+                        Site map<br />
+                        Privacy Policy<br />
+                        feedbacks
+                        
                         <div class="clear"></div>
                     </div>
-                    <div class="grid_3">
-                        <div class="block-1_count">20</div>
-                        Partner <br> Projects
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid_3">
-                        <a href="#" class="support"><img src="images/support.png" alt=""></a>
-                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="text-center">Copyright <i class="fa fa-copyright"></i> Sasip 2015</div>
                 </div>
             </div>
         </div>
 
-        <footer style="background-image: url({{asset('images/Front/footer.jpg')}})">
-            <div class="container">
-                <div class="row">
-                    <div>
-                        Student Access
-                    </div>
-                </div>
 
-                <div class="text-center" style="color: white;">
-                    <img src="{{asset('images/Front/footer-logo.gif')}}"> Copyright © 2015, Sasip Institute . All Rights Reserved.
-                </div>
-            </div>
-        </footer>
 
 
         <script src="{{asset('js/jquery.js')}}"></script>
