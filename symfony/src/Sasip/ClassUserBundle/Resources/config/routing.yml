@@ -23,3 +23,39 @@ Profile_selector:
 test:
     path:   /test
     defaults: {_controller: ClassUserBundle:Default:index}
+    
+    
+#-------------------------------StudentProfileActions-------------------------
+
+studentAttendacne:
+    path:   /studentAttendance
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:studentAttendance}
+
+studentViewAllResults:
+    path:   /studentViewAllResults/{examId}
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:individualResult}
+    
+studentAnalysisTemplateResults:
+    path:   /studentAnalysisTemplateResults/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:resultAnalysisTemplate}    
+    
+    
+#--------------------------------routes for utilities---------------------------------------------------
+
+studentIndividualResultComponenent:
+    path:   /studentResultComponent/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:getResultIndividualComponent}
+
+studentAnalysisResults:
+    path:   /studentAnalysisResults/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:resultAnalysis}   
+#-------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------routes for news forum--------------------------------------------------
+
+displayForum:
+    path:   /displayForum/
+    defaults: {_controller: ClassUserBundle:NewsForum:displayForum}
+
+#--------------------------------end routes for news forum----------------------------------------------

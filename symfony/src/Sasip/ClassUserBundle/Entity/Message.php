@@ -7,7 +7,17 @@ class Message {
     private $student_id;
     private $teacher_id;
     private $content;
-    
+    private $state;
+
+    function getState() {
+        return $this->state;
+    }
+
+    function setState($state) {
+        $this->state = $state;
+    }
+
+        
     function getStudent_id() {
         return $this->student_id;
     }
@@ -31,7 +41,5 @@ class Message {
     function setContent($content) {
         $this->content = $content;
     }
-
-
 
 }

@@ -15,17 +15,15 @@
                 </li>
 
                 <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Recent results</a>
+                    <ul class="nav child_menu" style="display: none">                                                                
+                        <li id="allResults"><a href="#">View all results</a>
                         </li>                                            
-                        <li><a href="#">View all results</a>
-                        </li>                                            
-                        <li><a href="#">Result analysis</a>
+                        <li id="resultAnalysis"><a href="#">Result analysis</a>
                         </li>                                            
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
+                <li id="newsForum"><a href="#"><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
                 </li>
 
                 <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
@@ -43,9 +41,9 @@
             <ul class="nav side-menu">
                 <li><a><i class="fa fa-bug"></i> Account Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="e_commerce.html">Personal Settings</a>
+                        <li><a href="#">Personal Settings</a>
                         </li>
-                        <li><a href="e_commerce.html">Account Settings</a>
+                        <li><a href="#">Account Settings</a>
                         </li>
                     </ul>
                 </li>              
@@ -61,7 +59,7 @@
     <div class="container">
         <div class="page-title">
             <div class="title_left">
-                <h3>Plain Page</h3>
+                <h3>Student Portal</h3>
             </div>
 
             <div class="title_right">
@@ -78,13 +76,15 @@
         <div class="clearfix"></div>
 
         <div class="row">
-
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Plain Page</h2>
-                        <div id="divid"></div>
-                        <div class="clearfix"></div>
+                        <h2 id="headSub" class="page-title">Student Profile</h2>
+                        
+                        <div id="contentBody" class="container">
+                            
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -93,13 +93,37 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        
+    <script>        
         $('#details').on('click', function () {
             
-            var $whereToLoadContent = $("#divid"); //where you want to load data
-            //__index__ is just a placeholder
-            var routeWithPlaceHolder = "{{path('test')}}";            
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+            
+            var routeWithPlaceHolder = "{{path('studentAttendacne')}}";            
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            
+        });
+        //load latest exam result
+        $('#allResults').on('click', function () {
+            
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+            
+            var routeWithPlaceHolder = "{{path('studentViewAllResults',{'examId':'201101'})}}";            
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            
+        });
+        $('#resultAnalysis').on('click', function () {
+            
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+            
+            var routeWithPlaceHolder = "{{path('studentAnalysisTemplateResults')}}";            
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            
+        });
+        $('#newsForum').on('click', function () {
+            
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+            
+            var routeWithPlaceHolder = "{{path('displayForum')}}";            
             $whereToLoadContent.load(routeWithPlaceHolder);
             
         });

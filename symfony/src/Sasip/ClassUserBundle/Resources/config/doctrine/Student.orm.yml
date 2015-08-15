@@ -1,0 +1,35 @@
+Sasip\ClassUserBundle\Entity\Student:
+    type: entity
+    table: student    
+    id:
+        id:
+            type: string
+            length: 6
+            
+    fields:
+        parent_name:
+            type: string
+            length: 255
+        parent_mobile:
+            type: string
+            length: 12
+        school:
+            type: string
+            length: 255
+        address:
+            type: text
+        year_of_exam:
+            type: integer
+            length: 5
+        first_name:
+            type: string
+            length: 255
+        last_name:
+            type: string
+            length: 255
+        
+        
+        
+        
+        
+        

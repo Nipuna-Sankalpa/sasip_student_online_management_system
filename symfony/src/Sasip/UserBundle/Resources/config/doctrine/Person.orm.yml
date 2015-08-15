@@ -3,5 +3,8 @@ Sasip\UserBundle\Entity\Person:
     table: person
     id:
         id:
-            type: string
+            type: integer
+            generator:
+                strategy: AUTO
+                    
             

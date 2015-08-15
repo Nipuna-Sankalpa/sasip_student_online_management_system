@@ -9,6 +9,8 @@
 namespace Sasip\ClassUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of ResultAnalyzeController
@@ -23,6 +25,8 @@ class ResultAnalyzeController extends Controller {
         return new \Symfony\Component\HttpFoundation\Response('');
     }
 
+    /*     * **********************************individual Performance*************************************************************** */
+
 //    THis function is to provide individual mark of a student in a particular exam
     //this function returns MAX,AVG,Individual marks for a particular exam Id and student id;
     // result[avg]=avg of the exam
@@ -30,7 +34,6 @@ class ResultAnalyzeController extends Controller {
     // result[individual]=individual of the exam
 
     public function getIndividualScore($examID, $studentID) {
-
         /*         * **********************individual syudent Section************************************ */
 
         $conn = $this->getDoctrine()->getManager()->getConnection();
@@ -58,16 +61,16 @@ class ResultAnalyzeController extends Controller {
                 'max' => $result1[0]['max'],
                 'avg' => $result1[0]['avg']
             );
-
             return $result;
         } else {
             new Exception('Empty results');
         }
     }
 
-//    this method will return data for exam-merks graph
-//    returned array will look  like array[row number][relavant column name
-    
+//    this method will return data for exam-marks graph
+//    returned array will look  like array[row number][relavant column name]
+//for individual student
+
     public function overallPerformance($studentID) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $query = "SELECT marks,exam_id FROM enrolled_exam WHERE student_id= :studentID";
@@ -90,14 +93,16 @@ class ResultAnalyzeController extends Controller {
     //average marks and max marks for a particular exam with exam ids will be returned.
     //two dimensional array will be returned.
 //result[row number][avg]=avg mark of a particular year.
+//result[row number][max]=maximum mark of a particular year.
+
 
     public function getAvgMaxOfExam($yearOfExam) {
 
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select avg(marks) as avg,max(marks) as max,exam_id from student "
+        $query = "select avg(marks) as avg,max(marks) as max,exam_id,year_of_exam from student "
                 . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
                 . "group by(exam_id)"
-                . " having year_of_exam= :yearOfExam";
+                . " having year_of_exam = :yearOfExam";
         $stmt = $conn->prepare($query);
 
         $stmt->execute(array(
@@ -112,6 +117,57 @@ class ResultAnalyzeController extends Controller {
             throw new Exception('Empty result set');
         }
     }
+
+//    this function is to render viewAllResult section
+//    require examId to output data
+//    send examIds for rendering template
+
+    public function individualResultAction($examId) {
+        $student = $this->container->get('security.context')->getToken()->getUser();
+        $studentId = $student->getUsername();
+        $examIds = $this->overallPerformance($studentId);
+
+        $result = $this->getIndividualScore($examId, $studentId);
+        return $this->render("ClassUserBundle:Profiles/Student:viewAllResult.html.twig", array(
+                    'result' => $result,
+                    'examId' => $examIds
+        ));
+    }
+
+    //this function render the twig of reslt analysis with the 
+    // result Student and rsultClass separately
+
+    public function resultAnalysisAction() {
+
+        $person = $this->container->get('security.context')->getToken()->getUser();
+        $studentId = $person->getUsername();
+
+        $student = $this->getDoctrine()->getManager()->getRepository('ClassUserBundle:Student')->find($studentId);
+        $yearOfExam = $student->getYear_of_exam();
+        $resultStudent = $this->overallPerformance($studentId);
+        $resultClass = $this->getAvgMaxOfExam($yearOfExam);
+
+        for ($key = 0; $key < sizeof($resultStudent); $key++) {
+            $avg[$key] = $resultClass[$key]['avg'];
+            $individual[$key] = $resultStudent[$key]['marks'];
+            $max[$key] = $resultClass[$key]['max'];
+            $examID[$key] = $resultStudent[$key]['exam_id'];
+        }
+
+        return new JsonResponse(array(
+            'avg' => $avg,
+            'individual' => $individual,
+            'max' => $max,
+            'examId' => $examID
+        ));
+    }
+
+    public function resultAnalysisTemplateAction() {
+        return $this->render('ClassUserBundle:Profiles/Student:resultAnalysis.html.twig');
+    }
+
+    /*     * **************************************end of individual performance********************************************************** */
+
 
     /*     * ***********************************Teacher Section****************************************************** */
 
@@ -124,7 +180,8 @@ class ResultAnalyzeController extends Controller {
 
         $stmt = $conn->prepare($query);
         $stmt->execute(array(
-            'examId' => $examId
+            'examId' =>
+            $examId
         ));
 
         $result = $stmt->fetchAll();
@@ -136,14 +193,12 @@ class ResultAnalyzeController extends Controller {
         }
     }
 
-    
 //    function returns the avg,max and min respectively inside an array
-//    results categorized according to the year of exam students face the exam        
-    
+//    results categorized according to the year of exam, students face the exam        
+
     public function overallExamResults($yearOfExam) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min from student "
-                . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
+        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min from student " . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
                 . "group by(exam_id)"
                 . " having year_of_exam= :yearOfExam";
 
@@ -161,4 +216,20 @@ class ResultAnalyzeController extends Controller {
         }
     }
 
+    /*     * ************************************utility Section************************************************* */
+
+//    this function provides twig component for results when examId is given
+//    when java script request being made
+    public function getResultIndividualComponentAction(Request $request) {
+        $student = $this->container->get('security.context')->getToken()->getUser();
+        $studentId = $student->getUsername();
+        $examId = $request->get('examId');
+        $result = $this->getIndividualScore($examId, $studentId);
+
+        return $this->render("ClassUserBundle:Profiles/Student/Utility:individualScore.html.twig", array(
+                    'result' => $result
+        ));
+    }
+
+    /*     * ********************************************************************************************************** */
 }

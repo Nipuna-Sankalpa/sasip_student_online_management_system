@@ -8,9 +8,8 @@
 
 namespace Sasip\ClassUserBundle\Entity;
 
-use Sasip\UserBundle\Entity\Person;
 
-class Teacher extends Person {
+class Teacher {
 
     private $id;
     private $firstName;

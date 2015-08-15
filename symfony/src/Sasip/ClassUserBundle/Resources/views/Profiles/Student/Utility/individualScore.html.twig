@@ -1,0 +1,55 @@
+<div class="col-md-3">
+    <div class="x_content">
+        <div style="text-align: center;">
+            <span class="chart" id="avg" data-percent="{{result['avg']}}">
+                <span class="percent"></span>
+            </span>
+        </div>
+
+        <h3 class="name_title text-center">Average Mark</h3>
+        <div class="divider"></div>
+    </div>
+</div>
+<div class="col-md-3 col-md-offset-1">
+    <div class="x_content">
+        <div style="text-align: center;">
+            <span class="chart" id="individual" data-percent="{{result['individual']}}">
+                <span class="percent"></span>
+            </span>
+        </div>
+
+        <h3 class="name_title text-center">Individual Mark</h3>
+        <div class="divider"></div>
+    </div>
+</div>
+<div class="col-md-3 col-md-offset-1">
+    <div class="x_content">
+        <div style="text-align: center;">
+            <span class="chart" id="max" data-percent="{{result['max']}}">
+                <span class="percent"></span>
+            </span>
+        </div>
+
+        <h3 class="name_title text-center">Maximum Mark</h3>
+        <div class="divider"></div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('.chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#26B99A',
+            trackColor: '#fff',
+            scaleColor: false,
+            lineWidth: 20,
+            trackWidth: 16,
+            lineCap: 'butt',
+            onStep: function (from, to, percent) {
+                $(this.el).find('.percent').text(Math.round(percent));
+            }
+        });
+    });
+</script>

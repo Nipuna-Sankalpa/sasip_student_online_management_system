@@ -2,16 +2,32 @@
 
 namespace Sasip\ClassUserBundle\Entity;
 
-use Sasip\UserBundle\Entity\Person;
+class Student {
 
-class Student extends Person {
-
-    private $firstName;
-    private $lastName;
-    private $id;
+    private $first_name;
+    private $last_name;
+    protected $id;
     private $address;
     private $school;
     private $year_of_exam;
+    private $parent_name;
+    private $parent_mobile;
+
+    function getParent_name() {
+        return $this->parent_name;
+    }
+
+    function getParent_mobile() {
+        return $this->parent_mobile;
+    }
+
+    function setParent_name($parent_name) {
+        $this->parent_name = $parent_name;
+    }
+
+    function setParent_mobile($parent_mobile) {
+        $this->parent_mobile = $parent_mobile;
+    }
 
     function getFirstName() {
         return $this->firstName;

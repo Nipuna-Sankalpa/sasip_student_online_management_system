@@ -9,6 +9,7 @@
 namespace Sasip\ClassUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * Description of AttendanceAnalyzerController
@@ -23,12 +24,12 @@ class AttendanceAnalyzerController extends Controller {
     public function individualAttendance($studentId) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $query = "SELECT student_attendance.Date,student_attendance.time,class.id,class.subject,CONCAT(teacher.firstName,' ',teacher.lastName) as name FROM student_attendance"
-                . "inner join class"
-                . "on student_attendance.id=class.id"
-                . "inner join teacher"
-                . "on class.teacher_id=teacher.id"
-                . "where student_attendance.student_id= :studentId"
-                . "ORDER BY student_attendance.Date DESC";
+                . " inner join class"
+                . " on student_attendance.class_id=class.id"
+                . " inner join teacher"
+                . " on class.teacher_id=teacher.id"
+                . " where student_attendance.student_id= :studentId"
+                . " ORDER BY student_attendance.Date DESC";
 
         $stmt = $conn->prepare($query);
         $stmt->execute(array(
@@ -37,10 +38,10 @@ class AttendanceAnalyzerController extends Controller {
 
         $result = $stmt->fetchAll();
         if ($result) {
-
             return $result;
         } else {
-            throw new Exception('Empty result set');
+            return $result = null;
+//            throw new Exception('Empty result set');
         }
     }
 
@@ -60,7 +61,6 @@ class AttendanceAnalyzerController extends Controller {
 
         $result = $stmt->fetchAll();
         if ($result) {
-
             return $result;
         } else {
             throw new Exception('Empty result set');
@@ -87,10 +87,10 @@ class AttendanceAnalyzerController extends Controller {
             throw new Exception('Empty result set');
         }
     }
-    
+
 //    function will return total number of student who came for an particular exam
-    
-    public function examAttendance($examId){
+
+    public function examAttendance($examId) {
         $query = "SELECT COUNT(student_id) as studentCount FROM student_attendance"
                 . "GROUP BY (class_id)"
                 . "having class_id= :classId%";
@@ -107,6 +107,18 @@ class AttendanceAnalyzerController extends Controller {
         } else {
             throw new Exception('Empty result set');
         }
+    }
+
+//    this function render the twig of individual attendance with attendance details
+    public function studentAttendanceAction() {
+        $student = $this->container->get('security.context')->getToken()->getUser();
+        $id = $student->getUsername();
+        
+        $result = $this->individualAttendance('120339P');
+
+        return $this->render("ClassUserBundle:Profiles/Student:Attendance.html.twig", array(
+                    'attendance' => $result
+        ));
     }
 
 }

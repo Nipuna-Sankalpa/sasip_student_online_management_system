@@ -1,1 +1,106 @@
-{# empty Twig template #}
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+
+<div class="x_panel">
+
+    <div class="row">
+
+        <h4><strong><i class="fa fa-certificate"></i> Select Exam :</strong></h4>
+        <div class="col-md-3">
+            {% if examId == null %}
+                <p>Exams have not conducted yet</p>
+            {% else %}
+                <select class="form-control" name="exam_id" id="examSelect">
+                    {% for key,values in examId %}
+                        <option>{{values['exam_id']}}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="text"><h4><strong><i class="fa fa-certificate"></i> Description</strong></h4></div>
+        <div style="margin-left: 2em;">
+            <p>The result which is shown below belongs to the exam which was held held in DATE OF EXAM</p>
+        </div>
+    </div>
+    <div id="resultComponent" class="row" >
+        <div class="col-md-3">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="avg" data-percent="{{result['avg']}}">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Average Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="individual" data-percent="{{result['individual']}}">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Individual Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="max" data-percent="{{result['max']}}">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Maximum Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="text"><h4><strong><i class="fa fa-certificate"></i> FEEDBACKS</strong></h4></div>
+        <div style="margin-left: 2em;">
+            <p>Feedback details</p>
+        </div>
+    </div>
+</div>
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+<script src="{{asset('js/Profiles/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('js/Profiles/easypie/jquery.easypiechart.min.js')}}"></script>
+
+<script>
+    function initComponent() {
+        $(function () {
+            $('.chart').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+        });
+    }
+
+    $('#examSelect').change(function () {
+        var examId = $("#examSelect option:selected").text();
+        var $whereToLoadContent = $("#resultComponent"); //where you want to load data
+
+        var routeWithPlaceHolder = "{{path('studentIndividualResultComponenent')}}" + "?" +"examId="+ examId;
+        $whereToLoadContent.load(routeWithPlaceHolder);
+    });
+
+    initComponent();
+
+</script>
+

@@ -1,0 +1,18 @@
+Sasip\ClassUserBundle\Entity\Message:
+    type: entity
+    table: send_messages
+    
+    fields:
+        student_id:
+            type: string
+            length: 255
+        state:
+            type: string
+            length: 7
+        teacher_id:
+            type: string
+            length: 255
+        content:
+            type: text
+        
+        

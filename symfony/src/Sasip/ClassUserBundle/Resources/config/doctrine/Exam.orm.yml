@@ -1,0 +1,17 @@
+Sasip\ClassUserBundle\Entity\Exam:
+    type: entity
+    table: exam
+    
+    id:
+        id:
+            type: string
+            length: 6
+
+    fields:
+        fee:
+            type: integer
+        date:
+            type: date
+        time:
+            type: time
+        
