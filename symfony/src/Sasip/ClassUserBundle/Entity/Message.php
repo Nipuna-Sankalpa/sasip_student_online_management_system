@@ -8,6 +8,47 @@ class Message {
     private $teacher_id;
     private $content;
     private $state;
+    private $time_sent;
+    private $title;
+    private $date_sent;
+    private $id;
+    private $sender;
+
+    function getSender() {
+        return $this->sender;
+    }
+
+    function setSender($sender) {
+        $this->sender = $sender;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function getDateSent() {
+        return $this->date_sent;
+    }
+
+    function setDateSent($dateSent) {
+        $this->date_sent = $dateSent;
+    }
+
+    function getTimeSent() {
+        return $this->time_sent;
+    }
+
+    function getTitle() {
+        return $this->title;
+    }
+
+    function setTimeSent($timeSent) {
+        $this->time_sent = $timeSent;
+    }
+
+    function setTitle($title) {
+        $this->title = $title;
+    }
 
     function getState() {
         return $this->state;
@@ -17,7 +58,6 @@ class Message {
         $this->state = $state;
     }
 
-        
     function getStudent_id() {
         return $this->student_id;
     }

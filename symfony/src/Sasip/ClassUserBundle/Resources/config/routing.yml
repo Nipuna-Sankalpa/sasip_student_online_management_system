@@ -58,4 +58,12 @@ displayForum:
     path:   /displayForum/
     defaults: {_controller: ClassUserBundle:NewsForum:displayForum}
 
+sendMessage:
+    path:   /sendMesasge/
+    defaults: {_controller: ClassUserBundle:NewsForum:sendMsg}
+
+viewMoreMessage:
+    path:   /viewMore/
+    defaults: {_controller: ClassUserBundle:NewsForum:viewMore}
+
 #--------------------------------end routes for news forum----------------------------------------------

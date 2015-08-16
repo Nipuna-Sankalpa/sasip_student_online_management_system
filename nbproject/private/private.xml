@@ -3,22 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Teacher/ClassAttendance.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/ExamConfiguration.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/UserProfileSettings.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/user.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/PsotNotifications.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/ViewNotifications.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Teacher/Messages.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/addUserProfiles.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Teacher/viewAllResults.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/User/AttendanceClass.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Student/Attendance.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/SuperAdmin/ClassConfiguration.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/User/AttendanceExam.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Teacher/ExamAttendance.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Teacher/recentResults.html.twig</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/superAdmin.html.twig</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/Student/newsForum.html.twig</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/NewsForumController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,129 +1,293 @@
 <h4 class="text"><strong>Message Inbox</strong></h4>
 <div class="divider"></div>
-<div class="col-sm-3 mail_list_column">
+<div>
+    <div id="baseMailList" class="col-sm-3 mail_list_column" style="overflow-y: scroll;max-height:600px;overflow-x: hidden;">
 
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
-        </div>
-        <div class="right">
-            <h3>Dennis Mugo <small>3.00 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-star"></i>
-        </div>
-        <div class="right">
-            <h3>Jane Nobert <small>4.09 PM</small></h3>
-            <p><span class="badge">To</span> Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-circle-o"></i><i class="fa fa-paperclip"></i>
-        </div>
-        <div class="right">
-            <h3>Musimbi Anne <small>4.09 PM</small></h3>
-            <p><span class="badge">CC</span> Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-paperclip"></i>
-        </div>
-        <div class="right">
-            <h3>Jon Dibbs <small>4.09 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            .
-        </div>
-        <div class="right">
-            <h3>Debbis & Raymond <small>4.09 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            .
-        </div>
-        <div class="right">
-            <h3>Debbis & Raymond <small>4.09 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
-        </div>
-        <div class="right">
-            <h3>Dennis Mugo <small>3.00 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
-    <div class="mail_list">
-        <div class="left">
-            <i class="fa fa-star"></i>
-        </div>
-        <div class="right">
-            <h3>Jane Nobert <small>4.09 PM</small></h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-        </div>
-    </div>
+        {% if messages == null%}
+            <div class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">
+                <div class="left">
+                    <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                </div>
+                <div class="right">
+                    <h3 class="tile_head">No messages available</h3>
+                </div>
+            </div>
+        {% else %}
+            {% for content,key in messages %}
+                <div id="msg{{loop.index}}" class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">                    
+                    {% if key['sender'] == app.user.userName %}
+                        <div class="left">
+                            <strong><i class="fa fa-arrow-up"></i></strong> <i class="fa fa-edit"></i>
+                        </div>
+                    {% else %}
+                        <div class="left">
+                            <strong><i class="fa fa-arrow-down"></i></strong> <i class="fa fa-edit"></i>
+
+                        </div>
+                    {% endif %}
+                    <div class="right">
 
 
+                        <div class="row">
+                            <div class="col-sm-7"><h3 class="tile_head">{{key['teacher_id']}} </h3></div>
+                            <div class="text-right col-sm-5"><small><span class="timeMsg"><small>{{key['time_sent']}}</small></span></small></div>
+                        </div>
+
+                        <div class="msgSender" style="display: none;">{{key['sender']}}</div>
+                        <div class="msgTitle" style="display: none;">{{key['title']}}</div>
+                        <div class="msgDate" style="display: none;">{{key['date_sent']}}</div>                
+
+                        <p class="msgBody">{{key['content']}}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            <div class="well well-sm text-center" id="viewMore"><a href="#"><strong>View More <i class="fa fa-angle-down"></i></strong></a></div>
+                    {% endif %}
+
+    </div>
 
 </div>
+
+<div id="msgBaseTemplate" class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;display: none;">                    
+
+    <div class="left">
+        <strong><i class="fa fa-arrow-up"></i></strong> <i class="fa fa-edit"></i>
+    </div>
+
+    <div class="right">
+        <div class="row">
+            <div class="col-sm-7 tile_head"><h3 id="tile_headTemp"> </h3></div>
+            <div class="text-right col-sm-5"><small><span id="timeMsgTemplate" class="timeMsg"></span></small></div>
+        </div>
+
+        <div id="msgSenderTemp" class="msgSender" style="display: none;"></div>
+        <div id="msgTitleTemp" class="msgTitle" style="display: none;"></div>
+        <div id="msgDateTemp" class="msgDate" style="display: none;"></div>                
+
+        <p id="msgBodyTemplate" class="msgBody"></p>
+    </div>
+</div>
+
 <!-- /MAIL LIST -->
 
 
 <!-- CONTENT MAIL -->
 <div class="col-sm-9 mail_view">
-    <div class="inbox-body">
-        <div class="mail_heading row">
-            <div class="col-md-8">
-                <div class="compose-btn">
-                    <a class="btn btn-sm btn-primary" href="mail_compose.html"><i class="fa fa-reply"></i> Reply</a>
+    <div class="container" style="margin-left: 1em;">
+        <div class="row">
+            <div class="inbox-body">
+                <div class="mail_heading row">
+                    <div class="col-md-8">
+                        <div class="compose-btn">
+                            <a class="btn btn-sm btn-primary" role="button" data-toggle="collapse" href="#replyForum" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-reply"></i> Reply</a>
+                            <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn  btn-sm tooltips"><i class="fa fa-print"></i> </button>
+                            <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm tooltips"><i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <p class="date"> <span id="time">8:02 PM</span> <span id="date">12 FEB 2014</span></p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4 id="msgHead"> </h4>
+                    </div>
+                </div>
+                <div class="sender-info">
+                    <div class="row">
+                        <div class="col-md-12" id="senderMsg">
+
+                            <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view-mail" id="msgContent">
+                </div>
+
+                <div class="compose-btn pull-left">
+                    <a class="btn btn-sm btn-primary" role="button" data-toggle="collapse" href="#replyForum" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-reply"></i> Reply</a>
+                    <button class="btn btn-sm " data-toggle="collapse" href="#replyNewForum" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-arrow-right"></i> Compose</button>
                     <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn  btn-sm tooltips"><i class="fa fa-print"></i> </button>
                     <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm tooltips"><i class="fa fa-trash-o"></i>
                     </button>
                 </div>
 
-            </div>
-            <div class="col-md-4 text-right">
-                <p class="date"> 8:02 PM 12 FEB 2014</p>
-            </div>
-            <div class="col-md-12">
-                <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
+
             </div>
         </div>
-        <div class="sender-info">
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>Jon Doe</strong>
-                    <span>(jon.doe@gmail.com)</span> to
-                    <strong>me</strong>
-                    <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
+        <div class="row">
+            <div class="collapse" id="replyForum">
+                <div class="well">
+                    <form id="reply" class="form-group">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label class="control-label">Title :</label>
+                                <input id="title" class="form-control" name="title" type="text" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">To :</label>
+                                <input id="receiver" class="form-control" name="receiver" type="text" />
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1em;">
+                            <label class="control-label">Message :</label>
+                            <textarea id="message" name="message" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div style="margin-top: 0.5em;">
+                            <div class="row">
+                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" id="replyButton">Send</button></div>
+                                <h4 id="alertMsg" class="col-sm-9" style="display: none; color: green;"><strong></strong></h4>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="view-mail">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-            <p>Riusmod tempor incididunt ut labor erem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Modesed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-        
-        <div class="compose-btn pull-left">
-            <a class="btn btn-sm btn-primary" href="mail_compose.html"><i class="fa fa-reply"></i> Reply</a>
-            <button class="btn btn-sm "><i class="fa fa-arrow-right"></i> Forward</button>
-            <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn  btn-sm tooltips"><i class="fa fa-print"></i> </button>
-            <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm tooltips"><i class="fa fa-trash-o"></i>
-            </button>
+            <div class="collapse" id="replyNewForum">
+                <div class="well">
+                    <form id="compose" class="form-group">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label class="control-label">Title :</label>
+                                <input id="titleCompose" class="form-control" name="titleCompose" type="text" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">To :</label>
+                                <select id="receiverCompose" class="form-control" name="receiverCompose">
+                                    {% for values,key in teachers %}
+                                        <option value="{{key['teacher_id']}}">{{key['teacher_name']}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1em;">
+                            <label class="control-label">Message :</label>
+                            <textarea id="messageCompose" name="messageCompose" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div style="margin-top: 0.5em;">
+                            <div class="row">
+                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" id="replyButtonCompose">Send</button></div>
+                                <h4 id="alertMsgCompose" class="col-sm-9" style="display: none; color: green;"><strong></strong></h4>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    $('#replyButton').on('click', function (e) {
+
+        e.preventDefault();
+        $('#alertMsg').css("display", "none");
+        $.ajax({
+            type: 'POST',
+            url: "{{path('sendMessage')}}",
+            data: {title: $('#title').val(), receiver: $('#receiver').val(), message: $('#message').val()},
+            success: function (data) {
+                var message = data.message;
+                if (message.localeCompare("Message sent successfully") === 0) {
+                    $('#alertMsg').css('color', "green");
+                }
+                if (message.localeCompare("Message sent fail !") === 0) {
+                    $('#alertMsg').css('color', "red");
+                }
+
+                $('#alertMsg').text(data.message);
+                $('#alertMsg').fadeIn(10);
+            }
+        });
+    });
+    $('#replyButtonCompose').on('click', function (e) {
+
+        e.preventDefault();
+        $('#alertMsgCompose').css("display", "none");
+        $.ajax({
+            type: 'POST',
+            url: "{{path('sendMessage')}}",
+            data: {title: $('#titleCompose').val(), receiver: $('#receiverCompose').val(), message: $('#messageCompose').val()},
+            success: function (data) {
+                var message = data.message;
+                if (message.localeCompare("Message sent successfully") === 0) {
+                    $('#alertMsgCompose').css('color', "green");
+                }
+                if (message.localeCompare("Message sent fail !") === 0) {
+                    $('#alertMsgCompose').css('color', "red");
+                }
+
+                $('#alertMsgCompose').text(data.message);
+                $('#alertMsgCompose').fadeIn(10);
+            }
+        });
+    });
+
+    function initMsg() {
+        $('#msgHead').text($('#msg1').find('.msgTitle').text());
+        $('#date').text($('#msg1').find('.msgDate').text());
+        $('#time').text($('#msg1').find('.timeMsg').text());
+        $('#msgContent').text($('#msg1').find('.msgBody').text());
+        $('#senderMsg').text("From " + $('#msg1').find('.tile_head').text() + " to me");
+        $('#receiver').val($('#msg1').find('.tile_head').text());
+    }
+    initMsg(); // load first message when the window get loaded
+</script>
+
+<script>
+    var offset = 10;
+    var studentId = "{{app.user.userName}}";
+    $('#viewMore').on('click', function () {
+
+        offset += 10;
+        $.ajax({
+            url: "{{path('viewMoreMessage')}}",
+            type: 'POST',
+            data: {offset_1: offset - 10, offset_2: offset, student_id: studentId},
+            success: function (data) {
+                var clone;
+                for (var i = 0, max = data.length; i < max; i++) {
+                    clone = $('#msgBaseTemplate').clone();
+                    clone.attr("id", "msg" + (i + offset));
+                    clone.find('#msgTitleTemp').text(data[i]['title']);
+                    clone.find('#tile_headTemp').text(data[i]['teacher_id']);
+                    clone.find('#msgDateTemp').text(data[i]['date_sent']);
+                    clone.find('#timeMsgTemplate').text(data[i]['time_sent']);
+                    clone.find('#msgBodyTemplate').text(data[i]['content']);
+                    clone.find('#msgSenderTemp').text(data[i]['student_id']);
+                    clone.css('display', 'block');
+
+                    $('#baseMailList').append(clone);
+                    $('#viewMore').dequeue();
+                    $('#baseMailList').append($('#viewMore'));
+                }
+
+                $('.mail_list').on('click', function () {
+                    $('#msgHead').text($(this).find('.msgTitle').text());
+                    $('#date').text($(this).find('.msgDate').text());
+                    $('#time').text($(this).find('.timeMsg').text());
+                    $('#msgContent').text($(this).find('.msgBody').text());
+                    $('#senderMsg').text("From " + $(this).find('.tile_head').text() + " to me");
+                    $('#receiver').val($(this).find('.tile_head').text());
+                });
+            }
+        });
+    });
+
+
+
+</script>
+<script>
+    $('.mail_list').on('click', function () {
+        $('#msgHead').text($(this).find('.msgTitle').text());
+        $('#date').text($(this).find('.msgDate').text());
+        $('#time').text($(this).find('.timeMsg').text());
+        $('#msgContent').text($(this).find('.msgBody').text());
+        $('#senderMsg').text("From " + $(this).find('.tile_head').text() + " to me");
+        $('#receiver').val($(this).find('.tile_head').text());
+    });
+</script>

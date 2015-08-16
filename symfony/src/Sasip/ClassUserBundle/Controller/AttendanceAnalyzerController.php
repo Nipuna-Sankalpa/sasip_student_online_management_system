@@ -21,7 +21,7 @@ class AttendanceAnalyzerController extends Controller {
 //    this function returns attendance list of a specified student
 //    returns date of attendance,time of attendance, attended class,subject of the class and the teacher
 
-    public function individualAttendance($studentId) {
+    public function individualAttendanceClass($studentId) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $query = "SELECT student_attendance.Date,student_attendance.time,class.id,class.subject,CONCAT(teacher.firstName,' ',teacher.lastName) as name FROM student_attendance"
                 . " inner join class"
@@ -30,6 +30,28 @@ class AttendanceAnalyzerController extends Controller {
                 . " on class.teacher_id=teacher.id"
                 . " where student_attendance.student_id= :studentId"
                 . " ORDER BY student_attendance.Date DESC";
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute(array(
+            'studentId' => $studentId
+        ));
+
+        $result = $stmt->fetchAll();
+        if ($result) {
+            return $result;
+        } else {
+            return $result = null;
+//            throw new Exception('Empty result set');
+        }
+    }
+
+    public function individualAttendanceExam($studentId) {
+        $conn = $this->getDoctrine()->getManager()->getConnection();
+        $query = "select student_id,class_id,student_attendance.Date,student_attendance.time,concat(firstName,' ',lastName) as teacher"
+                . " from student_attendance inner join "
+                . "exam on exam.id=student_attendance.class_id "
+                . "inner join teacher on teacher.id=exam.teacher_id "
+                . "where student_attendance.student_id= :studentId";
 
         $stmt = $conn->prepare($query);
         $stmt->execute(array(
@@ -88,12 +110,12 @@ class AttendanceAnalyzerController extends Controller {
         }
     }
 
-//    function will return total number of student who came for an particular exam
+//    function will return total number of students who came for an particular exam
 
     public function examAttendance($examId) {
         $query = "SELECT COUNT(student_id) as studentCount FROM student_attendance"
                 . "GROUP BY (class_id)"
-                . "having class_id= :classId%";
+                . "having class_id= :classId";
 
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $stmt = $conn->prepare($query);
@@ -109,12 +131,12 @@ class AttendanceAnalyzerController extends Controller {
         }
     }
 
-//    this function render the twig of individual attendance with attendance details
+//  this function render the twig of individual attendance with attendance details
     public function studentAttendanceAction() {
         $student = $this->container->get('security.context')->getToken()->getUser();
         $id = $student->getUsername();
-        
-        $result = $this->individualAttendance('120339P');
+
+        $result = $this->individualAttendanceExam($id);
 
         return $this->render("ClassUserBundle:Profiles/Student:Attendance.html.twig", array(
                     'attendance' => $result

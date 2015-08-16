@@ -2,6 +2,12 @@ Sasip\ClassUserBundle\Entity\Message:
     type: entity
     table: send_messages
     
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    
     fields:
         student_id:
             type: string
@@ -14,5 +20,16 @@ Sasip\ClassUserBundle\Entity\Message:
             length: 255
         content:
             type: text
+        sender:
+            type: string
+            length: 255
+        time_sent:
+            type: string
+            length: 12
+        title:
+            type: text
+        date_sent:
+            type: string
+            length: 12
         
         
