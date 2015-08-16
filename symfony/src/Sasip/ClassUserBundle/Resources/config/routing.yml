@@ -27,9 +27,13 @@ test:
     
 #-------------------------------StudentProfileActions-------------------------
 
-studentAttendacne:
-    path:   /studentAttendance
-    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:studentAttendance}
+studentAttendanceClass:
+    path:   /studentClassAttendance
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:studentClassAttendance}
+
+studentAttendanceExam:
+    path:   /studentExamAttendance
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:studentAttendanceExam}
 
 studentViewAllResults:
     path:   /studentViewAllResults/{examId}

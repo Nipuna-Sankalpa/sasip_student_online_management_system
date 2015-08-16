@@ -28,9 +28,9 @@
 
                 <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li id="details"><a href="#">Exams</a>
+                        <li id="detailsClass"><a href="#">Class</a>
                         </li>
-                        <li><a href="#">Class</a>
+                        <li id="detailsExam"><a href="#">Exam</a>
                         </li>
                     </ul>
                 </li>                
@@ -94,11 +94,20 @@
 
 {% block js %}
     <script>        
-        $('#details').on('click', function () {
+        $('#detailsClass').on('click', function () {
             
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
             
-            var routeWithPlaceHolder = "{{path('studentAttendacne')}}";            
+            var routeWithPlaceHolder = "{{path('studentAttendanceClass')}}";            
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            
+        });
+        
+        $('#detailsExam').on('click', function () {
+            
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+            
+            var routeWithPlaceHolder = "{{path('studentAttendanceExam')}}";            
             $whereToLoadContent.load(routeWithPlaceHolder);
             
         });

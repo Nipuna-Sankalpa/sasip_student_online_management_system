@@ -47,7 +47,7 @@ class AttendanceAnalyzerController extends Controller {
 
     public function individualAttendanceExam($studentId) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select student_id,class_id,student_attendance.Date,student_attendance.time,concat(firstName,' ',lastName) as teacher"
+        $query = "select student_attendance.Date,student_attendance.time,class_id,concat(firstName,' ',lastName) as teacher"
                 . " from student_attendance inner join "
                 . "exam on exam.id=student_attendance.class_id "
                 . "inner join teacher on teacher.id=exam.teacher_id "
@@ -131,14 +131,26 @@ class AttendanceAnalyzerController extends Controller {
         }
     }
 
-//  this function render the twig of individual attendance with attendance details
-    public function studentAttendanceAction() {
+//  this function render the twig of individual class attendance with attendance details
+    public function studentClassAttendanceAction() {
+        $student = $this->container->get('security.context')->getToken()->getUser();
+        $id = $student->getUsername();
+
+        $result = $this->individualAttendanceClass($id);
+
+        return $this->render("ClassUserBundle:Profiles/Student:AttendanceClass.html.twig", array(
+                    'attendance' => $result
+        ));
+    }
+    
+//  this function render the twig of individual exam attendance with attendance details
+    public function studentAttendanceExamAction() {
         $student = $this->container->get('security.context')->getToken()->getUser();
         $id = $student->getUsername();
 
         $result = $this->individualAttendanceExam($id);
 
-        return $this->render("ClassUserBundle:Profiles/Student:Attendance.html.twig", array(
+        return $this->render("ClassUserBundle:Profiles/Student:AttendanceExam.html.twig", array(
                     'attendance' => $result
         ));
     }
