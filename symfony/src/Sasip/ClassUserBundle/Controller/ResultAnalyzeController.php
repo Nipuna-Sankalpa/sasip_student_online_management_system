@@ -143,7 +143,7 @@ class ResultAnalyzeController extends Controller {
         $studentId = $person->getUsername();
 
         $student = $this->getDoctrine()->getManager()->getRepository('ClassUserBundle:Student')->find($studentId);
-        $yearOfExam = $student->getYear_of_exam();
+        $yearOfExam = $student->getYearOfExam();
         $resultStudent = $this->overallPerformance($studentId);
         $resultClass = $this->getAvgMaxOfExam($yearOfExam);
 

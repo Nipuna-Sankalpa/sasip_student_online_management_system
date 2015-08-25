@@ -27,6 +27,15 @@ Sasip\ClassUserBundle\Entity\Student:
         last_name:
             type: string
             length: 255
+        dateOfBirth:
+            type: string
+            length: 10
+        gender:
+            type: string
+            length: 7
+        image:
+            type: text
+            
         
         
         

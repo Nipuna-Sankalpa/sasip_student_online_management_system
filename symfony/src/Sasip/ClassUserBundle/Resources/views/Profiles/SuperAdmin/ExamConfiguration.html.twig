@@ -1,1 +1,163 @@
-{# empty Twig template #}
+<h3 class="text-center">Exam Configuration</h3>
+
+<div class="container">
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Exam</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Exam Settings</a>
+                </li>               
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <form id="classCreate" action="{{path('ExamConfiguration')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                        {{form_start(form)}}
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Exam ID <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">                
+                                {{form_widget(form.id,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Exam ID'}})}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Exam Fees <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{form_widget(form.fees,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':  'Enter Exam Fees'}})}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conducting Day <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{form_widget(form.conductDay,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conducting Time <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{form_widget(form.time,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Class Teacher <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{form_widget(form.teacher_id,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="confirm" type="submit" class="btn btn-info pull-right">Create</button>
+                            </div>
+                        </div>
+                        {{form_end(form)}}
+                    </form>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+                    <form id="classUpdate" action="{{path('ExamUpdate')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Exam ID <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {% if examList == null%}
+                                    <h4><strong>No classes stored in the database</strong></h4>
+                                {% else %}                                        
+                                    <select id="id" name="id" class="form-control col-md-7 col-xs-12">
+                                        {% for exam in examList %}
+                                            <option value="{{exam.id}}">{{exam.id}}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Class Fees <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input class="form-control col-md-7 col-xs-12" type="number" name="fees" id="fees" />                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conducting Day <span class="required">*</span>
+                            </label>
+                            <div id="conductDayTime" class="col-md-6 col-sm-6 col-xs-12">
+                                <!-- add date list dynamically under the jasvascript section -->
+                                <!-- template was created and hidden for replace it during the java script -->
+                                <select style="display: none" id="conductDay_template"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conducting Time <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input class="form-control col-md-7 col-xs-12" type="time" name="time" id="time"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Class Teacher <span class="required">*</span>
+                            </label>
+                            <div id="teacher_id_div" class="col-md-6 col-sm-6 col-xs-12">
+                                <!-- add teacher list dynamically under the jasvascript section -->
+                                <!-- template was created and hidden for replace it during the java script -->
+                                <select style="display: none" id="teacher_id_template"></select>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="confirmUpdate" type="submit" class="btn btn-info pull-right">Update</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+<script>
+    // components for update classes
+    var teacherList = $('#Sasip_Exam_form_teacher_id').clone();
+    var dayList = $('#Sasip_Exam_form_conductDay').clone();
+    dayList.attr('id', 'conductDay');
+    dayList.attr('name', 'conductDay');
+    teacherList.attr('id', 'teacher_id');
+    teacherList.attr('name', 'teacher_id');
+    $('#teacher_id_template').replaceWith(teacherList);
+    $('#conductDay_template').replaceWith(dayList);
+
+    $('#id').change(function () {
+        var id = $('#id').val();
+
+        $.ajax({
+            url: "{{path('ExamUpdate')}}",
+            type: 'GET',
+            data: {id: id},
+            success: function (data) {
+                var Exam = JSON.parse(data);
+
+                $('#fees').val(Exam.fees);
+                $('#conductDay').val(Exam.conductDay);
+                $('#time').val(Exam.time);
+                $('#teacher_id').val(Exam.teacherId);
+
+            }
+        });
+
+    });
+</script>
+

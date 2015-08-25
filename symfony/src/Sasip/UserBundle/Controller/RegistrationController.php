@@ -21,11 +21,10 @@ use FOS\UserBundle\Model\UserInterface;
 
 //FOS registration controller is overridden by Sasip/UserBundle registration controller
 
-class RegistrationController extends BaseController
-{
+class RegistrationController extends BaseController {
+
 //    this method need to be evolved after the front being develpoed
-    public function registerAction()
-    {
+    public function registerAction() {
         $form = $this->container->get('fos_user.registration.form');
         $formHandler = $this->container->get('fos_user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
@@ -43,20 +42,19 @@ class RegistrationController extends BaseController
                 $route = 'fos_user_registration_confirmed';
             }
 
-            $this->setFlash('fos_user_success', 'registration.flash.user_created');
-            $url = $this->container->get('router')->generate($route);
-            $response = new RedirectResponse($url);
+//            $this->setFlash('fos_user_success', 'registration.flash.user_created');
+//            $url = $this->container->get('router')->generate($route);
+//            $response = new RedirectResponse($url);
 
-            if ($authUser) {
-                $this->authenticateUser($user, $response);
-            }
 
-            return $response;
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                'message' => 'Registration Successful'
+            ));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
-            'form' => $form->createView(),
+        return $this->container->get('templating')->renderResponse('UserBundle:Registration:register_content.html.' . $this->getEngine(), array(
+                    'form' => $form->createView(),
         ));
     }
-    
+
 }

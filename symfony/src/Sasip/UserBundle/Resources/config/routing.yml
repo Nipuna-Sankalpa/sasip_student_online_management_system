@@ -1,3 +1,7 @@
-user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: UserBundle:Default:index }
+studentAccountSettings:
+    path:   /studentAccountSettings/
+    defaults: {_controller: UserBundle:Settings:displayStudentProfile}
+    
+superAdminCreateProfiles:
+    path:   /createProfiles/
+    defaults: {_controller: UserBundle:Registration:register}

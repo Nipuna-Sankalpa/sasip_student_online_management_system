@@ -1,0 +1,210 @@
+<div id="wizard" class="form_wizard wizard_horizontal">
+    <ul class="wizard_steps">
+        <li>
+            <a href="#step-1">
+                <span class="step_no">1</span>
+                <span class="step_descr">
+                    Step 1<br />
+                    <small>Personal</small>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#step-2">
+                <span class="step_no">2</span>
+                <span class="step_descr">
+                    Step 2<br />
+                    <small>Education </small>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#step-3">
+                <span class="step_no">3</span>
+                <span class="step_descr">
+                    Step 3<br />
+                    <small>Profile Image</small>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#step-4">
+                <span class="step_no">4</span>
+                <span class="step_descr">
+                    Step 4<br />
+                    <small>Portfolio</small>
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <form  id="editForm" class="form-horizontal form-label-left"> 
+        <div id="step-1">
+
+            <div class="form-group">
+                {{form_start(form)}}
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
+                </label>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.first_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.last_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>            
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="gender" class="btn-group">
+                        {{form_widget(form.gender,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth" class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.dateOfBirth,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.address,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Mobile <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    {{form_widget(form.mobile.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Name <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    {{form_widget(form.parentName,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="parentMobile" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Mobile <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.parentMobile,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+            <div style="display: none;">
+                {{form_widget(form.mobile.person_id)}}
+            </div>
+
+        </div>
+        <div id="step-2">
+
+            <div class="form-group">
+                <label for="school" class="control-label col-md-3 col-sm-3 col-xs-12">School <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.school,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}                    
+                </div>
+            </div>           
+
+            <div class="form-group">
+                <label for="yearOfExam" class="control-label col-md-3 col-sm-3 col-xs-12">Year of exam <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                    
+                    {{form_widget(form.year_of_exam,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>          
+        </div>
+        <div id="step-3">
+            <h4><small><strong>Profile Images *</strong></small></h4>
+            <div class="form-group">
+
+            </div>
+        </div>
+        <div id="step-4">
+            <div class="form-group">
+                <label for="portfolio" class="control-label col-md-3 col-sm-3 col-xs-12 text-right">Portfolio <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                    
+                    {{form_widget(form.portfolio,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Tell something about yourself'}})}}
+                </div>
+            </div>            
+        </div>
+        
+        {{form_end(form)}}
+    </form>
+
+
+
+</div>
+
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
+<script>
+    function initData() {
+        var path = "{{path('studentFormData')}}";
+        $.ajax({
+            url: path,
+            type: 'POST',
+            data: {id: "{{app.user.userName}}"},
+            success: function (data) {
+
+                $('#sasip_registration_form_first_name').val(data[0]['first_name']);
+                $('#sasip_registration_form_last_name').val(data[0]['last_name']);
+                $('#sasip_registration_form_gender').val(data[0]['gender']);
+                $('#sasip_registration_form_dateOfBirth').val(data[0]['date_of_birth']);
+                $('#sasip_registration_form_address').val(data[0]['address']);
+                $('#sasip_registration_form_mobile_contact_number').val(data[0]['contact_number']);
+                $('#sasip_registration_form_parentName').val(data[0]['parent_name']);
+                $('#sasip_registration_form_parentMobile').val(data[0]['parent_mobile']);
+                $('#sasip_registration_form_school').val(data[0]['school']);
+                $('#sasip_registration_form_year_of_exam').val(data[0]['year_of_exam']);
+                $('#sasip_registration_form_portfolio').val(data[0]['portfolio']);
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Smart Wizard 	
+        $('#wizard').smartWizard();
+
+        function onFinishCallback() {
+            $('#wizard').smartWizard('showMessage', 'Finish Clicked');
+            //alert('Finish Clicked');
+        }
+        //submitForm();
+    });
+
+    initData();
+</script>
+<script>
+    function submitForm() {
+        $(".actionBar").find(".btn-default").on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{path('studentFormUpdate')}}",
+                type: 'POST',
+                data: $('#editForm').serialize(),
+                success: function (data) {
+                    alert(data.message['first_name']);
+                }
+            });
+
+        });
+    }
+</script>

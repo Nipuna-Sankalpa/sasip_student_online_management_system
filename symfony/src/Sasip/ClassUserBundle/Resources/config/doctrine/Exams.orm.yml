@@ -1,21 +1,22 @@
-Sasip\ClassUserBundle\Entity\TutionClass:
+Sasip\ClassUserBundle\Entity\Exams:
     type: entity
-    table: class
+    table: exam
     
     id:
         id:
             type: string
             length: 6
-            
+
     fields:
-        fees:
-            type: text
+        fee:
+            type: integer
         conductDay:
             type: string
             length: 15
         time:
             type: string
-            length: 12
+            length: 15
         teacher_id:
-            type: text
-            
+            type: string
+            length: 6
+        

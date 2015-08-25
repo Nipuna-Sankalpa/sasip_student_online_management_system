@@ -8,44 +8,48 @@
 
 namespace Sasip\ClassUserBundle\Entity;
 
-
+/**
+ * Description of Teacher
+ *
+ * @author Flash
+ */
 class Teacher {
 
-    private $id;
+    protected $id;
     private $firstName;
     private $lastName;
-    private $subject;
+    private $image;
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getFirstName() {
+    public function getFirstName() {
         return $this->firstName;
     }
 
-    function getLastName() {
+    public function getLastName() {
         return $this->lastName;
     }
 
-    function getSubject() {
-        return $this->subject;
+    public function getImage() {
+        return $this->image;
     }
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    function setFirstName($firstName) {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
     }
 
-    function setLastName($lastName) {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
 
-    function setSubject($subject) {
-        $this->subject = $subject;
+    public function setImage($image) {
+        $this->image = $image;
     }
 
 }

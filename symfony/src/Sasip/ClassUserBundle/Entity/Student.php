@@ -12,29 +12,83 @@ class Student {
     private $year_of_exam;
     private $parent_name;
     private $parent_mobile;
+    private $image;
+    private $Mobile;
+    private $dateOfBirth;
+    private $gender;
+    
+    private $portfolio;
 
-    function getParent_name() {
+    function getPortfolio() {
+        return $this->portfolio;
+    }
+
+    function setPortfolio($portfolio) {
+        $this->portfolio = $portfolio;
+    }
+
+    function getFirstName() {
+        return $this->first_name;
+    }
+
+    function getLastName() {
+        return $this->last_name;
+    }
+
+    function setFirstName($first_name) {
+        $this->first_name = $first_name;
+    }
+
+    function setLastName($last_name) {
+        $this->last_name = $last_name;
+    }
+
+    function getDateOfBirth() {
+        return $this->dateOfBirth;
+    }
+
+    function getGender() {
+        return $this->gender;
+    }
+
+    function setDateOfBirth($dateOfBirth) {
+        $this->dateOfBirth = $dateOfBirth;
+    }
+
+    function setGender($gender) {
+        $this->gender = $gender;
+    }
+
+    function getMobile() {
+        return $this->Mobile;
+    }
+
+    function setMobile($Mobile = null) {
+        $this->Mobile = $Mobile;
+    }
+
+    function getImage() {
+        return $this->image;
+    }
+
+    function setImage($image) {
+        $this->image = $image;
+    }
+
+    function getParentName() {
         return $this->parent_name;
     }
 
-    function getParent_mobile() {
+    function getParentMobile() {
         return $this->parent_mobile;
     }
 
-    function setParent_name($parent_name) {
+    function setParentName($parent_name) {
         $this->parent_name = $parent_name;
     }
 
     function setParent_mobile($parent_mobile) {
         $this->parent_mobile = $parent_mobile;
-    }
-
-    function getFirstName() {
-        return $this->firstName;
-    }
-
-    function getLastName() {
-        return $this->lastName;
     }
 
     function getId() {
@@ -49,16 +103,8 @@ class Student {
         return $this->school;
     }
 
-    function getYear_of_exam() {
+    function getYearOfExam() {
         return $this->year_of_exam;
-    }
-
-    function setFirstName($firstName) {
-        $this->firstName = $firstName;
-    }
-
-    function setLastName($lastName) {
-        $this->lastName = $lastName;
     }
 
     function setId($id) {
@@ -73,7 +119,7 @@ class Student {
         $this->school = $school;
     }
 
-    function setYear_of_exam($year_of_exam) {
+    function setYearOfExam($year_of_exam) {
         $this->year_of_exam = $year_of_exam;
     }
 

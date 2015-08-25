@@ -11,26 +11,26 @@
 
             <h3>General</h3>
             <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                <li><a href="{{path('Profile_student',{'student_id':app.user.userName})}}"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
                 </li>
 
                 <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">                                                                
-                        <li id="allResults"><a href="#">View all results</a>
+                        <li id="allResults"><a href="javascript:;">View all results</a>
                         </li>                                            
-                        <li id="resultAnalysis"><a href="#">Result analysis</a>
+                        <li id="resultAnalysis"><a href="javascript:;">Result analysis</a>
                         </li>                                            
                     </ul>
                 </li>
 
-                <li id="newsForum"><a href="#"><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
+                <li id="newsForum"><a href="javascript:;"><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
                 </li>
 
                 <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li id="detailsClass"><a href="#">Class</a>
+                        <li id="detailsClass"><a href="javascript:;">Class</a>
                         </li>
-                        <li id="detailsExam"><a href="#">Exam</a>
+                        <li id="detailsExam"><a href="javascript:;">Exam</a>
                         </li>
                     </ul>
                 </li>                
@@ -41,9 +41,9 @@
             <ul class="nav side-menu">
                 <li><a><i class="fa fa-bug"></i> Account Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Personal Settings</a>
+                        <li id="profileSetting"><a href="javascript:;">Personal Settings</a>
                         </li>
-                        <li><a href="#">Account Settings</a>
+                        <li id="accountSetting"><a href="javascript:;">Account Settings</a>
                         </li>
                     </ul>
                 </li>              
@@ -78,14 +78,139 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h2 id="headSub" class="page-title">Student Profile</h2>
-                        
+                    <div class="x_title">                       
+                        <h3>Student Profile</h3>
                         <div id="contentBody" class="container">
-                            
+                            <div class="x_title">                                
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+
+                                    <div class="profile_img">
+
+                                        <!-- end of image cropping -->
+                                        <div id="crop-avatar">
+                                            <!-- Current avatar -->
+                                            <div class="avatar-view" title="Change the avatar">
+                                                {% if student[0]['image']== null%}
+                                                    <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar">
+                                                {% else %}
+                                                    <img src="{{asset(student[0]['image'])}}" alt="Avatar">
+                                                {% endif %}
+                                            </div>
+                                            <!-- Loading state -->
+
+                                        </div>
+                                        <!-- end of image cropping -->
+
+                                    </div>
+                                    <h3>{{student[0]['first_name']}} {{student[0]['last_name']}}</h3>
+
+                                    <div class="text">
+                                        <h4>Portfolio</h4>
+                                        <p class="text-justify" > Describe your self</p>
+                                    </div>
+
+                                    <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                                    <br />
+
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist" >
+                                            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personal Profile</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Educational Profile</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Remarks</a>
+                                            </li>
+                                        </ul>
+                                        <div id="myTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                                <div style="font-size: 12pt;"><strong>Student Details :</strong></div>
+                                                <br />
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Index :</strong></div>
+                                                    <div class="col-md-9 text-left">{{student[0]['username']}}</div>
+                                                </div>                                                
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>School :</strong></div>
+                                                    {% if student[0]['school'] == null%}
+                                                        <div class="col-md-9 text-left">No school has been specified</div>
+                                                    {% else %}
+                                                        <div class="col-md-9 text-left">{{student[0]['school']}}</div>
+                                                    {% endif %}
+                                                </div>                                                
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>E-mail :</strong></div>
+                                                    {% if student[0]['email'] == null%}
+                                                        <div class="col-md-9 text-left">No email has been specified</div>
+                                                    {% else %}
+                                                        <div class="col-md-9 text-left">{{student[0]['email']}}</div>
+                                                    {% endif %}
+                                                </div>                                                
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Mobile :</strong></div>
+                                                    {% if mobile == null%}
+                                                        <div class="col-md-9 text-left">No mobile  numbers have been specified</div>
+                                                    {% else %}
+                                                        {% for key,mob in mobile %}
+                                                            <div class="col-md-9 text-left">{{mob['contact_number']}}</div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                                <div style="font-size: 12pt;"><strong>Parent Details :</strong></div>
+                                                <br />
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Parent Name :</strong></div>
+                                                    <div class="col-md-9 text-left">{{student[0]['parent_name']}}</div>
+                                                </div>                                                
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Parent Mobile :</strong></div>
+                                                    <div class="col-md-9 text-left">{{student[0]['parent_mobile']}}</div>
+                                                </div>                                                
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">                                                
+
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Year of exam :</strong></div>
+                                                    <div class="col-md-9 text-left">{{student[0]['year_of_exam']}}</div>
+                                                </div>                                                
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Registered Classes :</strong></div>
+                                                    <div class="col-md-9 text-left">
+                                                        {% for key,class in classes %}
+                                                            <div class="row">
+                                                                <div class="col-md-3">                                                                
+                                                                    <div>{{class['class_id']}} </div>                                                                
+                                                                </div>
+                                                                <div class="col-md-9 text-left">                                                                
+                                                                    <div><i class="fa fa-arrow-circle-right"></i> {{class['first_name']}} {{class['last_name']}}</div>
+                                                                    <div><i class="fa fa-arrow-circle-right"></i> {{class['subject']}}</div>
+                                                                    <div><i class="fa fa-arrow-circle-right"></i> {{class['conduct_day']}}</div>
+                                                                    <div><i class="fa fa-arrow-circle-right"></i> {{class['time']}}</div>
+                                                                </div>                                                            
+                                                            </div>
+                                                            <div class="divider"></div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -93,48 +218,64 @@
 {% endblock %}
 
 {% block js %}
-    <script>        
+    <script>
         $('#detailsClass').on('click', function () {
-            
+
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
-            
-            var routeWithPlaceHolder = "{{path('studentAttendanceClass')}}";            
+
+            var routeWithPlaceHolder = "{{path('studentAttendanceClass')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
-            
+
         });
-        
+
         $('#detailsExam').on('click', function () {
-            
+
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
-            
-            var routeWithPlaceHolder = "{{path('studentAttendanceExam')}}";            
+
+            var routeWithPlaceHolder = "{{path('studentAttendanceExam')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
-            
+
         });
         //load latest exam result
         $('#allResults').on('click', function () {
-            
+
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
-            
-            var routeWithPlaceHolder = "{{path('studentViewAllResults',{'examId':'201101'})}}";            
+
+            var routeWithPlaceHolder = "{{path('studentViewAllResults',{'examId':'201101'})}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
-            
+
         });
         $('#resultAnalysis').on('click', function () {
-            
+
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
-            
-            var routeWithPlaceHolder = "{{path('studentAnalysisTemplateResults')}}";            
+
+            var routeWithPlaceHolder = "{{path('studentAnalysisTemplateResults')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
-            
+
         });
         $('#newsForum').on('click', function () {
-            
+
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
-            
-            var routeWithPlaceHolder = "{{path('displayForum')}}";            
+
+            var routeWithPlaceHolder = "{{path('displayForum')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
-            
+
+        });
+        $('#profileSetting').on('click', function () {
+
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+            var routeWithPlaceHolder = "{{path('studentProfileSettings')}}";
+            $whereToLoadContent.load(routeWithPlaceHolder);
+
+        });
+        $('#accountSetting').on('click', function () {
+
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+            var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
+            $whereToLoadContent.load(routeWithPlaceHolder);
+
         });
     </script>
 {% endblock %}

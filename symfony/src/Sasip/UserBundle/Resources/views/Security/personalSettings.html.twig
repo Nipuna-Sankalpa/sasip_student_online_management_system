@@ -1,0 +1,56 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Personal Settings</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <form class="form-horizontal form-label-left" id="formChangePassword">
+            {{form_start(form)}}
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Current Password</label>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    {{form_widget(form.current_password,{'attr':{'class':'form-control'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">New-Password</label>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    {{form_widget(form.new.first,{'attr':{'class':'form-control'}})}}                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Re-type Password</label>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    {{form_widget(form.new.second,{'attr':{'class':'form-control'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    <button id="changePassword" class="btn btn-primary pull-right">Change Password</button>
+                </div>
+            </div>
+            {{form_end(form)}}
+        </form>
+        <div id="messageId" class="alert alert-success text-center" role="alert" style="display: none;font-size: 12pt;"></div>
+    </div>
+
+
+</div>
+
+<script>
+    $('#changePassword').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{{path('fos_user_change_password')}}",
+            data: $('#formChangePassword').serialize(),
+            success: function (data) {
+                if (data.message !== 'undefined') {
+                    $('#messageId').text(data.message);
+                    $('#messageId').css('display', 'block');
+                }
+            }
+        });
+    });
+</script>

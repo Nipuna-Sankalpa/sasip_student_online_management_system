@@ -17,31 +17,51 @@ class TutionClass {
     
     private $conductDay;
     private $fees;
-    private $id;
+    protected $id;
+    private $teacher_id;
+    private $time;
     
-    function getConductDay() {
+    
+    public function getConductDay() {
         return $this->conductDay;
     }
 
-    function getFees() {
+    public function getFees() {
         return $this->fees;
     }
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function setConductDay($conductDay) {
+    public function getTeacherid() {
+        return $this->teacher_id;
+    }
+
+    public function getTime() {
+        return $this->time;
+    }
+
+    public function setConductDay($conductDay) {
         $this->conductDay = $conductDay;
     }
 
-    function setFees($fees) {
+    public function setFees($fees) {
         $this->fees = $fees;
     }
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
+
+    public function setTeacherid($teacher_id) {
+        $this->teacher_id = $teacher_id;
+    }
+
+    public function setTime($time) {
+        $this->time = $time;
+    }
+
 
 
 }

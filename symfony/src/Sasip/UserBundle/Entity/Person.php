@@ -13,14 +13,17 @@ use FOS\UserBundle\Entity\User as BaseUser;
 class Person extends BaseUser {
 
     protected $id;
-    private $image;
+    private $role;
 
-    function getImage() {
-        return $this->image;
+    public function getRole() {
+        return $this->role;
     }
 
-    function setImage($image) {
-        $this->image = $image;
+    //this method will call setRoles and 
+    //add convert $role in to array elements and send it in to setRoles() method
+
+    public function setRole($role) {
+        $this->setRoles(array($role));
     }
 
     public function __construct() {

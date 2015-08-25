@@ -14,17 +14,36 @@ namespace Sasip\ClassUserBundle\Entity;
  * @author Flash
  */
 class Exams {
-    
+
     private $id;
-    private $fees;
+    private $fee;
     private $conductDay;
+    private $time;
+    private $teacher_id;
     
+
+    public function getTime() {
+        return $this->time;
+    }
+
+    public function getTeacherId() {
+        return $this->teacher_id;
+    }
+
+    public function setTime($time) {
+        $this->time = $time;
+    }
+
+    public function setTeacherId($teacher_id) {
+        $this->teacher_id = $teacher_id;
+    }
+
     function getId() {
         return $this->id;
     }
 
     function getFees() {
-        return $this->fees;
+        return $this->fee;
     }
 
     function getConductDay() {
@@ -36,13 +55,11 @@ class Exams {
     }
 
     function setFees($fees) {
-        $this->fees = $fees;
+        $this->fee = $fees;
     }
 
     function setConductDay($conductDay) {
         $this->conductDay = $conductDay;
     }
 
-
-    
 }

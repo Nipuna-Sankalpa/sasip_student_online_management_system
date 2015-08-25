@@ -1,0 +1,18 @@
+Sasip\ClassUserBundle\Entity\Mobile:
+    type: entity
+    table: contact_numbers
+    
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+                
+    fields:
+        person_id:
+            type: string
+            length: 255
+            
+        contact_number:
+            type: string
+            length: 12

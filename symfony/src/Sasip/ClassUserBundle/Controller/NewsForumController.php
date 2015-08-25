@@ -59,9 +59,9 @@ class NewsForumController extends Controller {
         $student = $this->container->get('security.context')->getToken()->getUser();
         $student_id = $student->getUsername();
         $conn = $this->getDoctrine()->getConnection();
-        $query = "SELECT *,concat(firstName,' ',lastName) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
+        $query = "SELECT *,concat(first_name,' ',last_name) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
                 . " WHERE student_id= :student_id ORDER BY time_sent DESC limit 10";
-        $query1 = "select teacher_id,concat(firstName,' ',lastName) as teacher_name from"
+        $query1 = "select teacher_id,concat(first_name,' ',last_name) as teacher_name from"
                 . " student_register inner join class on student_register.class_id=class.id inner join teacher on teacher.id=class.teacher_id"
                 . " where student_id=:student_id";
         $stmt = $conn->prepare($query);

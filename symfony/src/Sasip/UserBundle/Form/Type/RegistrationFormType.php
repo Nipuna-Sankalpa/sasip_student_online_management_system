@@ -19,8 +19,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 class RegistrationFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
-        $builder->add('id','text');
+
+        $builder->add('role', 'choice', array(
+            'choices' => array(
+                'ROLE_TEACHER' => 'Teacher',
+                'ROLE_STUDENT' => 'Student',
+                'ROLE_ADMIN' => 'Staff',
+            ),
+        ));
     }
 
     public function getParent() {

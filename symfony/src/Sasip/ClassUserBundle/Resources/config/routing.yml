@@ -6,7 +6,7 @@ Profile_teacher:
     path:     /profile/teacher
     defaults: { _controller: ClassUserBundle:Role:teacher }
 Profile_student:
-    path:     /profile/student
+    path:     /profile/student/{student_id}
     defaults: { _controller: ClassUserBundle:Role:student }
 Profile_superAdmin:
     path:     /profile/superAdmin
@@ -42,8 +42,19 @@ studentViewAllResults:
 studentAnalysisTemplateResults:
     path:   /studentAnalysisTemplateResults/
     defaults: {_controller: ClassUserBundle:ResultAnalyze:resultAnalysisTemplate}    
+
+studentProfileSettings:
+    path:   /studentProfileSettings/
+    defaults: {_controller: ClassUserBundle:Settings:studentProfile} 
     
-    
+studentFormData:
+    path:   /formData/
+    defaults: {_controller: ClassUserBundle:Settings:sendData} 
+
+studentFormUpdate:
+    path:   /formUpdateData/
+    defaults: {_controller: ClassUserBundle:Settings:studentUpdateProfile} 
+
 #--------------------------------routes for utilities---------------------------------------------------
 
 studentIndividualResultComponenent:
@@ -71,3 +82,25 @@ viewMoreMessage:
     defaults: {_controller: ClassUserBundle:NewsForum:viewMore}
 
 #--------------------------------end routes for news forum----------------------------------------------
+
+
+
+#--------------------------------Class Configuration----------------------------------------------
+classConfiguration:
+    path:   /classConfig/
+    defaults: {_controller: ClassUserBundle:ClassConfiguration:classConfig}
+
+classUpdate:
+    path:   /classUpdate/
+    defaults: {_controller: ClassUserBundle:ClassConfiguration:update}
+    
+ExamConfiguration:
+    path:   /examConfig/
+    defaults: {_controller: ClassUserBundle:ExamConfig:examConfig}
+
+ExamUpdate:
+    path:   /examUpdate/
+    defaults: {_controller: ClassUserBundle:ExamConfig:update}
+
+
+#--------------------------------end routes for Class Configuration-------------------------------

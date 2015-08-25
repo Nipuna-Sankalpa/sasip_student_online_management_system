@@ -12,6 +12,6 @@ Sasip\ClassUserBundle\Entity\Teacher:
         firstName:
             type: text
         lastName:
-            type: text
-        subject:
             type: text        
+        image:
+            type: text

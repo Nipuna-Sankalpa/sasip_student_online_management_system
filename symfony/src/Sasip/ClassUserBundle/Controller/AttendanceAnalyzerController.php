@@ -23,7 +23,7 @@ class AttendanceAnalyzerController extends Controller {
 
     public function individualAttendanceClass($studentId) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "SELECT student_attendance.Date,student_attendance.time,class.id,class.subject,CONCAT(teacher.firstName,' ',teacher.lastName) as name FROM student_attendance"
+        $query = "SELECT student_attendance.Date,student_attendance.time,class.id,class.subject,CONCAT(teacher.first_name,' ',teacher.last_name) as name FROM student_attendance"
                 . " inner join class"
                 . " on student_attendance.class_id=class.id"
                 . " inner join teacher"
@@ -47,7 +47,7 @@ class AttendanceAnalyzerController extends Controller {
 
     public function individualAttendanceExam($studentId) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select student_attendance.Date,student_attendance.time,class_id,concat(firstName,' ',lastName) as teacher"
+        $query = "select student_attendance.Date,student_attendance.time,class_id,concat(first_name,' ',last_name) as teacher"
                 . " from student_attendance inner join "
                 . "exam on exam.id=student_attendance.class_id "
                 . "inner join teacher on teacher.id=exam.teacher_id "
