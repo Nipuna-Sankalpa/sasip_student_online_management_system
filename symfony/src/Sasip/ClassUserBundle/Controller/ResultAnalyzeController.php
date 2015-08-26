@@ -100,8 +100,8 @@ class ResultAnalyzeController extends Controller {
 
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $query = "select avg(marks) as avg,max(marks) as max,exam_id,year_of_exam from student "
-                . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
-                . "group by(exam_id)"
+                . " inner join enrolled_exam on student.id=enrolled_exam.student_id "
+                . " group by(exam_id)"
                 . " having year_of_exam = :yearOfExam";
         $stmt = $conn->prepare($query);
 
@@ -180,8 +180,27 @@ class ResultAnalyzeController extends Controller {
 
         $stmt = $conn->prepare($query);
         $stmt->execute(array(
-            'examId' =>
-            $examId
+            'examId' => $examId
+        ));
+
+        $result = $stmt->fetchAll();
+
+        if ($result) {
+            return $result;
+        } else {
+            throw new Exception('Empty result set');
+        }
+    }
+
+    public function BruteExamPerformance($examId) {
+        $conn = $this->getDoctrine()->getManager()->getConnection();
+        $query = "SELECT concat(first_name,' ',last_name) as name, student_id, marks FROM enrolled_exam"
+                . " inner join student on student.id = enrolled_exam.student_id"
+                . " where exam_id= :examId";
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute(array(
+            'examId' => $examId
         ));
 
         $result = $stmt->fetchAll();
@@ -198,7 +217,7 @@ class ResultAnalyzeController extends Controller {
 
     public function overallExamResults($yearOfExam) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min from student " . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
+        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min, exam_id from student " . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
                 . "group by(exam_id)"
                 . " having year_of_exam= :yearOfExam";
 
@@ -215,6 +234,50 @@ class ResultAnalyzeController extends Controller {
             throw new Exception('Empty result set');
         }
     }
+
+    /*     * ***********************************teacher result Analysis Actions***************************************** */
+
+    public function teacherOverallResultAction(Request $request) {
+        $yearOfExam = $request->get('year');
+        $result = $this->overallExamResults($yearOfExam);
+        $data_avg = null;
+        $data_max = null;
+        $data_min = null;
+        $data_examId = null;
+
+        for ($i = 0; $i < sizeof($result); $i++) {
+            $data_avg[$i] = $result[$i]['avg'];
+            $data_max[$i] = $result[$i]['max'];
+            $data_min[$i] = $result[$i]['min'];
+            $data_examId[$i] = $result[$i]['exam_id'];
+        }
+
+        return new JsonResponse(array(
+            '$data_avg' => $data_avg,
+            '$data_max' => $data_max,
+            '$data_min' => $data_min,
+            '$data_examId' => $data_examId
+        ));
+    }
+
+    public function teacherOverallPerformanceAction(Request $request) {
+        $examId = $request->get('id');
+        $result = $this->overallExamPerformance($examId);
+
+        return new JsonResponse($result);
+    }
+
+    public function teacherBruteExamResultAction(Request $request) {
+        $examId = $request->get('id');
+        $result = $this->BruteExamPerformance($examId);
+
+        return new JsonResponse($result);
+    }
+
+    /*     * ***********************************teacher result Analysis Actions End***************************************** */
+
+
+
 
     /*     * ************************************utility Section************************************************* */
 

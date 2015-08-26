@@ -13,23 +13,23 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i> News Forum <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Messages</a>
+                        <li id="newsForum"><a href="javascript:;">Messages</a>
                         </li>                                            
                     </ul>
                 </li>
                 <li><a><i class="fa fa-desktop"></i> Attendance <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Exam</a>
+                        <li><a href="javascript:;">Exam</a>
                         </li>
-                        <li><a href="#">Class</a>
+                        <li id="classAttendance"><a href="javascript:;">Class</a>
                         </li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-table"></i> Results <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="#">Recent Exams</a>
+                        <li><a href="javascript:;">Recent Exams</a>
                         </li>
-                        <li><a href="#">View All Results</a>
+                        <li><a href="javascript:;">View All Results</a>
                         </li>
                     </ul>
                 </li>                
@@ -42,7 +42,7 @@
                     <ul class="nav child_menu" style="display: none">
                         <li id="accountSetting"><a href="javascript:;">Account Settings</a>
                         </li>
-                        <li><a href="#">Personal Settings</a>
+                        <li><a href="javascript:;">Personal Settings</a>
                         </li>
                     </ul>
                 </li>                
@@ -76,8 +76,7 @@
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Mentor Profile</h2>
+                    <div class="x_title">                        
                         <div id="contentBody" class="container">
                             <div class="x_title">                                
 
@@ -128,7 +127,7 @@
                                             </li>
                                             <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Classes </a>
                                             </li>
-                                            
+
                                         </ul>
                                         <div id="myTabContent" class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -137,7 +136,7 @@
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -155,6 +154,23 @@
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
 
             var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
+            $whereToLoadContent.load(routeWithPlaceHolder);
+
+        });
+
+        $('#newsForum').on('click', function () {
+
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+            var routeWithPlaceHolder = "{{path('displayForum')}}";
+            $whereToLoadContent.load(routeWithPlaceHolder);
+
+        });
+        $('#classAttendance').on('click', function () {
+
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+            var routeWithPlaceHolder = "{{path('teacherClassAttendanceRender')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
 
         });

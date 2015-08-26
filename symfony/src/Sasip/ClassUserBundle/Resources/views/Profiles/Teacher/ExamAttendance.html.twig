@@ -1,1 +1,97 @@
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+
+<div class="x_panel">
+    <div class="x_title">
+        <div class="row">
+            <h2>Attendance Comparison [CLASS]</h2>
+        </div>
+        <div class="row">
+            <br />
+            <form class="form-horizontal form-label-left">
+                {% if classes != null%}
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Exam ID <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">                
+                            <select class="form-control col-md-7 col-xs-12" id="classes">
+                                {% for key,class in classes %}
+                                    <option value="{{class['id']}}">{{class['id']}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3 class="text-center"><strong>No classes Available</strong></h3>
+                {% endif %}
+            </form>
+        </div>
+        <br />
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <canvas id="canvas_bar"></canvas>
+        <p class="text-center">Month</p>
+    </div>
+</div>
+
+<div class="row"> 
+    <div class="container">
+        <h4 class="text"><strong><i class="fa fa-certificate"></i> Attendance Analysis</strong></h4>
+        <div style="margin-left: 2em;">
+            <p>Description or result analysis, regarding results</p>
+        </div>
+    </div>    
+</div>
+
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/Profiles/chartjs/chart.min.js')}}"></script>
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+
+<script>
+    var examId, dataSet, barChartData, chartInstance = null;
+    var canvas = $("#canvas_bar").get(0).getContext("2d");
+
+    $('#classes').change(function () {
+        $.ajax({
+            url: "{{path('teacherClassAttendance')}}",
+            type: 'POST',
+            data: {id: $('#classes').val()},
+            success: function (data) {
+                examId = data.dataSet_2;
+                dataSet = data.dataSet_1;
+                //delete previous chart brfore create new one
+                if (chartInstance !== null) {
+                    chartInstance.destroy();
+                }
+                display();
+            }
+        });
+
+    });
+    function display() {
+
+        barChartData = {
+            labels: examId,
+            datasets: [
+                {
+                    fillColor: "#26B99A", //rgba(220,220,220,0.5)
+                    strokeColor: "#26B99A", //rgba(220,220,220,0.8)
+                    highlightFill: "#36CAAB", //rgba(220,220,220,0.75)
+                    highlightStroke: "#36CAAB", //rgba(220,220,220,1)
+                    data: dataSet
+                }
+            ]
+        };
+
+        chartInstance = new Chart(canvas).Bar(barChartData, {
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            responsive: true,
+            barDatasetSpacing: 6,
+            barValueSpacing: 5
+        });
+
+    }
+
+
+</script>
 {# empty Twig template #}

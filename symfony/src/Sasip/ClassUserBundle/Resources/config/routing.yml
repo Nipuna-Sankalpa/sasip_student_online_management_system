@@ -104,3 +104,27 @@ ExamUpdate:
 
 
 #--------------------------------end routes for Class Configuration-------------------------------
+
+
+
+#--------------------------------Route for Teacher Profile-------------------------------
+
+teacherClassAttendance:
+    path: /classTeacherAtt/
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:teacherclassAttendance}
+
+teacherClassAttendanceRender:
+    path: /classTeacherAttRender/
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:renderClassAttendance}
+
+teacherExamAttendance:
+    path: /examTeacherAtt/
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:teacherExamAttendance}
+
+teacherExamAttendanceRender:
+    path: /examTeacherAttRender/
+    defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:renderExamAttendance}
+
+
+
+#--------------------------------end routes for teacher profile--------------------------
