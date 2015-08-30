@@ -9,10 +9,10 @@ Sasip\ClassUserBundle\Entity\Mobile:
                 strategy: AUTO
                 
     fields:
-        person_id:
+        personId:
             type: string
             length: 255
             
-        contact_number:
+        contactNumber:
             type: string
             length: 12

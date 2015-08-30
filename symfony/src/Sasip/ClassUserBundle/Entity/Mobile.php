@@ -16,31 +16,31 @@ namespace Sasip\ClassUserBundle\Entity;
 class Mobile {
 
     private $id;
-    private $person_id;
-    private $contact_number;
+    private $personId;
+    private $contactNumber;
+
+    public function getPersonId() {
+        return $this->personId;
+    }
+
+    public function getContactNumber() {
+        return $this->contactNumber;
+    }
+
+    public function setPersonId($personId) {
+        $this->personId = $personId;
+    }
+
+    public function setContactNumber($contactNumber) {
+        $this->contactNumber = $contactNumber;
+    }
 
     public function getId() {
         return $this->id;
     }
 
-    public function getPerson_id() {
-        return $this->person_id;
-    }
-
-    public function getContact_number() {
-        return $this->contact_number;
-    }
-
     public function setId($id) {
         $this->id = $id;
-    }
-
-    public function setPerson_id($person_id) {
-        $this->person_id = $person_id;
-    }
-
-    public function setContact_number($contact_number) {
-        $this->contact_number = $contact_number;
     }
 
 }

@@ -4,8 +4,6 @@ namespace Sasip\ClassUserBundle\Entity;
 
 class Message {
 
-    private $student_id;
-    private $teacher_id;
     private $content;
     private $state;
     private $time_sent;
@@ -13,6 +11,15 @@ class Message {
     private $date_sent;
     private $id;
     private $sender;
+    private $receiver;
+
+    public function getReceiver() {
+        return $this->receiver;
+    }
+
+    public function setReceiver($receiver) {
+        $this->receiver = $receiver;
+    }
 
     function getSender() {
         return $this->sender;

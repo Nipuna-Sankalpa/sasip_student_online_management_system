@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>symfony/src/Sasip/ClassUserBundle/Form/RegistrationForm.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>67</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/ResultAnalyzeController.php</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/AttendanceAnalyzerController.php</file>
-            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/student.html.twig</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/views/Profiles/teacher.html.twig</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Controller/RoleController.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Entity/Mobile.php</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/TutionClass.orm.yml</file>
+            <file>file:/C:/wamp/www/sasip/symfony/src/Sasip/ClassUserBundle/Resources/config/doctrine/Mobile.orm.yml</file>
         </group>
     </open-files>
 </project-private>

@@ -14,4 +14,28 @@ Sasip\ClassUserBundle\Entity\Teacher:
         lastName:
             type: text        
         image:
+            type: text        
+        university:
             type: text
+        linkedIn:
+            type: text
+        twitter:
+            type: text
+        facebook:
+            type: text
+        title:
+            type: text
+        school:
+            type: text
+        schoolTeach:
+            type: text
+        address:
+            type: text
+        date_of_birth:
+            type: date
+        salutation:
+            type: string
+            length: 6
+        gender:
+            type: string
+            length: 6

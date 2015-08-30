@@ -1,6 +1,6 @@
 Sasip\ClassUserBundle\Entity\Message:
     type: entity
-    table: send_messages
+    table: messages
     
     id:
         id:
@@ -8,28 +8,25 @@ Sasip\ClassUserBundle\Entity\Message:
             generator:
                 strategy: AUTO
     
-    fields:
-        student_id:
-            type: string
-            length: 255
+    fields:        
         state:
             type: string
-            length: 7
-        teacher_id:
-            type: string
-            length: 255
+            length: 7        
         content:
             type: text
         sender:
             type: string
             length: 255
-        time_sent:
+        receiver:
             type: string
+            length: 255
+        time_sent:
+            type: time
             length: 12
         title:
             type: text
         date_sent:
-            type: string
+            type: date
             length: 12
         
         

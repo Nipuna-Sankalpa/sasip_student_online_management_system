@@ -125,6 +125,38 @@ teacherExamAttendanceRender:
     path: /examTeacherAttRender/
     defaults: {_controller: ClassUserBundle:AttendanceAnalyzer:renderExamAttendance}
 
+teacherResultAnalysisRender:
+    path: /examTeacherResultRender/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:renderTeacherExamResult}
+
+teacherOverallResult:
+    path: /teacherOverallResult/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:teacherOverallResult}
+
+teacherOverallPerformanceResultByExamID:
+    path: /teacherOverallPerformance/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:teacherOverallPerformance}
+
+teacherBruteExamResult:
+    path: /teacherBruteExamResult/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:teacherBruteExamResult}
+
+teacherBruteExamResultRender:
+    path: /teacherBruteExamResultRender/
+    defaults: {_controller: ClassUserBundle:ResultAnalyze:teacherBruteExamResultRender}
+
+teacherPersonalAccountSetting:
+    path: /teacherPersonalAccountSetting/
+    defaults: {_controller: ClassUserBundle:Settings:teacherProfile}
+
+teacherPersonalAccountUpdateSetting:
+    path: /teacherPersonalAccountUpdateSetting/
+    defaults: {_controller: ClassUserBundle:Settings:teacherUpdateProfile}
+
+teacherFormData:
+    path: /teacherFormData/
+    defaults: {_controller: ClassUserBundle:Settings:sendDataTeacher}
+
 
 
 #--------------------------------end routes for teacher profile--------------------------

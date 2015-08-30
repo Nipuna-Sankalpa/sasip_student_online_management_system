@@ -258,19 +258,28 @@ class AttendanceAnalyzerController extends Controller {
 
     public function renderClassAttendanceAction() {
         $query = "SELECT id FROM class";
-        
+
         $conn = $this->getDoctrine()->getManager()->getConnection();
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll();
-        
+
         return $this->render('ClassUserBundle:Profiles/Teacher:ClassAttendance.html.twig', array(
                     'classes' => $result
         ));
     }
 
     public function renderExamAttendanceAction() {
-        return $this->render('ClassUserBundle:Profiles/Teacher:ExamAttendance.html.twig');
+        $query = "SELECT id FROM exam";
+
+        $conn = $this->getDoctrine()->getManager()->getConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        return $this->render('ClassUserBundle:Profiles/Teacher:ExamAttendance.html.twig', array(
+                    'examId' => $result
+        ));
     }
 
     /*     * *********************************************************************** */

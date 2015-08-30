@@ -62,11 +62,16 @@ class RoleController extends Controller {
 //basic teacher interface generator
     public function teacherAction() {
         $teacher = $this->container->get("security.context")->getToken()->getUser();
-        $id = $teacher->getId();
+        $id = $teacher->getUsername();
+
         $em = $this->getDoctrine()->getManager();
         $teacher = $em->getRepository('ClassUserBundle:Teacher')->find($id);
-        $mobile = $em->getRepository('ClassUserBundle:Mobile')->find($id);
-        $class = $em->getRepository('ClassUserBundle:TutionClass')->find($id);
+        $mobile = $em->getRepository('ClassUserBundle:Mobile')->findBy(array(
+            'personId' => $id,
+        ));
+        $class = $em->getRepository('ClassUserBundle:TutionClass')->findBy(array(
+            'teacher_id' => $id,
+        ));
 
 
         return $this->render("ClassUserBundle:Profiles:teacher.html.twig", array(

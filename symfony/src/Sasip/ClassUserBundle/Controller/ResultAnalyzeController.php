@@ -11,6 +11,7 @@ namespace Sasip\ClassUserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * Description of ResultAnalyzeController
@@ -212,12 +213,24 @@ class ResultAnalyzeController extends Controller {
         }
     }
 
+    //get the avg of all students
+    public function getAvgOfStudent() {
+        $query = "SELECT avg(marks) as avg,student_id FROM enrolled_exam group by(student_id)";
+        $conn = $this->getDoctrine()->getConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
 //    function returns the avg,max and min respectively inside an array
 //    results categorized according to the year of exam, students face the exam        
 
     public function overallExamResults($yearOfExam) {
         $conn = $this->getDoctrine()->getManager()->getConnection();
-        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min, exam_id from student " . "inner join enrolled_exam on student.id=enrolled_exam.student_id "
+        $query = "select avg(marks) as avg,max(marks) as max,min(marks) as min, exam_id,year_of_exam from student " .
+                " inner join enrolled_exam on student.id=enrolled_exam.student_id "
                 . "group by(exam_id)"
                 . " having year_of_exam= :yearOfExam";
 
@@ -237,6 +250,8 @@ class ResultAnalyzeController extends Controller {
 
     /*     * ***********************************teacher result Analysis Actions***************************************** */
 
+//when year of exam is entered all the respective exams will be returned with thier analysis
+
     public function teacherOverallResultAction(Request $request) {
         $yearOfExam = $request->get('year');
         $result = $this->overallExamResults($yearOfExam);
@@ -253,25 +268,62 @@ class ResultAnalyzeController extends Controller {
         }
 
         return new JsonResponse(array(
-            '$data_avg' => $data_avg,
-            '$data_max' => $data_max,
-            '$data_min' => $data_min,
-            '$data_examId' => $data_examId
+            'data_avg' => $data_avg,
+            'data_max' => $data_max,
+            'data_min' => $data_min,
+            'data_examId' => $data_examId
         ));
     }
 
+// when an exam id is entered particular analyssis will be returned
     public function teacherOverallPerformanceAction(Request $request) {
         $examId = $request->get('id');
         $result = $this->overallExamPerformance($examId);
-
         return new JsonResponse($result);
     }
 
+    //all the marks will be returned when examId is entered
     public function teacherBruteExamResultAction(Request $request) {
         $examId = $request->get('id');
         $result = $this->BruteExamPerformance($examId);
+        $avg = $this->getAvgOfStudent();
 
-        return new JsonResponse($result);
+        return new JsonResponse(array(
+            'indiResult' => $result,
+            'avg' => $avg
+        ));
+    }
+
+    public function teacherBruteExamResultRenderAction() {
+        $exam_id = $this->returnExamIDS();
+        return $this->render('ClassUserBundle:Profiles/Teacher:recentResults.html.twig', array(
+                    'exams' => $exam_id,
+        ));
+    }
+
+    public function returnExamIDS() {
+        $conn = $this->getDoctrine()->getConnection();
+        $query_1 = "SELECT id FROM exam";
+        $stmt_1 = $conn->prepare($query_1);
+        $stmt_1->execute();
+        $exam_id = $stmt_1->fetchAll();
+        return $exam_id;
+    }
+
+    public function renderTeacherExamResultAction() {
+
+        $query = "SELECT year_of_exam FROM student GROUP BY (year_of_exam)";
+
+        $conn = $this->getDoctrine()->getConnection();
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $years = $stmt->fetchAll();
+        $exam_id = $this->returnExamIDS();
+        return $this->render('ClassUserBundle:Profiles/Teacher:viewAllResults.html.twig', array(
+                    'exams' => $exam_id,
+                    'acaYears' => $years
+        ));
     }
 
     /*     * ***********************************teacher result Analysis Actions End***************************************** */

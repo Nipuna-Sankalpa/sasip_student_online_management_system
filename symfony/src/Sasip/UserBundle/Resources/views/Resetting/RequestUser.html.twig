@@ -1,0 +1,42 @@
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Request User</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content" id="formCanvas">
+        <form class="form-horizontal form-label-left" id="userRequestForm">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">User name or Email</label>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    <input type="text" class="form-control" placeholder="Enter user name or password" id="token"/>
+                </div>
+            </div>
+            <div class="form-group" id="reqButton">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                <div class="col-md-5 col-sm-9 col-xs-12">
+                    <button id="ReqUser" class="btn btn-primary pull-right">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('#ReqUser').on('click', function (e) {
+        e.preventDefault();
+        //e.stopPropagation();
+        $.ajax({
+            url: "{{path('passwordReset')}}",
+            type: 'GET',
+            data: {token: '120339P'},
+            dataType: 'html',
+            success: function (data) {
+                $("#formCanvas").append(data);
+                $('#reqButton').css('display', 'none');                
+            }
+
+        });
+        //alert('fuck');
+    });
+</script>

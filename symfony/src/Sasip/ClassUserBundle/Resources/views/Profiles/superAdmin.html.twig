@@ -1,5 +1,22 @@
 {% extends "base.html.twig" %}
 
+{% block profileImageNavBarVerticle %}    
+    <img src="{{asset('images/Profile/SuperAdmin/administrator-icon.png')}}" alt="Avatar" class="img-circle profile_img">    
+{% endblock %}
+
+{% block navElements %}
+    <li><a href="{{path('Profile_superAdmin')}}">  Profile</a>
+    </li>
+    <li id="nav-settings">
+        <a href="javascript:;">            
+            <span>Account Settings</span>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:;">Help</a>
+    </li>
+{% endblock %}
+
 {% block title %}
     <title>Administrator Profile</title>
 {% endblock %}
@@ -14,9 +31,9 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i> User accounts <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li id="addProfiles"><a href="javascript:;#">Add Profiles</a>
+                        <li id="addProfiles"><a href="javascript:;">Add Profiles</a>
                         </li>                                            
-                        <li id="userProSettings"><a href="javascript:;">User Profile Settings</a>
+                        <li id="passwordReset"><a href="javascript:;">User Profile Settings</a>
                         </li>                                            
                     </ul>
                 </li>
@@ -48,6 +65,10 @@
         </div>
 
     </div>
+{% endblock %}
+
+{% block profileImageNavBarHorizontal %}    
+    <img src="{{asset('images/Profile/SuperAdmin/administrator-icon.png')}}" alt="image">    
 {% endblock %}
 
 {% block container %}
@@ -91,7 +112,7 @@
                                         <div id="crop-avatar">
                                             <!-- Current avatar -->
                                             <div class="avatar-view" title="Change the avatar">                                                
-                                                <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar">
+                                                <img src="{{asset('images/Profile/SuperAdmin/administrator-icon.png')}}" alt="Avatar">
                                             </div>
                                             <!-- Loading state -->
 
@@ -108,7 +129,7 @@
                                     </div>
                                     <br />
                                     <div class="row">
-                                        <div class="col-md-2" style="margin-right: 1em;"><a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i> Profile Image</a></div>
+
                                         <div class="col-md-2"><a class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bell-o m-right-xs"></i> Notifications</a></div>
                                     </div>
                                     <br />
@@ -159,6 +180,7 @@
 
             var routeWithPlaceHolder = "{{path('superAdminCreateProfiles')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
 
         });
 
@@ -168,6 +190,7 @@
 
             var routeWithPlaceHolder = "{{path('fos_user_resetting_request')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
 
         });
         $('#addClass').on('click', function () {
@@ -176,6 +199,7 @@
 
             var routeWithPlaceHolder = "{{path('classConfiguration')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
 
         });
         $('#createExam').on('click', function () {
@@ -184,14 +208,25 @@
 
             var routeWithPlaceHolder = "{{path('ExamConfiguration')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
 
         });
-        $('#accountSetting').on('click', function () {
+        $('#accountSetting,#nav-settings').on('click', function () {
 
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
 
             var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
             $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
+
+        });
+        $('#passwordReset').on('click', function () {
+
+            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+            var routeWithPlaceHolder = "{{path('RenderPwResetUserRequest')}}";
+            $whereToLoadContent.load(routeWithPlaceHolder);
+            $("#messageInbox").css('display', 'none');
 
         });
 
@@ -202,6 +237,8 @@
             $whereToLoadContent.load(routeWithPlaceHolder);
         }
         inbox();
+
+
     </script>
 {% endblock %}
 

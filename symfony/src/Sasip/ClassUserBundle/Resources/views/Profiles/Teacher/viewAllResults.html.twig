@@ -1,1 +1,255 @@
-{# empty Twig template #}
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+
+<div class="x_panel">
+    <div class="x_title">
+        <div class="row">
+            <h2>Exam Analysis Base On Academic Year</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4" style="color:rgba(3, 88, 106, 0.3) ;"><i class="fa fa-stop"></i> Average Mark</div>
+            <div class="col-lg-4" style="color:rgba(44, 175, 219, 0.29) ;"><i class="fa fa-stop"></i> Maximum Mark</div>
+            <div class="col-lg-4" style="color:rgba(8, 115, 150, 0.5) ;"><i class="fa fa-stop"></i> Minimum Mark</div>
+        </div>
+        <br />
+        <div class="row">
+            <br />
+            <form class="form-horizontal form-label-left">
+                {% if acaYears != null%}
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Academic Year <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">                
+                            <select class="form-control col-md-7 col-xs-12" id="acaYear">
+                                {% for key,acaYear in acaYears %}
+                                    <option value="{{acaYear['year_of_exam']}}">{{acaYear['year_of_exam']}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3 class="text-center"><strong>Academic Years Un-available</strong></h3>
+                {% endif %}
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <canvas id="canvas000"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <h2>Exam Analysis Base On Exam</h2>
+    <br />
+    <form class="form-horizontal form-label-left">
+        {% if exams != null%}
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Exam ID <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                
+                    <select class="form-control col-md-7 col-xs-12" id="examId">
+                        {% for key,exam in exams %}
+                            <option value="{{exam['id']}}">{{exam['id']}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% else %}
+            <h3 class="text-center"><strong>Exams Un-available</strong></h3>
+        {% endif %}
+    </form>
+    <div id="resultComponent" class="row" >
+        <div class="col-md-3">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="avg" data-percent="33">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Average Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="min" data-percent="50">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Minimum Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="max" data-percent="89">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h3 class="name_title text-center">Maximum Mark</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row"> 
+    <div class="container">
+        <h4 class="text"><strong><i class="fa fa-certificate"></i> Result Analysis</strong></h4>
+        <div style="margin-left: 2em;">
+            <p>Description or result analysis, regarding results</p>
+        </div>
+    </div>    
+</div>
+
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/Profiles/chartjs/chart.min.js')}}"></script>
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+
+<script src="{{asset('js/Profiles/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('js/Profiles/easypie/jquery.easypiechart.min.js')}}"></script>
+
+<script>
+    var examId, minimum, maximum, average, lineChart, min, max, avg;
+
+
+    $('#acaYear').change(function () {
+        $.ajax({
+            url: "{{path('teacherOverallResult')}}",
+            type: 'POST',
+            data: {year: $('#acaYear').val()},
+            success: function (data) {
+                examId = data.data_examId;
+                minimum = data.data_min;
+                average = data.data_avg;
+                maximum = data.data_max;
+
+                if (lineChart !== null) {
+                    lineChart.destroy();
+                }
+
+                display();
+            }
+        });
+    });
+
+    function display() {
+
+        var lineChartData = {
+            labels: examId,
+            datasets: [
+                {
+                    label: "Individual Marks",
+                    fillColor: "rgba(38, 185, 154, 0.31)", //rgba(220,220,220,0.2)
+                    strokeColor: "rgba(38, 185, 154, 0.7)", //rgba(220,220,220,1)
+                    pointColor: "rgba(38, 185, 154, 0.7)", //rgba(220,220,220,1)
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: minimum
+                },
+                {
+                    label: "Average",
+                    fillColor: "rgba(3, 88, 106, 0.3)", //rgba(151,187,205,0.2)
+                    strokeColor: "rgba(3, 88, 106, 0.70)", //rgba(151,187,205,1)
+                    pointColor: "rgba(3, 88, 106, 0.70)", //rgba(151,187,205,1)
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: average
+                },
+                {
+                    label: "Maximum of the class",
+                    fillColor: "rgba(8, 115, 150, 0.5)", //rgba(151,187,205,0.2)
+                    strokeColor: "rgba(8, 115, 150, 0.5)", //rgba(151,187,205,1)
+                    pointColor: "rgba(8, 115, 150, 0.5)", //rgba(151,187,205,1)
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: maximum
+                }
+            ]
+        };
+        lineChart = new Chart(document.getElementById("canvas000").getContext("2d")).Line(lineChartData, {
+            responsive: true,
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)"
+        });
+    }
+
+
+</script>
+
+<script>
+
+    function initComponent() {
+        $(function () {
+            $('#max').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+            $('#min').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+            $('#avg').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+        });
+    }
+
+    initComponent();
+
+    $('#examId').change(function () {
+        $.ajax({
+            url: "{{path('teacherOverallPerformanceResultByExamID')}}",
+            type: 'POST',
+            data: {id: $('#examId').val()},
+            success: function (data) {
+                min = data[0]['min'];
+                avg = data[0]['avg'];
+                max = data[0]['max'];
+
+                $('#min').data('easyPieChart').update(min);
+                $('#avg').data('easyPieChart').update(avg);
+                $('#max').data('easyPieChart').update(max);
+
+            }
+        });
+    });
+
+
+</script>

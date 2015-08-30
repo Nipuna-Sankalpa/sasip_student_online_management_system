@@ -1,97 +1,142 @@
 <script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
 
 <div class="x_panel">
-    <div class="x_title">
-        <div class="row">
-            <h2>Attendance Comparison [CLASS]</h2>
-        </div>
-        <div class="row">
-            <br />
-            <form class="form-horizontal form-label-left">
-                {% if classes != null%}
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter Exam ID <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">                
-                            <select class="form-control col-md-7 col-xs-12" id="classes">
-                                {% for key,class in classes %}
-                                    <option value="{{class['id']}}">{{class['id']}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                {% else %}
-                    <h3 class="text-center"><strong>No classes Available</strong></h3>
-                {% endif %}
-            </form>
-        </div>
+
+    <div class="row">
+        <h2>Attendance Comparison [EXAM]</h2>
         <br />
-        <div class="clearfix"></div>
-    </div>
-    <div class="x_content">
-        <canvas id="canvas_bar"></canvas>
-        <p class="text-center">Month</p>
-    </div>
-</div>
-
-<div class="row"> 
-    <div class="container">
-        <h4 class="text"><strong><i class="fa fa-certificate"></i> Attendance Analysis</strong></h4>
-        <div style="margin-left: 2em;">
-            <p>Description or result analysis, regarding results</p>
+        <br />
+        <h4><strong><i class="fa fa-certificate"></i> Select Exam :</strong></h4>
+        <div class="col-md-3">
+            {% if examId == null %}
+                <p>Exams have not conducted yet</p>
+            {% else %}
+                <select class="form-control" name="exam_id" id="examSelect">
+                    {% for key,values in examId %}
+                        <option value="{{values['id']}}">{{values['id']}}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
         </div>
-    </div>    
-</div>
 
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="{{asset('js/Profiles/chartjs/chart.min.js')}}"></script>
+    </div>
+    <div class="row">
+        <div class="text"><h4><strong><i class="fa fa-certificate"></i> Description</strong></h4></div>
+        <div style="margin-left: 2em;">
+            <p>The result which is shown below belongs to the exam which was held held in DATE OF EXAM</p>
+        </div>
+    </div>
+    <div id="resultComponent" class="row" >
+        <div class="col-md-3">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="data_1" data-percent="46">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h4 class="name_title text-center">Percentage Respect to the all students</h4>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+            <div class="x_content">
+                <div style="text-align: center;">
+                    <span class="chart" id="data_2" data-percent="55">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+
+                <h4 class="name_title text-center">Percentage Respect to the students registered</h4>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="text"><h4><strong><i class="fa fa-certificate"></i> FEEDBACKS</strong></h4></div>
+        <div style="margin-left: 2em;">
+            <p>Feedback details</p>
+        </div>
+    </div>
+</div>
 <script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+<script src="{{asset('js/Profiles/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('js/Profiles/easypie/jquery.easypiechart.min.js')}}"></script>
 
 <script>
-    var examId, dataSet, barChartData, chartInstance = null;
-    var canvas = $("#canvas_bar").get(0).getContext("2d");
 
-    $('#classes').change(function () {
-        $.ajax({
-            url: "{{path('teacherClassAttendance')}}",
-            type: 'POST',
-            data: {id: $('#classes').val()},
-            success: function (data) {
-                examId = data.dataSet_2;
-                dataSet = data.dataSet_1;
-                //delete previous chart brfore create new one
-                if (chartInstance !== null) {
-                    chartInstance.destroy();
+    var chart = null;
+
+    function initComponent() {
+        $(function () {
+            $('#data_1').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
                 }
-                display();
+            });
+            
+            $('#data_2').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+            
+        });
+    }
+
+    initComponent();
+
+    $('#examSelect').change(function () {
+        var examTotCount, examTotEnrolled, studentTotal;//define data variable as globle to use in other methods
+        var data_1, data_2;
+        $.ajax({
+            url: "{{path('teacherExamAttendance')}}",
+            type: 'POST',
+            data: {id: $('#examSelect').val()},
+            success: function (data, textStatus, jqXHR) {
+
+                if (chart !== null) {
+                    chart.destroy();
+                }
+
+                examTotCount = data.examTotCount[0]['studentCount'];
+                examTotEnrolled = data.examTotEnrolled[0]['studentCount'];
+                studentTotal = data.studentTotal[0]['studentCount'];
+
+                data_1 = (examTotCount / studentTotal) * 100;
+                data_2 = (examTotCount / examTotEnrolled) * 100;
+
+                $('#data_1').attr('data-percent', data_1);
+                $('#data_2').attr('data-percent', data_2);
+
+                $('#data_1').data('easyPieChart').update(data_1);
+                $('#data_2').data('easyPieChart').update(data_2);
+                //$('.chart').data('easyPieChart').update(data_2);
+
+                //alert(examTotCount);
             }
         });
 
     });
-    function display() {
-
-        barChartData = {
-            labels: examId,
-            datasets: [
-                {
-                    fillColor: "#26B99A", //rgba(220,220,220,0.5)
-                    strokeColor: "#26B99A", //rgba(220,220,220,0.8)
-                    highlightFill: "#36CAAB", //rgba(220,220,220,0.75)
-                    highlightStroke: "#36CAAB", //rgba(220,220,220,1)
-                    data: dataSet
-                }
-            ]
-        };
-
-        chartInstance = new Chart(canvas).Bar(barChartData, {
-            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-            responsive: true,
-            barDatasetSpacing: 6,
-            barValueSpacing: 5
-        });
-
-    }
-
 
 </script>
-{# empty Twig template #}
+

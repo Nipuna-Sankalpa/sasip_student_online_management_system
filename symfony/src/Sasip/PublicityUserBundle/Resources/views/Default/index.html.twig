@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="format-detection" content="telephone=no" />
 
+        <link href="{{asset('css/Profiles/custom.css')}}" rel="stylesheet">
         <link rel="icon" href="images/favicon.ico">
         <link rel="shortcut icon" href="images/favicon.ico" />
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -49,7 +50,7 @@
                                         <li><a href="#">Classes</a></li>
                                         <li><a href="#">Teachers</a></li>                                      
                                         <li><a href="#">About us</a></li>                                      
-                                        <li><a href="{{path('fos_user_security_login')}}">login</a></li>
+                                        <li><a href="javascript:;" data-toggle="modal" data-target="#myModal">login</a></li>
                                     </ul>
                                 </nav>
                                 <div class="clear"></div>
@@ -105,7 +106,7 @@
                         Site map<br />
                         Privacy Policy<br />
                         feedbacks
-                        
+
                         <div class="clear"></div>
                     </div>
 
@@ -113,6 +114,37 @@
 
                 <div class="row">
                     <div class="text-center">Copyright <i class="fa fa-copyright"></i> Sasip 2015</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog " role="document">
+                <div  class="modal-content" style="border-radius: 0;">                    
+                    <div style="background:#F7F7F7;" class="modal-body animate form login_content">
+                        <form  class="form-group" action="{{ path("fos_user_security_check") }}" method="post">
+                            <h1>Institute Login Portal</h1>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <div>
+                                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                            </div>
+                            <div>
+                                <input class="form-control" type="password" id="password" name="_password" required="required" />
+                            </div>
+                            <div>
+                                <input class="btn btn-info btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div>
+                                <br />
+                                <p>©2015 All Rights Reserved by Sasip private educational institute.</p>
+                            </div>
+                        </form>
+
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -129,6 +161,6 @@
         <script src="{{asset('js/jquery.mobilemenu.js')}}"></script>
         <script src="{{asset('js/tmStickUp.js')}}"></script>
         <script src="{{asset('js/jquery.ui.totop.js')}}"></script>
-
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
     </body>
 </html>

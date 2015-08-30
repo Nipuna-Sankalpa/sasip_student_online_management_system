@@ -56,16 +56,34 @@ class NewsForumController extends Controller {
 //    this function renders newsforum template with required data
 
     public function displayForumAction() {
+
         $student = $this->container->get('security.context')->getToken()->getUser();
         $student_id = $student->getUsername();
         $conn = $this->getDoctrine()->getConnection();
-        $query = "SELECT *,concat(first_name,' ',last_name) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
-                . " WHERE student_id= :student_id ORDER BY time_sent DESC limit 10";
-        $query1 = "select teacher_id,concat(first_name,' ',last_name) as teacher_name from"
-                . " student_register inner join class on student_register.class_id=class.id inner join teacher on teacher.id=class.teacher_id"
-                . " where student_id=:student_id";
-        $stmt = $conn->prepare($query);
-        $stmt1 = $conn->prepare($query1);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            $query_message = "SELECT *,concat(first_name,' ',last_name) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
+                    . " WHERE student_id= :student_id ORDER BY time_sent DESC limit 10";
+            $query_teacher = "select teacher_id,concat(first_name,' ',last_name) as teacher_name from"
+                    . " student_register inner join class on student_register.class_id=class.id inner join teacher on teacher.id=class.teacher_id"
+                    . " where student_id=:student_id";
+        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_STUDENT')) {
+            $query_message = "SELECT *,concat(first_name,' ',last_name) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
+                    . " WHERE student_id= :student_id ORDER BY time_sent DESC limit 10";
+            $query_teacher = "select teacher_id,concat(first_name,' ',last_name) as teacher_name from"
+                    . " student_register inner join class on student_register.class_id=class.id inner join teacher on teacher.id=class.teacher_id"
+                    . " where student_id=:student_id";
+        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ROLE_SUPER_ADMIN')) {
+            $query_message = "SELECT *,concat(first_name,' ',last_name) as teacherName FROM send_messages INNER JOIN teacher ON teacher.id=send_messages.teacher_id"
+                    . " WHERE student_id= :student_id ORDER BY time_sent DESC limit 10";
+            $query_teacher = "select teacher_id,concat(first_name,' ',last_name) as teacher_name from"
+                    . " student_register inner join class on student_register.class_id=class.id inner join teacher on teacher.id=class.teacher_id"
+                    . " where student_id=:student_id";
+        }
+
+        $stmt = $conn->prepare($query_message);
+        $stmt1 = $conn->prepare($query_teacher);
         $stmt->execute(array(
             'student_id' => $student_id
         ));

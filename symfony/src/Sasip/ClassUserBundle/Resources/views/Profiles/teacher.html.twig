@@ -1,6 +1,27 @@
-{% extends "base.html.twig"%}
+{% extends "base.html.twig" %}
 {% block title %}
     <title>Teacher Profile</title>
+{% endblock %}
+
+{% block navElements %}
+    <li><a href="{{path('Profile_teacher')}}">  Profile</a>
+    </li>
+    <li id="nav-settings">
+        <a href="javascript:;">            
+            <span>Account Settings</span>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:;">Help</a>
+    </li>
+{% endblock %}
+
+{% block profileImageNavBarVerticle %}
+    {% if teacher.image == null%}
+        <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar" class="img-circle profile_img">
+    {% else %}
+        <img src="{{asset(teacher.image)}}" alt="Avatar" class="img-circle profile_img">
+    {% endif %}
 {% endblock %}
 
 {% block sideBarMenu %}
@@ -9,7 +30,7 @@
         <div class="menu_section">
             <h3>General</h3>
             <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                <li><a href="{{path('Profile_teacher')}}"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
                 </li>
                 <li><a><i class="fa fa-edit"></i> News Forum <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
@@ -19,7 +40,7 @@
                 </li>
                 <li><a><i class="fa fa-desktop"></i> Attendance <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="javascript:;">Exam</a>
+                        <li id="examAttendance"><a href="javascript:;">Exam</a>
                         </li>
                         <li id="classAttendance"><a href="javascript:;">Class</a>
                         </li>
@@ -27,9 +48,9 @@
                 </li>
                 <li><a><i class="fa fa-table"></i> Results <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li><a href="javascript:;">Recent Exams</a>
+                        <li id="examResulrBrutal"><a href="javascript:;">Student Marks</a>
                         </li>
-                        <li><a href="javascript:;">View All Results</a>
+                        <li id="examResultsAnalysis"><a href="javascript:;">View Result Analysis</a>
                         </li>
                     </ul>
                 </li>                
@@ -42,7 +63,7 @@
                     <ul class="nav child_menu" style="display: none">
                         <li id="accountSetting"><a href="javascript:;">Account Settings</a>
                         </li>
-                        <li><a href="javascript:;">Personal Settings</a>
+                        <li id="accountPersonal"><a href="javascript:;">Personal Settings</a>
                         </li>
                     </ul>
                 </li>                
@@ -51,6 +72,15 @@
 
     </div>
 {% endblock %}
+
+{% block profileImageNavBarHorizontal %}
+    {% if teacher.image == null%}
+        <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="image">
+    {% else %}
+        <img src="{{asset(teacher.image)}}" alt="image">
+    {% endif %}
+{% endblock %}
+
 
 {% block container %}
     <div class="container">
@@ -91,8 +121,12 @@
                                         <!-- end of image cropping -->
                                         <div id="crop-avatar">
                                             <!-- Current avatar -->
-                                            <div class="avatar-view" title="Change the avatar">
-                                                <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar">
+                                            <div class="avatar-view">
+                                                {% if teacher.image == null %}
+                                                    <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar">
+                                                {% else %}
+                                                    <img src="{{asset(teacher.image)}}" alt="Avatar">
+                                                {% endif %}
                                             </div>
                                             <!-- Loading state -->
 
@@ -100,21 +134,16 @@
                                         <!-- end of image cropping -->
 
                                     </div>
-                                    <h3>Samuel Doe</h3>
+                                    <h3>{{teacher.firstName}} {{teacher.lastName}}</h3>
 
-                                    <ul class="list-unstyled user_data">
-                                        <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
-                                        </li>
-
-                                        <li>
-                                            <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
-                                        </li>
-
-                                        <li class="m-top-xs">
-                                            <i class="fa fa-external-link user-profile-icon"></i>
-                                            <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
-                                        </li>
-                                    </ul>
+                                    <div class="container">
+                                        <h4>Bio</h4>
+                                        {% if teacher.portfolio != null %}
+                                            <p>{{teacher.portfolio}}</p>
+                                        {% else %}
+                                            <p>No bio has been specified</p>
+                                        {% endif %}                                        
+                                    </div>
 
                                     <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                                     <br />
@@ -130,51 +159,159 @@
 
                                         </ul>
                                         <div id="myTabContent" class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="profile-tab">
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Name :</strong></div>
+                                                    {% if teacher.firstName != null %}
+                                                        <div class="col-md-9 text-left">{{teacher.salutation}} {{teacher.firstName}} {{teacher.lastName}}</div>
+                                                        {% if teacher.title != null %}
+                                                            <div>{{teacher.title}}</div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Address :</strong></div>
+                                                    {% if teacher.address != null %}
+                                                        <div class="col-md-9 text-left">{{teacher.address}}</div>                            
+                                                    {% endif %}
+                                                </div>                                            
+                                                {% if mobile != null %}
+                                                    <div class="row" style="font-size: 11pt;">
+                                                        <div class="col-md-3 text-right"><strong>Mobile Number :</strong></div>
+                                                        {% for mob in mobile %}
+                                                            <div class="col-md-9 text-left">{{mob.contactnumber}}</div>                            
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                                <div class="row" style="font-size: 11pt;">
+                                                    <div class="col-md-3 text-right"><strong>Gender :</strong></div>
+                                                    {% if teacher.gender != null %}
+                                                        <div class="col-md-9 text-left">{{teacher.gender}}</div>                            
+                                                    {% endif %}
+                                                </div>
+                                                {% if teacher.dateofbirth != null %}
+                                                    <div class="row" style="font-size: 11pt;">
+                                                        <div class="col-md-3 text-right"><strong>Date Of Birth :</strong></div>
+                                                        <div class="col-md-9 text-left">{{teacher.dateofbirth|date('M-d-Y')}}</div>                            
+                                                    </div>
+                                                {% endif %}
+                                                {% if teacher.school != null %}
+                                                    <div class="row" style="font-size: 11pt;">
+                                                        <div class="col-md-3 text-right"><strong>School :</strong></div>
+                                                        <div class="col-md-9 text-left">{{teacher.school}}</div>                            
+                                                    </div>
+                                                {% endif %}
+                                                {% if teacher.university != null %}
+                                                    <div class="row" style="font-size: 11pt;">
+                                                        <div class="col-md-3 text-right"><strong>University :</strong></div>
+                                                        <div class="col-md-9 text-left">{{teacher.university}}</div>                           
+                                                    </div>
+                                                {% endif %}
 
+                                                <div class="row" style="font-size: 11pt;">
+                                                    {% if teacher.facebook != null %}
+                                                        <div class="col-lg-4">
+                                                            <a href="{{teacher.facebook}}"><i class="fa fa-facebook-square"></i> Facebook </a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if teacher.twitter != null %}
+                                                        <div class="col-lg-4">
+                                                            <a href="{{teacher.twitter}}"><i class="fa fa-twitter-square"></i> Twitter </a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if teacher.linkedIn != null %}
+                                                        <div class="col-lg-4">
+                                                            <a href="{{teacher.linkedIn}}"><i class="fa fa-linkedin-square"></i> Linked In </a>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                                {% if class != null %}
+                                                    <div class="row" style="font-size: 11pt;">
+                                                        <div class="col-md-3 text-right"><strong>Classes :</strong></div>
+                                                        <div class="col-md-9">
+                                                            {% for clz in class %}
+                                                                <div class="col-md-9 text-left"><i class="fa fa-location-arrow"></i> {{clz.id}}</div>                                                            
+                                                                <div class="col-md-9 text-left">{{clz.subject}}</div>
+                                                                <br />
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
 
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $('#accountSetting').on('click', function () {
+        <script>
+            $('#accountSetting,#nav-settings').on('click', function () {
 
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
 
-            var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+                var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
 
-        });
+            });
 
-        $('#newsForum').on('click', function () {
+            $('#newsForum').on('click', function () {
 
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
 
-            var routeWithPlaceHolder = "{{path('displayForum')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+                var routeWithPlaceHolder = "{{path('displayForum')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
 
-        });
-        $('#classAttendance').on('click', function () {
+            });
+            $('#classAttendance').on('click', function () {
 
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
 
-            var routeWithPlaceHolder = "{{path('teacherClassAttendanceRender')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+                var routeWithPlaceHolder = "{{path('teacherClassAttendanceRender')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
 
-        });
-    </script>
-{% endblock %}
+            });
+            $('#examAttendance').on('click', function () {
+
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+                var routeWithPlaceHolder = "{{path('teacherExamAttendanceRender')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
+
+            });
+
+            $('#examResultsAnalysis').on('click', function () {
+
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+                var routeWithPlaceHolder = "{{path('teacherResultAnalysisRender')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
+
+            });
+
+            $('#examResulrBrutal').on('click', function () {
+
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+                var routeWithPlaceHolder = "{{path('teacherBruteExamResultRender')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
+
+            });
+            $('#accountPersonal').on('click', function () {
+
+                var $whereToLoadContent = $("#contentBody"); //where you want to load data
+
+                var routeWithPlaceHolder = "{{path('teacherPersonalAccountSetting')}}";
+                $whereToLoadContent.load(routeWithPlaceHolder);
+
+            });
+        </script>
+    {% endblock %}
 
 {% block footer %}{% endblock %}

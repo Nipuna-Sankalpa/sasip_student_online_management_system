@@ -1,69 +1,40 @@
-{# empty Twig template #}
-<h3 class="text-center">User Registration</h3>
-
-<div class="container">
-
-    <form id="regForm" data-parsley-validate class="form-horizontal form-label-left">
-        {{form_start(form)}}
-        
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">User Name <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">                
-                {{form_widget(form.username,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Enter User Name'}})}}
-            </div>
+<form class="form-horizontal form-label-left" id="resetPasswordForm">
+    {{form_start(form)}}
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">New Password</label>
+        <div class="col-md-5 col-sm-9 col-xs-12">
+            {{form_widget(form.new.first,{'attr':{'class':'form-control'}})}}
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Email <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-
-                {{form_widget(form.email,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':  'Enter Email'}})}}
-            </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Re-type Password</label>
+        <div class="col-md-5 col-sm-9 col-xs-12">
+            {{form_widget(form.new.second,{'attr':{'class':'form-control'}})}}                    
         </div>
-        <div class="form-group">
-            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Enter Password</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
+    </div>
 
-                {{form_widget(form.plainPassword.first,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Enter Password'}})}}
-            </div>
+    <div class="form-group">
+        <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+        <div class="col-md-5 col-sm-9 col-xs-12">
+            <button id="resetPassword" class="btn btn-primary pull-right">Reset</button>
         </div>
+    </div>
+    {{form_end(form)}}
+</form>
 
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Re-enter Password <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-
-                {{form_widget(form.plainPassword.second,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Re-type Password'}})}}
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set User Role <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                {{form_widget(form.role,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
-            </div>
-        </div>
-        <div class="ln_solid"></div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="confirm" class="btn btn-info pull-right">Register</button>
-            </div>
-        </div>
-        {{form_end(form)}}
-    </form>
-
-</div>
 
 <script>
-    $('#confirm').on('click', function (e) {
+    $('#resetPassword').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: "{{path('superAdminCreateProfiles')}}",
-            data: $('#regForm').serialize(),
+            url: "{{path('fos_user_resetting_reset',{'token':token})}}",
+            data: $('#resetPasswordForm').serialize(),
             success: function (data) {
-                alert('Registration Successful');
+                if (data.message !== 'undefined') {
+                    alert(data.message);
+                    $(location).attr('href', '{{path('Profile_superAdmin')}}');
+                }
             }
         });
     });

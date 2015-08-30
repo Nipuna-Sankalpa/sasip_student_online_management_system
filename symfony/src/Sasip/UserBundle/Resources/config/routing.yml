@@ -5,3 +5,13 @@ studentAccountSettings:
 superAdminCreateProfiles:
     path:   /createProfiles/
     defaults: {_controller: UserBundle:Registration:register}
+
+passwordReset:
+    path:   /passwordReset/
+    defaults: {_controller: UserBundle:Settings:displayPasswordReset}
+
+RenderPwResetUserRequest:
+    path:   /passwordResetRender/
+    defaults: {_controller: UserBundle:Settings:renderUserRequest}
+
+

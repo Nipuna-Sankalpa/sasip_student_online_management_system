@@ -1,4 +1,27 @@
 {% extends "base.html.twig"%}
+
+
+{% block profileImageNavBarVerticle %}
+    {% if student[0]['image']== null%}
+        <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar" class="img-circle profile_img">
+    {% else %}
+        <img src="{{asset(student[0]['image'])}}" alt="Avatar" class="img-circle profile_img">
+    {% endif %}
+{% endblock %}
+
+{% block navElements %}
+    <li><a href="{{path('Profile_student',{'student_id':app.user.userName})}}">  Profile</a>
+    </li>
+    <li id="nav-settings">
+        <a href="javascript:;">            
+            <span>Account Settings</span>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:;">Help</a>
+    </li>
+{% endblock %}
+
 {% block title %}
     <title>Student Profile</title>
 {% endblock %}
@@ -53,6 +76,13 @@
     </div>
 
 {% endblock %}
+{% block profileImageNavBarHorizontal %}
+    {% if student[0]['image']== null%}
+        <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="image">
+    {% else %}
+        <img src="{{asset(student[0]['image'])}}" alt="image">
+    {% endif %}
+{% endblock %}
 
 
 {% block container %}
@@ -94,7 +124,7 @@
                                         <!-- end of image cropping -->
                                         <div id="crop-avatar">
                                             <!-- Current avatar -->
-                                            <div class="avatar-view" title="Change the avatar">
+                                            <div class="avatar-view" title="Profile Image">
                                                 {% if student[0]['image']== null%}
                                                     <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar">
                                                 {% else %}
@@ -111,7 +141,11 @@
 
                                     <div class="text">
                                         <h4>Portfolio</h4>
-                                        <p class="text-justify" > Describe your self</p>
+                                        {% if student[0]['portfolio'] == null %}
+                                            <p class="text-justify" > Describe your self</p>
+                                        {% else %}
+                                            <p class="text-justify">{{student[0]['portfolio']}}</p>
+                                        {% endif %}
                                     </div>
 
                                     <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
@@ -269,7 +303,7 @@
             $whereToLoadContent.load(routeWithPlaceHolder);
 
         });
-        $('#accountSetting').on('click', function () {
+        $('#accountSetting,#nav-settings').on('click', function () {
 
             var $whereToLoadContent = $("#contentBody"); //where you want to load data
 

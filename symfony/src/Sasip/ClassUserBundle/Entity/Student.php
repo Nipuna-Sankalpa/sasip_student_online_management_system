@@ -2,6 +2,8 @@
 
 namespace Sasip\ClassUserBundle\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class Student {
 
     private $first_name;
@@ -13,10 +15,53 @@ class Student {
     private $parent_name;
     private $parent_mobile;
     private $image;
-    private $Mobile;
-    private $dateOfBirth;
+    private $mobile;
+    private $date_of_birth;
     private $gender;
-    
+    private $profileImage;
+    private $imagePath;
+
+    public function getProfileImage() {
+        return $this->profileImage;
+        
+    }
+
+    public function setProfileImage(UploadedFile $profileimage = null) {
+        $this->profileImage = $profileimage;
+    }
+
+    public function setWebPath($userName) {
+        $this->imagePath = 'uploads/profileImages/student'. $userName;
+    }
+
+    public function getWebPath() {
+        return $this->imagePath;
+    }
+
+    public function getAbsPath() {
+        return __DIR__ . '/../../../../web/' . $this->getWebPath();
+    }
+
+    public function upload() {
+        if (NULL === $this->getProfileImage()) {
+            return null;
+        }
+
+        $fileName = $this->getProfileImage()->getClientOriginalName();
+        $this->getProfileImage()->move($this->getAbsPath(), $fileName);
+        $this->setImage($this->getWebPath().'/'.$fileName);
+        
+        $this->setProfileImage();
+    }
+
+    public function getMobile() {
+        return $this->mobile;
+    }
+
+    public function setMobile($mobile) {
+        $this->mobile = $mobile;
+    }
+
     private $portfolio;
 
     function getPortfolio() {
@@ -44,7 +89,7 @@ class Student {
     }
 
     function getDateOfBirth() {
-        return $this->dateOfBirth;
+        return $this->date_of_birth;
     }
 
     function getGender() {
@@ -52,19 +97,11 @@ class Student {
     }
 
     function setDateOfBirth($dateOfBirth) {
-        $this->dateOfBirth = $dateOfBirth;
+        $this->date_of_birth = $dateOfBirth;
     }
 
     function setGender($gender) {
         $this->gender = $gender;
-    }
-
-    function getMobile() {
-        return $this->Mobile;
-    }
-
-    function setMobile($Mobile = null) {
-        $this->Mobile = $Mobile;
     }
 
     function getImage() {
@@ -87,7 +124,7 @@ class Student {
         $this->parent_name = $parent_name;
     }
 
-    function setParent_mobile($parent_mobile) {
+    function setParentMobile($parent_mobile) {
         $this->parent_mobile = $parent_mobile;
     }
 

@@ -18,4 +18,6 @@ Sasip\ClassUserBundle\Entity\TutionClass:
             length: 12
         teacher_id:
             type: text
+        subject:
+            type: text
             

@@ -14,14 +14,22 @@ namespace Sasip\ClassUserBundle\Entity;
  * @author Flash
  */
 class TutionClass {
-    
+
     private $conductDay;
     private $fees;
     protected $id;
     private $teacher_id;
     private $time;
-    
-    
+    private $subject;
+
+    public function getSubject() {
+        return $this->subject;
+    }
+
+    public function setSubject($subject) {
+        $this->subject = $subject;
+    }
+
     public function getConductDay() {
         return $this->conductDay;
     }
@@ -61,7 +69,5 @@ class TutionClass {
     public function setTime($time) {
         $this->time = $time;
     }
-
-
 
 }

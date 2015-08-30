@@ -18,6 +18,7 @@ class RegistrationForm extends AbstractType {
                     'label' => 'Last Name',
                     'required' => TRUE,
                 ))
+                ->add('profileImage', 'file')
                 ->add('school', 'text', array(
                     'label' => 'School',
                     'required' => TRUE,
@@ -26,9 +27,9 @@ class RegistrationForm extends AbstractType {
                     'label' => 'Year Of Exam',
                     'required' => TRUE,
                 ))
-                ->add('dateOfBirth', 'date', array(
+                ->add('date_of_birth', 'date', array(
                     'label' => 'Date Of Birth',
-                    'widget'=>'single_text',
+                    'widget' => 'single_text',
                     'required' => TRUE,
                     'format' => 'yyyy-MM-dd'
                 ))
@@ -40,16 +41,16 @@ class RegistrationForm extends AbstractType {
                 ->add('mobile', new MobileForm(), array(
                     'label' => 'Contact Number'
                 ))
-                ->add('parentName', 'text', array(
+                ->add('parent_name', 'text', array(
                     'label' => 'Name Of Guardian',
                     'required' => TRUE,
                 ))
-                ->add('parentMobile', 'text', array(
+                ->add('parent_mobile', 'text', array(
                     'label' => 'Contact Details',
                     'required' => TRUE,
                 ))
                 ->add('portfolio', 'textarea', array(
-                    'label'=>'Portfolio',
+                    'label' => 'Portfolio',
                 ))
                 ->add('address', 'text', array(
                     'label' => 'Address',

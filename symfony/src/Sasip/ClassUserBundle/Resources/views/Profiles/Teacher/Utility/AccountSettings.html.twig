@@ -59,29 +59,37 @@
         </li>
     </ul>
 
-    <form  id="editForm" action="{{path('studentFormUpdate')}}"  method="POST" {{ form_enctype(form) }} class="form-horizontal form-label-left"> 
+    <form  id="editForm" action="{{path('teacherPersonalAccountUpdateSetting')}}"  method="POST" {{ form_enctype(form) }} class="form-horizontal form-label-left"> 
         <div id="step-1">
 
             <div class="form-group">
                 {{form_start(form)}}
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
                 </label>
-
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.first_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.firstName,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.last_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.lastName,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
                 </div>
-            </div>            
+            </div>    
+
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Salutation <span class="required">*</span></label> 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div id="gender" class="btn-group">
+                    <div class="btn-group">
+                        {{form_widget(form.salutation,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="required">*</span></label> 
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="btn-group">
                         {{form_widget(form.gender,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
                     </div>
                 </div>
@@ -107,31 +115,39 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    {{form_widget(form.mobile.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.mobile1.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
                 </div>
             </div>
             <div class="form-group">
-                <label for="mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Name <span class="required">*</span>
+                <label for="mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Mobile <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.mobile2.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Teaching at
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.schoolTeach,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Indicate currently teaching school'}})}}
+                </div>
+            </div>           
 
-                    {{form_widget(form.parent_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="parentMobile" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Mobile <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.parent_mobile,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
-                </div>
-            </div>
             <div style="display: none;">
-                {{form_widget(form.mobile.person_id)}}
+                {{form_widget(form.mobile1.person_id)}}
+                {{form_widget(form.mobile2.person_id)}}
             </div>
 
         </div>
         <div id="step-2">
 
+            <div class="form-group">
+                <label for="school" class="control-label col-md-3 col-sm-3 col-xs-12">Degree Title <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{form_widget(form.title,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}                    
+                </div>
+            </div>           
             <div class="form-group">
                 <label for="school" class="control-label col-md-3 col-sm-3 col-xs-12">School <span class="required">*</span>
                 </label>
@@ -141,10 +157,10 @@
             </div>           
 
             <div class="form-group">
-                <label for="yearOfExam" class="control-label col-md-3 col-sm-3 col-xs-12">Year of exam <span class="required">*</span>
+                <label for="yearOfExam" class="control-label col-md-3 col-sm-3 col-xs-12">University <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                    
-                    {{form_widget(form.year_of_exam,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.university,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
                 </div>
             </div>          
         </div>
@@ -180,6 +196,27 @@
                     {{form_widget(form.portfolio,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Tell something about yourself'}})}}
                 </div>
             </div>            
+            <div class="form-group">
+                <label for="portfolio" class="control-label col-md-3 col-sm-3 col-xs-12 text-right">LinkedIn 
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                    
+                    {{form_widget(form.linkedIn,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Paste your linkedIn Profile link'}})}}
+                </div>
+            </div>            
+            <div class="form-group">
+                <label for="portfolio" class="control-label col-md-3 col-sm-3 col-xs-12 text-right">Facebook 
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                    
+                    {{form_widget(form.facebook,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Paste your facebook Profile link'}})}}
+                </div>
+            </div>            
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 text-right">Twitter 
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                    
+                    {{form_widget(form.twitter,{'attr':{'class':'form-control col-md-7 col-xs-12','placeholder':'Paste your twitter Profile link'}})}}
+                </div>
+            </div>            
         </div>
 
         {{form_end(form)}}
@@ -194,25 +231,31 @@
 <script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
 <script>
     function initData() {
-        var path = "{{path('studentFormData')}}";
+        var path = "{{path('teacherFormData')}}";
         $.ajax({
             url: path,
             type: 'POST',
             data: {id: "{{app.user.userName}}"},
             success: function (data) {
+                if (data.profile !== undefined || data.contact !== undefined) {
+                    $('#Teacher_form_firstName').val(data.profile[0]['first_name']);
+                    $('#Teacher_form_lastName').val(data.profile[0]['last_name']);
+                    $('#Teacher_form_salutation').val(data.profile[0]['salutation']);
+                    $('#Teacher_form_gender').val(data.profile[0]['gender']);
+                    $('#Teacher_form_date_of_birth').val(data.profile[0]['date_of_birth']);
+                    
+                    $('#Teacher_form_address').val(data.profile[0]['address']);
+                    $('#Teacher_form_mobile1_contact_number').val(data.contact[0]['contact_number']);
+                    $('#Teacher_form_mobile2_contact_number').val(data.contact[1]['contact_number']);
+                    $('#Teacher_form_schoolTeach').val(data.profile[0]['school_teach']);
+                    $('#Teacher_form_title').val(data.profile[0]['title']);
+                    $('#Teacher_form_university').val(data.profile[0]['university']);
+                    $('#Teacher_form_twitter').val(data.profile[0]['twitter']);
+                    $('#Teacher_form_facebook').val(data.profile[0]['facebook']);
+                    $('#Teacher_form_linkedIn').val(data.profile[0]['linked_in']);
+                    $('#Teacher_form_portfolio').val(data.profile[0]['portfolio']);
+                }
 
-                $('#sasip_registration_form_first_name').val(data.profile[0]['first_name']);
-                $('#sasip_registration_form_last_name').val(data.profile[0]['last_name']);
-                $('#sasip_registration_form_gender').val(data.profile[0]['gender']);
-                $('#sasip_registration_form_date_of_birth').val(data.profile[0]['date_of_birth']);
-                
-                $('#sasip_registration_form_address').val(data.profile[0]['address']);
-                $('#sasip_registration_form_mobile_contact_number').val(data.contact[0]['contact_number']);
-                $('#sasip_registration_form_parent_name').val(data.profile[0]['parent_name']);
-                $('#sasip_registration_form_parent_mobile').val(data.profile[0]['parent_mobile']);
-                $('#sasip_registration_form_school').val(data.profile[0]['school']);
-                $('#sasip_registration_form_year_of_exam').val(data.profile[0]['year_of_exam']);
-                $('#sasip_registration_form_portfolio').val(data.profile[0]['portfolio']);
             }
         });
     }
@@ -245,10 +288,9 @@
         }
     }
 
-    $("#sasip_registration_form_profileImage").change(function () {
+    $("#Teacher_form_profileImage").change(function () {
         readURL(this);
     });
-
 
 </script>
 

@@ -1,1 +1,68 @@
-{# empty Twig template #}
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Student Exam Marks</h2>
+
+        <form class="form-horizontal form-label-left">
+            {% if exams != null%}
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Exam ID <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">                
+                        <select class="form-control col-md-7 col-xs-12" id="examId">
+                            {% for key,exam in exams %}
+                                <option value="{{exam['id']}}">{{exam['id']}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            {% else %}
+                <h3 class="text-center"><strong>Exams Un-available</strong></h3>
+            {% endif %}
+        </form>
+
+    </div>
+    <div class="x_content">
+
+        <table class="table table-hover" id="resultTable" style="max-height: 450px;overflow-y: scroll;">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+
+                    <th>Marks</th>
+                    <th>Average</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<script>
+    var name, id, marks, avg, html;
+    $('#examId').change(function () {
+
+        $.ajax({
+            url: "{{path('teacherBruteExamResult')}}",
+            type: 'POST',
+            data: {id: $('#examId').val()},
+            success: function (data) {
+                $('#resultTable TBODY').empty();
+
+                for (var i = 0, max = data.indiResult.length; i < max; i++) {
+                    name = data.indiResult[i]['name'];
+                    id = data.indiResult[i]['student_id'];
+                    marks = data.indiResult[i]['marks'];
+                    avg = data.avg[i]['avg'];
+                    html = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + marks + "</td><td>" + avg + "</td></tr>";
+                    $('#resultTable TBODY').append(html);
+                }
+            }
+
+        });
+    });
+
+</script>
