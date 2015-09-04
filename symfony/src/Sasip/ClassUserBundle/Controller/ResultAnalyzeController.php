@@ -136,7 +136,7 @@ class ResultAnalyzeController extends Controller {
     }
 
     //this function render the twig of reslt analysis with the 
-    // result Student and rsultClass separately
+    // result,Student and rsultClass separately
 
     public function resultAnalysisAction() {
 
@@ -325,6 +325,9 @@ class ResultAnalyzeController extends Controller {
                     'acaYears' => $years
         ));
     }
+    
+    
+    
 
     /*     * ***********************************teacher result Analysis Actions End***************************************** */
 

@@ -6,7 +6,7 @@ security:
         ROLE_TEACHER:     ROLE_TEACHER
         ROLE_STUDENT:     ROLE_STUDENT
         ROLE_ADMIN:       ROLE_ADMIN
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
 
     providers:
         fos_userbundle:
@@ -24,7 +24,7 @@ security:
             anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/class/profile/student/  , role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/class/profile/teacher/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/superAdmin/, role: ROLE_SUPER_ADMIN }

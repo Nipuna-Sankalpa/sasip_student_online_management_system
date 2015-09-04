@@ -89,16 +89,7 @@
                 <h3>Mentor Portal</h3>
             </div>
 
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="clearfix"></div>
 
@@ -108,8 +99,7 @@
                 <div class="x_panel">
                     <div class="x_title">                        
                         <div id="contentBody" class="container">
-                            <div class="x_title">                                
-
+                            <div class="x_title">
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -145,8 +135,7 @@
                                         {% endif %}                                        
                                     </div>
 
-                                    <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                                    <br />
+
 
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -245,6 +234,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-5x fa-spin fa-cog"></i></div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -252,64 +242,47 @@
             </div>
         </div>
         <script>
+//this function helps to load contents manually when event occurs
+            function loadContentManually(container, route) {
+                $(container).empty();
+                $('#screenSaver').css('display', 'block');
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#screenSaver').css('display', 'none');                        
+                        $(container).append(data);
+                    }
+                });
+            }
+
             $('#accountSetting,#nav-settings').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('studentAccountSettings')}}");
             });
 
             $('#newsForum').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('displayForum')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('displayForum')}}");
             });
+
             $('#classAttendance').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('teacherClassAttendanceRender')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('teacherClassAttendanceRender')}}");
             });
+
             $('#examAttendance').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('teacherExamAttendanceRender')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('teacherExamAttendanceRender')}}");
             });
 
             $('#examResultsAnalysis').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('teacherResultAnalysisRender')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('teacherResultAnalysisRender')}}");
             });
 
             $('#examResulrBrutal').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('teacherBruteExamResultRender')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('teacherBruteExamResultRender')}}");
             });
+
             $('#accountPersonal').on('click', function () {
-
-                var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-                var routeWithPlaceHolder = "{{path('teacherPersonalAccountSetting')}}";
-                $whereToLoadContent.load(routeWithPlaceHolder);
-
+                loadContentManually("#contentBody", "{{path('teacherPersonalAccountSetting')}}");
             });
         </script>
     {% endblock %}

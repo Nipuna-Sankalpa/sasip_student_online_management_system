@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
+    <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
     <div class="row">
         <div class="text"><h4><strong><i class="fa fa-certificate"></i> FEEDBACKS</strong></h4></div>
         <div style="margin-left: 2em;">
@@ -69,6 +70,7 @@
         </div>
     </div>
 </div>
+
 <script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
 <script src="{{asset('js/Profiles/sparkline/jquery.sparkline.min.js')}}"></script>
 <script src="{{asset('js/Profiles/easypie/jquery.easypiechart.min.js')}}"></script>
@@ -92,12 +94,33 @@
         });
     }
 
-    $('#examSelect').change(function () {
-        var examId = $("#examSelect option:selected").text();
-        var $whereToLoadContent = $("#resultComponent"); //where you want to load data
+    function onScreenSaver() {
 
-        var routeWithPlaceHolder = "{{path('studentIndividualResultComponenent')}}" + "?" +"examId="+ examId;
-        $whereToLoadContent.load(routeWithPlaceHolder);
+        $('#screenSaver').css('display', 'block');
+    }
+    function offScreenSaver() {
+        $('#screenSaver').css('display', 'none');
+    }
+
+    $('#examSelect').change(function () {
+        $('#resultComponent').css('display', 'none');
+        $('#screenSaver').css('display', 'block');
+        var examId = $("#examSelect option:selected").text();
+
+        $.ajax({
+            url: "{{path('studentIndividualResultComponenent')}}",
+            data: {examId: examId},
+            type: 'GET',
+            dataType: 'html',
+            success: function (data) {
+                $("#resultComponent").empty();
+                $("#resultComponent").append(data);
+                $('#resultComponent').css('display', 'block');
+                $('#screenSaver').css('display', 'none');
+            }
+        });
+
+
     });
 
     initComponent();

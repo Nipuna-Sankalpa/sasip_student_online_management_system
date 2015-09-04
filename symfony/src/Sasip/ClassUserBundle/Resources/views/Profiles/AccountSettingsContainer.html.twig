@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Profile Setup|Sasip</title>
+
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
+        <link href="{{asset('css/Profiles/animate.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/Profiles/custom.css')}}" rel="stylesheet">
+        <link href="{{asset('css/Profiles/green.css')}}" rel="stylesheet">
+
+    </head>
+
+
+    <body class="nav-md">
+
+        <div class="container body">
+
+            <div class="main_container">
+
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="#" class="site_title"><img src="{{asset('images/BaseTemplate/logIcon.jpg')}}"> <span> SASIP</span> </a>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <!-- menu prile quick info -->
+                        <div class="profile">
+                            <div class="profile_pic">
+
+                                <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="Avatar" class="img-circle profile_img">                                
+
+                            </div>
+                            <div class="profile_info">
+                                <span>Welcome,</span>
+                                <h2>{{app.user.userName}}</h2>
+                            </div>
+                        </div>
+                        <!-- /menu prile quick info -->
+                        <br />
+
+                        <!-- sidebar menu -->
+
+                        {% if is_granted ('ROLE_STUDENT')%}
+                            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+                                <div class="menu_section">
+
+                                    <h3>General</h3>
+                                    <ul class="nav side-menu">
+                                        <li><a href="javascript:;"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                                        </li>
+
+                                        <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">                                                                
+                                                <li><a href="javascript:;">View all results</a>
+                                                </li>                                            
+                                                <li ><a href="javascript:;">Result analysis</a>
+                                                </li>                                            
+                                            </ul>
+                                        </li>
+
+                                        <li id="newsForum"><a href="javascript:;"><i class="fa fa-desktop"></i> News forum <span class="fa fa-chevron-down"></span></a>                    
+                                        </li>
+
+                                        <li><a><i class="fa fa-table"></i> Attendance <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Class</a>
+                                                </li>
+                                                <li ><a href="javascript:;">Exam</a>
+                                                </li>
+                                            </ul>
+                                        </li>                
+                                    </ul>
+                                </div>
+                                <div class="menu_section">
+                                    <h3>Accounts</h3>
+                                    <ul class="nav side-menu">
+                                        <li><a><i class="fa fa-bug"></i> Account Settings <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Personal Settings</a>
+                                                </li>
+                                                <li ><a href="javascript:;">Account Settings</a>
+                                                </li>
+                                            </ul>
+                                        </li>              
+                                    </ul>
+                                </div>
+
+                            </div>
+                        {% endif %}
+                        {% if is_granted('ROLE_TEACHER') %}
+                            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+                                <div class="menu_section">
+                                    <h3>General</h3>
+                                    <ul class="nav side-menu">
+                                        <li><a href="javascript:;"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>                    
+                                        </li>
+                                        <li><a><i class="fa fa-edit"></i> News Forum <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Messages</a>
+                                                </li>                                            
+                                            </ul>
+                                        </li>
+                                        <li><a><i class="fa fa-desktop"></i> Attendance <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Exam</a>
+                                                </li>
+                                                <li ><a href="javascript:;">Class</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a><i class="fa fa-table"></i> Results <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Student Marks</a>
+                                                </li>
+                                                <li ><a href="javascript:;">View Result Analysis</a>
+                                                </li>
+                                            </ul>
+                                        </li>                
+                                    </ul>
+                                </div>
+                                <div class="menu_section">
+                                    <h3>Accounts</h3>
+                                    <ul class="nav side-menu">
+                                        <li><a><i class="fa fa-bug"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li ><a href="javascript:;">Account Settings</a>
+                                                </li>
+                                                <li ><a href="javascript:;">Personal Settings</a>
+                                                </li>
+                                            </ul>
+                                        </li>                
+                                    </ul>
+                                </div>
+
+                            </div>
+                        {% endif %}
+
+                        <!-- /sidebar menu -->
+
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+
+                    <div class="nav_menu">
+                        <nav class="" role="navigation">
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                        <img src="{{asset('images/BaseTemplate/contacts.png')}}" alt="image">
+                                        {{app.user.userName}}
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+
+                                        <li><a href="javascript:;">  Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="badge bg-red pull-right">50%</span>
+                                                <span>Settings</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">Help</a>
+                                        </li>
+
+                                        <li><a href="{{path('fos_user_security_logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <!-- /top navigation -->
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+
+                    <div class="container">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h3>Setup Your Profile...</h3>
+                            </div>
+
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">                        
+                                        <div id="contentBody" class="container">
+                                            <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;"><i class="fa fa-5x fa-spin fa-cog"></i></div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /page content -->
+            </div>
+
+        </div>
+
+        <script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/Profiles/custom.js')}}"></script>
+
+    </body>
+
+    <script>
+        $('#screenSaver').css('display', 'block');
+        {% if is_granted('ROLE_TEACHER') %}
+            $.ajax({
+                url: "{{path('teacherPersonalAccountSetting')}}",
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    $('#contentBody').append(data);
+                    $('#screenSaver').css('display', 'none');
+                    $('form').attr('action', '{{path('teacherPersonalAccountSetting')}}');
+                }
+            });
+        {% endif %}
+
+        {% if is_granted('ROLE_STUDENT') %}
+            $.ajax({
+                url: "{{path('studentProfileSettings')}}",
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    $('#contentBody').append(data);
+                    $('#screenSaver').css('display', 'none');
+                    $('form').attr('action', '{{path('studentProfileSettings')}}');
+                }
+            });
+        {% endif %}
+    </script>
+
+</html>

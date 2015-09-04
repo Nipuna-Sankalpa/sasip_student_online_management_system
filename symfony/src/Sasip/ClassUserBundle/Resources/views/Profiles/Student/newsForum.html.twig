@@ -3,51 +3,93 @@
 <div class="clearfix"></div>
 
 <div>
-    <div id="baseMailList" class="col-sm-3 mail_list_column" style="overflow-y: scroll;max-height:600px;overflow-x: hidden;">
+    <div id="baseMailList" class="col-sm-4 mail_list_column" style="overflow-y: scroll;max-height:600px;overflow-x: hidden;">
 
-        {% if messages == null%}
-            <div class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">
-                <div class="left">
-                    <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
-                </div>
-                <div class="right">
-                    <h3 class="tile_head">No messages available</h3>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist" >
+                    <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Inbox</a>
+                    </li>
+                    <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Outbox</a>
+                    </li>
+
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                        {% if inbox == null%}
+                            <div class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">
+                                <div class="left">
+                                    <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                                </div>
+                                <div class="right">
+                                    <h3 class="tile_head">No messages available</h3>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% for key,msg in inbox %}
+                                <div id="{{msg['id']}}" class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">                    
+                                    <div class="left">
+                                        <strong><i class="fa fa-arrow-up"></i></strong> <i class="fa fa-edit"></i>
+                                    </div>
+
+                                    <div class="right">
+
+                                        <div class="row">
+                                            <div class="col-sm-7"><h3 class="tile_head">{{msg['title']}} {% if msg['state'] == 'notRead' %}<a href="javascript:;" class="btn btn-round btn-sm btn-success">New</a>{% endif %}</h3></div>
+                                            <div class="text-right col-sm-5"><small><span class="timeMsg"><small>{{msg['time_sent']}}</small></span></small></div>
+                                        </div>
+
+                                        <div class="msgSender" style="display: none;">{{msg['name']}}</div>
+                                        <div class="msgTitle" style="display: none;">{{msg['title']}}</div>
+                                        <div class="msgDate" style="display: none;">{{msg['date_sent']}}</div>                
+
+                                        <p class="msgBody">{{msg['content']}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="well well-sm text-center" id="viewMore"><a href="#"><strong>View More <i class="fa fa-angle-down"></i></strong></a></div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">                                                
+                        {% if outbox == null%}
+                            <div class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">
+                                <div class="left">
+                                    <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                                </div>
+                                <div class="right">
+                                    <h3 class="tile_head">No messages available</h3>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% for key,msg in outbox %}
+                                <div id="msg{{loop.index}}" class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">                    
+                                    <div class="left">
+                                        <strong><i class="fa fa-arrow-up"></i></strong> <i class="fa fa-edit"></i>
+                                    </div>
+
+                                    <div class="right">
+
+                                        <div class="row">
+                                            <div class="col-sm-7"><h3 class="tile_head">{{msg['title']}} </h3></div>
+                                            <div class="text-right col-sm-5"><small><span class="timeMsg"><small>{{msg['time_sent']}}</small></span></small></div>
+                                        </div>
+
+                                        <div class="msgSender" style="display: none;">{{msg['name']}}</div>
+                                        <div class="msgTitle" style="display: none;">{{msg['title']}}</div>
+                                        <div class="msgDate" style="display: none;">{{msg['date_sent']}}</div>                
+
+                                        <p class="msgBody">{{msg['content']}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="well well-sm text-center" id="viewMore"><a href="#"><strong>View More <i class="fa fa-angle-down"></i></strong></a></div>
+                    </div>                    
                 </div>
             </div>
-        {% else %}
-            {% for content,key in messages %}
-                <div id="msg{{loop.index}}" class="mail_list" style="max-height: 125px;overflow-y: hidden;overflow-x: hidden;">                    
-                    {% if key['sender'] == app.user.userName %}
-                        <div class="left">
-                            <strong><i class="fa fa-arrow-up"></i></strong> <i class="fa fa-edit"></i>
-                        </div>
-                    {% else %}
-                        <div class="left">
-                            <strong><i class="fa fa-arrow-down"></i></strong> <i class="fa fa-edit"></i>
-
-                        </div>
-                    {% endif %}
-                    <div class="right">
-
-
-                        <div class="row">
-                            <div class="col-sm-7"><h3 class="tile_head">{{key['teacher_id']}} </h3></div>
-                            <div class="text-right col-sm-5"><small><span class="timeMsg"><small>{{key['time_sent']}}</small></span></small></div>
-                        </div>
-
-                        <div class="msgSender" style="display: none;">{{key['sender']}}</div>
-                        <div class="msgTitle" style="display: none;">{{key['title']}}</div>
-                        <div class="msgDate" style="display: none;">{{key['date_sent']}}</div>                
-
-                        <p class="msgBody">{{key['content']}}</p>
-                    </div>
-                </div>
-
-            {% endfor %}
-
-            <div class="well well-sm text-center" id="viewMore"><a href="#"><strong>View More <i class="fa fa-angle-down"></i></strong></a></div>
-                    {% endif %}
-
+        </div>
     </div>
 
 </div>
@@ -76,7 +118,7 @@
 
 
 <!-- CONTENT MAIL -->
-<div class="col-sm-9 mail_view">
+<div class="col-sm-8 mail_view">
     <div class="container" style="margin-left: 1em;">
         <div class="row">
             <div class="inbox-body">
@@ -107,7 +149,7 @@
 
                 <div class="view-mail" id="msgContent">
                 </div>
-<br />
+                <br />
                 <div class="compose-btn pull-left">
                     <a class="btn btn-sm btn-primary" role="button" data-toggle="collapse" href="#replyForum" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-reply"></i> Reply</a>
                     <button class="btn btn-sm " data-toggle="collapse" href="#replyNewForum" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-arrow-right"></i> Compose</button>
@@ -120,61 +162,65 @@
             </div>
         </div>
         <div class="row">
-            <div class="collapse" id="replyForum">
-                <div class="well">
-                    <form id="reply" class="form-group">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <label class="control-label">Title :</label>
-                                <input id="title" class="form-control" name="title" type="text" />
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="control-label">To :</label>
-                                <input id="receiver" class="form-control" name="receiver" type="text" readonly=""/>
-                            </div>
-                        </div>
 
-                        <div style="margin-top: 1em;">
-                            <label class="control-label">Message :</label>
-                            <textarea id="message" name="message" class="form-control" rows="4"></textarea>
-                        </div>
-                        <div style="margin-top: 0.5em;">
-                            <div class="row">
-                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" id="replyButton">Send</button></div>
-                                <h4 id="alertMsg" class="col-sm-9" style="display: none; color: green;"><strong></strong></h4>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <div class="collapse" id="replyNewForum">
                 <div class="well">
-                    <form id="compose" class="form-group">
+                    <form id="composeNew" class="form-group">                        
                         <div class="row">
                             <div class="col-sm-8">
-                                <label class="control-label">Title :</label>
-                                <input id="titleCompose" class="form-control" name="titleCompose" type="text" />
+                                <label class="control-label">Title :</label>                                
+                                <input name="title" class="form-control" required="required" placeholder="Message Title"/>
                             </div>
                             <div class="col-sm-4">
                                 <label class="control-label">To :</label>
-                                <select id="receiverCompose" class="form-control" name="receiverCompose">
-                                    {% for values,key in teachers %}
-                                        <option value="{{key['teacher_id']}}">{{key['teacher_name']}}</option>
-                                    {% endfor %}
+                                <select name="receiver" class="form-control">
+                                    {% if receiver != null %}
+                                        {% for key,value in receiver %}
+                                            <option value='{{value['id']}}'>{{value['name']}}</option>
+                                        {% endfor %}
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
 
                         <div style="margin-top: 1em;">
-                            <label class="control-label">Message :</label>
-                            <textarea id="messageCompose" name="messageCompose" class="form-control" rows="4"></textarea>
+                            <label class="control-label">Message :</label>                            
+                            <textarea name="content" required="required" class="form-control"></textarea>
                         </div>
                         <div style="margin-top: 0.5em;">
                             <div class="row">
-                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" id="replyButtonCompose">Send</button></div>
+                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" type="submit" id="replyButtonCompose">Send</button></div>
                                 <h4 id="alertMsgCompose" class="col-sm-9" style="display: none; color: green;"><strong></strong></h4>
                             </div>
+                        </div>                        
+                    </form>
+                </div>
+            </div>
+            <div class="collapse" id="replyForum">
+                <div class="well">
+                    <form id="composeReply" class="form-group">                        
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label class="control-label">Title :</label>                                
+                                <input name="title" required="required" class="form-control" placeholder="Message Title"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">To :</label>
+                                <select id="replyTo" name="receiver" class="form-control">
+                                </select>
+                            </div>
                         </div>
+
+                        <div style="margin-top: 1em;">
+                            <label class="control-label">Message :</label>                            
+                            <textarea name="content" required="required" class="form-control"></textarea>
+                        </div>
+                        <div style="margin-top: 0.5em;">
+                            <div class="row">
+                                <div class="col-sm-3"><button class="btn btn-sm btn-primary" type="submit" id="replyButton">Reply</button></div>
+                                <h4 id="alertMsg" class="col-sm-9" style="display: none; color: green;"><strong></strong></h4>
+                            </div>
+                        </div>                        
                     </form>
                 </div>
             </div>
@@ -184,14 +230,15 @@
 </div>
 
 <script>
-    $('#replyButton').on('click', function (e) {
+
+    $('#composeNew').on('submit', function (e) {
 
         e.preventDefault();
         $('#alertMsg').css("display", "none");
         $.ajax({
             type: 'POST',
             url: "{{path('sendMessage')}}",
-            data: {title: $('#title').val(), receiver: $('#receiver').val(), message: $('#message').val()},
+            data: $('#compose').serialize,
             success: function (data) {
                 var message = data.message;
                 if (message.localeCompare("Message sent successfully") === 0) {
@@ -206,14 +253,14 @@
             }
         });
     });
-    $('#replyButtonCompose').on('click', function (e) {
+    $('#composeReply').on('submit', function (e) {
 
         e.preventDefault();
         $('#alertMsgCompose').css("display", "none");
         $.ajax({
             type: 'POST',
             url: "{{path('sendMessage')}}",
-            data: {title: $('#titleCompose').val(), receiver: $('#receiverCompose').val(), message: $('#messageCompose').val()},
+            data: $('#compose').serialize(),
             success: function (data) {
                 var message = data.message;
                 if (message.localeCompare("Message sent successfully") === 0) {
@@ -242,43 +289,54 @@
 
 <script>
     var offset = 10;
-    var studentId = "{{app.user.userName}}";
-    $('#viewMore').on('click', function () {
+    {% if is_granted('ROLE_TEACHER') %}
+        var userId = "{{app.user.id}}";
+    {% else %}
+        var userId = "{{app.user.userName}}";
+    {% endif %}    
+        $('#viewMore').on('click', function () {
 
-        offset += 10;
-        $.ajax({
-            url: "{{path('viewMoreMessage')}}",
-            type: 'POST',
-            data: {offset_1: offset - 10, offset_2: offset, student_id: studentId},
-            success: function (data) {
-                var clone;
-                for (var i = 0, max = data.length; i < max; i++) {
-                    clone = $('#msgBaseTemplate').clone();
-                    clone.attr("id", "msg" + (i + offset));
-                    clone.find('#msgTitleTemp').text(data[i]['title']);
-                    clone.find('#tile_headTemp').text(data[i]['teacher_id']);
-                    clone.find('#msgDateTemp').text(data[i]['date_sent']);
-                    clone.find('#timeMsgTemplate').text(data[i]['time_sent']);
-                    clone.find('#msgBodyTemplate').text(data[i]['content']);
-                    clone.find('#msgSenderTemp').text(data[i]['student_id']);
-                    clone.css('display', 'block');
+            offset += 10;
+            $.ajax({
+                url: "{{path('viewMoreMessage')}}",
+                type: 'POST',
+                data: {offset_1: offset - 10, offset_2: offset, userId: userId, flag: 'inbox'},
+                success: function (data) {
+                    var clone;
+                    for (var i = 0, max = data.length; i < max; i++) {
+                        clone = $('#msgBaseTemplate').clone();
+                        clone.attr("id", data[i]['id']);
+                        clone.find('#msgTitleTemp').text(data[i]['title']);
+                        clone.find('#tile_headTemp').text(data[i]['teacher_id']);
+                        clone.find('#msgDateTemp').text(data[i]['date_sent']);
+                        clone.find('#timeMsgTemplate').text(data[i]['time_sent']);
+                        clone.find('#msgBodyTemplate').text(data[i]['content']);
+                        clone.find('#msgSenderTemp').text(data[i]['student_id']);
+                        clone.css('display', 'block');
 
-                    $('#baseMailList').append(clone);
-                    $('#viewMore').dequeue();
-                    $('#baseMailList').append($('#viewMore'));
+                        $('#baseMailList').append(clone);
+                        $('#viewMore').dequeue();
+                        $('#baseMailList').append($('#viewMore'));
+                    }
+
+                    $('.mail_list').on('click', function () {
+                        $('#msgHead').text($(this).find('.msgTitle').text());
+                        $('#date').text($(this).find('.msgDate').text());
+                        $('#time').text($(this).find('.timeMsg').text());
+                        $('#msgContent').text($(this).find('.msgBody').text());
+                        $('#senderMsg').text("From " + $(this).find('.tile_head').text() + " to me");
+                        $('#receiver').val($(this).find('.tile_head').text());
+
+                        $.ajax({
+                            url: "{{path('MarkedAsRead')}}",
+                            type: 'GET',
+                            data: {id: $(this).attr('id')}
+                        });
+
+                    });
                 }
-
-                $('.mail_list').on('click', function () {
-                    $('#msgHead').text($(this).find('.msgTitle').text());
-                    $('#date').text($(this).find('.msgDate').text());
-                    $('#time').text($(this).find('.timeMsg').text());
-                    $('#msgContent').text($(this).find('.msgBody').text());
-                    $('#senderMsg').text("From " + $(this).find('.tile_head').text() + " to me");
-                    $('#receiver').val($(this).find('.tile_head').text());
-                });
-            }
+            });
         });
-    });
 
 
 
@@ -291,5 +349,12 @@
         $('#msgContent').text($(this).find('.msgBody').text());
         $('#senderMsg').text("From " + $(this).find('.tile_head').text() + " to me");
         $('#receiver').val($(this).find('.tile_head').text());
+
+        $.ajax({
+            url: "{{path('MarkedAsRead')}}",
+            type: 'GET',
+            data: {id: $(this).attr('id')}
+        });
+
     });
 </script>

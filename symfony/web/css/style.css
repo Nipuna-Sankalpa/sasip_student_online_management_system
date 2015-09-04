@@ -161,7 +161,7 @@ sss * {
 }
 body {
   position: relative;
-  background: #00b1ba;
+/*  background: #00b1ba;*/
   color: #000000;
   font: 300 14px/20px 'Open Sans', sans-serif;
 }
@@ -474,7 +474,7 @@ header h1.stuck_head {
 /****Non suppage set****/
 .page1 header {
   border-bottom: 1px solid #fff;
-  padding-bottom: 51px;
+  padding-bottom: 53px;
 }
 .page1 #content {
   padding-bottom: 68px;

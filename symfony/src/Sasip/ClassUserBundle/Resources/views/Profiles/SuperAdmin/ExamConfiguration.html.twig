@@ -1,3 +1,9 @@
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Validation/formValidation.min.js')}}"></script>
+<!-- this bootstrap file is related to form validation-->
+<script src="{{asset('js/Validation/bootstrap.min.js')}}"></script>
+
+
 <h3 class="text-center">Exam Configuration</h3>
 
 <div class="container">
@@ -12,7 +18,7 @@
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                    <form id="classCreate" action="{{path('ExamConfiguration')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="examCreate" action="{{path('ExamConfiguration')}}" method="POST"  class="form-horizontal form-label-left">
                         {{form_start(form)}}
 
                         <div class="form-group">
@@ -59,10 +65,11 @@
                         </div>
                         {{form_end(form)}}
                     </form>
+                    <div id="screenSaver_classConfig" class="text-center" style="display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
-                    <form id="classUpdate" action="{{path('ExamUpdate')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="examUpdate" action="{{path('ExamUpdate')}}" method="POST" class="form-horizontal form-label-left">
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Exam ID <span class="required">*</span>
                             </label>
@@ -117,8 +124,8 @@
                                 <button id="confirmUpdate" type="submit" class="btn btn-info pull-right">Update</button>
                             </div>
                         </div>
-
                     </form>
+                    <div id="screenSaver_classConfig_1" class="text-center" style="display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
                 </div>
             </div>
         </div>
@@ -143,12 +150,18 @@
     $('#id').change(function () {
         var id = $('#id').val();
 
+        $('#examUpdate').css('display', 'none');
+        $('#screenSaver_classConfig_1').css('display', 'block');
+
         $.ajax({
             url: "{{path('ExamUpdate')}}",
             type: 'GET',
             data: {id: id},
             success: function (data) {
                 var Exam = JSON.parse(data);
+
+                $('#examUpdate').css('display', 'block');
+                $('#screenSaver_classConfig_1').css('display', 'none');
 
                 $('#fees').val(Exam.fees);
                 $('#conductDay').val(Exam.conductDay);
@@ -159,5 +172,135 @@
         });
 
     });
+
+    $('#examCreate').on('submit', function (e) {
+        $('#examCreate').css('display', 'none');
+        $('#screenSaver_classConfig').css('display', 'block');
+        e.preventDefault();
+        $.ajax({
+            url: $('#examCreate').attr('action'),
+            type: 'POST',
+            data: $('#examCreate').serialize(),
+            success: function (data) {
+                $('#examCreate').css('display', 'block');
+                $('#screenSaver_classConfig').css('display', 'none');
+                alert(data.message);
+            }
+        });
+    });
+
+    $('#examUpdate').on('submit', function (e) {
+        e.preventDefault();
+        $('#examUpdate').css('display', 'none');
+        $('#screenSaver_classConfig_1').css('display', 'block');
+        $.ajax({
+            url: $('#examUpdate').attr('action'),
+            type: 'POST',
+            data: $('#examUpdate').serialize(),
+            success: function (data) {
+                $('#examUpdate').css('display', 'block');
+                $('#screenSaver_classConfig_1').css('display', 'none');
+                alert(data.message);
+            }
+        });
+    });
+
+</script>
+
+<script>
+//form validation
+    $(document).ready(function () {
+        $('#confirm').attr('disabled', true);
+        $('#examCreate').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                'Sasip_Exam_form[id]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_Exam_form[conductDay]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_Exam_form[teacher_id]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_Exam_form[time]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                },
+                'Sasip_Exam_form[fees]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This field should contain digits'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    //form no-2
+    $(document).ready(function () {
+        $('#confirmUpdate').attr('disabled', true);
+        $('#examUpdate').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                fees: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                },
+                conductDay: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                teacher_id: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                time: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
 </script>
 

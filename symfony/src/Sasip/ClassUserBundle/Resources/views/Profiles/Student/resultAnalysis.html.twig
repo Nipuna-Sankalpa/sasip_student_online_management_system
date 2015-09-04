@@ -14,6 +14,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
+        <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
         <canvas id="canvas000"></canvas>
     </div>
 </div>
@@ -27,13 +28,14 @@
     </div>    
 </div>
 
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+
 <script src="{{asset('js/Profiles/chartjs/chart.min.js')}}"></script>
 <script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
 
 <script>
     var examId, individual, max, avg, i;
     $(document).ready(function () {
+        $('#screenSaver').css('display', 'block');
         $.ajax({
             url: "{{path('studentAnalysisResults')}}",
             type: 'POST',
@@ -42,6 +44,7 @@
                 individual = data.individual;
                 avg = data.avg;
                 max = data.max;
+                $('#screenSaver').css('display', 'none');
                 display();
             }
         });

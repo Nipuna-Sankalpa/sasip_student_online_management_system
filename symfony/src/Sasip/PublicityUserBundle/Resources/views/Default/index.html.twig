@@ -10,32 +10,30 @@
         <link rel="shortcut icon" href="images/favicon.ico" />
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('css/front/custom.css')}}">
+        <link href="{{asset('css/Profiles/animate.min.css')}}" rel="stylesheet">
+    {% block css %}{% endblock %}
+</head>
+<body class="page1" id="top">
+    <!--==============================
+                  header
+    =================================-->
+    <header>
 
-
-        <script>
-            $(window).load(function () {
-                $().UItoTop({easingType: 'easeOutQuart'});
-                $('#stuck_container').tmStickUp({});
-            });
-        </script>
-
-    </head>
-    <body class="page1" id="top">
-        <!--==============================
-                      header
-        =================================-->
-        <header>
+        {% block headerLogo %}
             <div class="container">
                 <div class="row">
                     <div class="grid_12 rel">
                         <h1>
-                            <a href="#">
+                            <a href="javascript:;">
                                 <img src="{{asset('images/Front/logo.png')}}" alt="Logo alt">
                             </a>
                         </h1>
                     </div>
                 </div>
             </div>
+        {% endblock %}
+        {% block navigation %}
             <section id="stuck_container">
                 <!--==============================
                             Stuck menu
@@ -43,37 +41,74 @@
                 <div class="container">
                     <div class="row">
                         <div class="grid_12 ">
-                            <div class="navigation ">
-                                <nav>
-                                    <ul class="sf-menu">
-                                        <li class="current"><a href="#">Home</a></li>
-                                        <li><a href="#">Classes</a></li>
-                                        <li><a href="#">Teachers</a></li>                                      
-                                        <li><a href="#">About us</a></li>                                      
-                                        <li><a href="javascript:;" data-toggle="modal" data-target="#myModal">login</a></li>
-                                    </ul>
-                                </nav>
-                                <div class="clear"></div>
-                            </div>       
+                            <nav class="navbar navbar-default">
+                                <div class="container-fluid">
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>                                        
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{{path('publicity_Front')}}"><i class="fa fa-home"></i> Home </a></li>
+                                            <li><a href="{{path('Front_sasip')}}">About Us</a></li>                                            
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Classes <span class="caret"></span></a>
+                                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                                    <li><a href="{{path('Front_classes')}}">2016 A/L</a></li>
+                                                    <li><a href="#">2017 A/L</a></li>
+                                                    <li><a href="#">2018 A/L</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">2016 A/L Revision</a></li>                                                    
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teachers <span class="caret"></span></a>
+                                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                                    <li><a href="{{path('Front_teachers')}}">Physics</a></li>
+                                                    <li><a href="#">Combine Maths</a></li>
+                                                    <li><a href="#">Chemistry</a></li>
+                                                    <li><a href="#">Biology</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Accounting</a></li>                                                    
+                                                    <li><a href="#">Econ</a></li>
+                                                    <li><a href="#">Bussiness Studies</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="javascript:;" data-toggle="modal" data-target="#myModal">login</a></li>
+                                        </ul>                                        
+
+                                    </div><!-- /.navbar-collapse -->
+                                </div><!-- /.container-fluid -->
+                            </nav>       
                             <div class="clear"></div>  
                         </div>
                     </div> 
                 </div> 
             </section>
+        {% endblock %}
+        {% block body %}
+
             <section class="page1_header">
                 <div class="container">
                     <div class="row">
                         <div class="grid_4">
-                            <a href="#" class="banner"><div class="maxheight">
+                            <a href="{{path('Front_sasip')}}" class="banner"><div class="maxheight">
                                     <div class="fa fa-globe"></div>Sasip</div>
                             </a>
-                            <a href="#" class="banner"><div class="maxheight">
+                            <a href="{{path('Front_teachers')}}" class="banner"><div class="maxheight">
                                     <div class="fa fa-users"></div>Teachers</div>
                             </a>
-                            <a href="#" class="banner"><div class="maxheight1">
+                            <a href="{{path('Front_classes')}}" class="banner"><div class="maxheight1">
                                     <div class="fa fa-university"></div>Classes</div>
                             </a>
-                            <a href="#" class="banner"><div class="maxheight1">
+                            <a href="{{path('send_feedback')}}" class="banner"><div class="maxheight1">
                                     <div class="fa fa-phone"></div>Contact us</div>
                             </a>
                         </div>
@@ -84,14 +119,16 @@
                     </div>
                 </div>
             </section>
-        </header>
+        {% endblock %}
+    </header>
+    {% block footer %}
         <div class="block-1">
             <div class="container" style="font-size: 13pt;">
                 <div class="row">
                     <div class="grid_4">
-                        Staff login<br />
-                        Classes<br />
-                        Teachers
+                        <a href="javascript:;" data-toggle="modal" data-target="#myModal">Staff login </a><br />
+                        <a href="{{path('Front_classes')}}">Classes</a><br />
+                        <a href="{{path('Front_teachers')}}">Teachers</a>
                         <div class="clear"></div>
                     </div>
 
@@ -103,9 +140,9 @@
                         <div class="clear"></div>
                     </div>
                     <div class="grid_3">
-                        Site map<br />
-                        Privacy Policy<br />
-                        feedbacks
+                        <a href="javascript:;">Site map</a><br />
+                        <a href="javascript:;">Privacy Policy<br /></a>
+                        <a href="{{path('send_feedback')}}">feedbacks </a>
 
                         <div class="clear"></div>
                     </div>
@@ -118,49 +155,79 @@
             </div>
         </div>
 
+    {% endblock %}
 
-        <!-- Modal -->
-        <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog " role="document">
-                <div  class="modal-content" style="border-radius: 0;">                    
-                    <div style="background:#F7F7F7;" class="modal-body animate form login_content">
-                        <form  class="form-group" action="{{ path("fos_user_security_check") }}" method="post">
-                            <h1>Institute Login Portal</h1>
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                            <div>
-                                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-                            </div>
-                            <div>
-                                <input class="form-control" type="password" id="password" name="_password" required="required" />
-                            </div>
-                            <div>
-                                <input class="btn btn-info btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    <!-- Modal -->
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog " role="document">
+            <div  class="modal-content" style="border-radius: 0;">                    
+                <div style="background:#F7F7F7;" class="modal-body animate form login_content">
+                    <form id="loginMaster" class="form-group">
+                        <h1>Institute Login Portal</h1>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <div>
+                            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                        <div>
+                            <input class="form-control" type="password" id="password" name="_password" required="required" />
+                        </div>
+                        <div>
+                            <input class="btn btn-info btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                        </div>
+                        <div style="display: none;" id="busy"><i class="fa fa-3x fa-spin fa-cog"></i></div>
+                        <div style="display: none;margin-top: 1em;" id="errorMsg"><strong></strong></div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <br />
+                            <p>©2015 All Rights Reserved by Sasip private educational institute.</p>
+                        </div>
+                    </form>
 
-                            </div>
-                            <div class="clearfix"></div>
-                            <div>
-                                <br />
-                                <p>©2015 All Rights Reserved by Sasip private educational institute.</p>
-                            </div>
-                        </form>
-
-                    </div>                    
-                </div>
+                </div>                    
             </div>
         </div>
+    </div>
 
 
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>           
+    <script src="{{asset('js/tmStickUp.js')}}"></script>
+    <script src="{{asset('js/jquery.ui.totop.js')}}"></script>
+    <script>
 
+        $(window).load(function () {
+            $().UItoTop({easingType: 'easeOutQuart'});
+            $('#stuck_container').tmStickUp({});
+        });
 
-        <script src="{{asset('js/jquery.js')}}"></script>
-        <script src="{{asset('js/jquery-migrate-1.1.1.js')}}"></script>
-        <script src="{{asset('js/jquery.easing.1.3.js')}}"></script>
-        <script src="{{asset('js/script.js')}}"></script> 
-        <script src="{{asset('js/superfish.js')}}"></script>
-        <script src="{{asset('js/jquery.equalheights.js')}}"></script>
-        <script src="{{asset('js/jquery.mobilemenu.js')}}"></script>
-        <script src="{{asset('js/tmStickUp.js')}}"></script>
-        <script src="{{asset('js/jquery.ui.totop.js')}}"></script>
-        <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    </body>
+        // submit login form via js
+        $('#loginMaster').on('submit', function (e) {
+            e.preventDefault();
+            $('#_submit').css('display', 'none');
+            $('#busy').css('display', 'block');
+
+            $.ajax({
+                url: "{{ path("fos_user_security_check") }}",
+                type: 'POST',
+                data: $('#loginMaster').serialize(),
+                success: function (data) {
+                    if (data.message.localeCompare('Incorrect user name or password') === 0) {
+                        $('#busy').css('display', 'none');
+                        $('#_submit').css('display', 'block');
+                        $('#errorMsg').text('*' + data.message);
+                        $('#errorMsg').css('color', 'red');
+
+                    } else {
+                        $(location).attr('href', data.message);
+                        $('#busy').css('display', 'none');
+
+                    }
+                }
+            });
+        });
+
+    </script>
+
+{% block js %}{% endblock %}
+</body>
 </html>

@@ -1,3 +1,10 @@
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Validation/formValidation.min.js')}}"></script>
+<!-- this bootstrap file is related to form validation-->
+<script src="{{asset('js/Validation/bootstrap.min.js')}}"></script>
+<!-- js files for form -->
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
 <style>
     .btn-file {
         position: relative;
@@ -180,7 +187,7 @@
 
                             <div >
                                 <span style="color: white" class="btn btn-info btn-block btn-file">Browse
-                                    {{form_widget(form.profileImage)}}
+                                    {{form_widget(form.profileImage,{'attr':{'accept':',jpg,.png,.bmp'}})}}
                                 </span>
                             </div>
                         </div> 
@@ -226,16 +233,13 @@
 
 </div>
 
-<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
-<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
 <script>
     function initData() {
         var path = "{{path('teacherFormData')}}";
         $.ajax({
             url: path,
             type: 'POST',
-            data: {id: "{{app.user.userName}}"},
+            data: {id: "{{app.user.id}}"},
             success: function (data) {
                 if (data.profile !== undefined || data.contact !== undefined) {
                     $('#Teacher_form_firstName').val(data.profile[0]['first_name']);
@@ -243,7 +247,7 @@
                     $('#Teacher_form_salutation').val(data.profile[0]['salutation']);
                     $('#Teacher_form_gender').val(data.profile[0]['gender']);
                     $('#Teacher_form_date_of_birth').val(data.profile[0]['date_of_birth']);
-                    
+
                     $('#Teacher_form_address').val(data.profile[0]['address']);
                     $('#Teacher_form_mobile1_contact_number').val(data.contact[0]['contact_number']);
                     $('#Teacher_form_mobile2_contact_number').val(data.contact[1]['contact_number']);
@@ -294,3 +298,141 @@
 
 </script>
 
+<script>
+//form validation
+    $(document).ready(function () {
+
+        $('#editForm').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                'Teacher_form[firstName]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Teacher_form[lastName]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Teacher_form[salutation]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Teacher_form[date_of_birth]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required and can\'t be empty'
+                        }
+                    }
+                },                
+                'Teacher_form[mobile1][contact_number]': {
+                    validators: {
+                        digits: {
+                            message: 'This value is not valid'
+                        },
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Teacher_form[mobile2][contact_number]': {
+                    validators: {
+                        digits: {
+                            message: 'This value is not valid'
+                        },
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Teacher_form[linkedIn]': {
+                    validators: {
+                        uri: {
+                            message: 'This url is not valid'
+                        }
+                    }
+                },
+                'Teacher_form[facebook]': {
+                    validators: {
+                        uri: {
+                            message: 'This url is not valid'
+                        }
+                    }
+                },
+                'Teacher_form[twitter]': {
+                    validators: {
+                        uri: {
+                            message: 'This url is not valid'
+                        }
+                    }
+                },
+                'Teacher_form[address]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'Teacher_form[portfolio]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'Teacher_form[schoolTeach]': {
+                    validators: {
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'Teacher_form[title]': {
+                    validators: {
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'Teacher_form[university]': {
+                    validators: {
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'Teacher_form_school': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+</script>

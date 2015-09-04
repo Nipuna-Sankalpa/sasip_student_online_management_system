@@ -10,7 +10,7 @@
     <div class="container">
         <div class="col-lg-4 col-lg-offset-4">
             <form class="form-group" action="{{ path("fos_user_security_check") }}" method="post">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <input type="hidden"  name="_csrf_token" value="{{ csrf_token }}" />
 
                 <label class="control-label" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
                 <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />

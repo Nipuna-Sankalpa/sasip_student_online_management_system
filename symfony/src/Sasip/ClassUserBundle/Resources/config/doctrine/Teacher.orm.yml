@@ -5,8 +5,8 @@ Sasip\ClassUserBundle\Entity\Teacher:
     
     id:
         id:
-            type: string
-            length: 6
+            type: integer
+            length: 11
             
     fields:
         firstName:

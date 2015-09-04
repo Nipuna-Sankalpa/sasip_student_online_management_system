@@ -1,7 +1,7 @@
 #------------------------User Profiles-------------------------
-Profile_user:
-    path:     /profile/user
-    defaults: { _controller: ClassUserBundle:Role:user }
+Profile_InitialSettings:
+    path:     /profile/InitialSettings
+    defaults: { _controller: ClassUserBundle:Settings:initialSetting }
 Profile_teacher:
     path:     /profile/teacher
     defaults: { _controller: ClassUserBundle:Role:teacher }
@@ -80,6 +80,10 @@ sendMessage:
 viewMoreMessage:
     path:   /viewMore/
     defaults: {_controller: ClassUserBundle:NewsForum:viewMore}
+
+MarkedAsRead:
+    path:   /marked/
+    defaults: {_controller: ClassUserBundle:NewsForum:markAsRead}
 
 #--------------------------------end routes for news forum----------------------------------------------
 

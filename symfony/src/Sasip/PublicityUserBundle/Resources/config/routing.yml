@@ -1,3 +1,22 @@
 publicity_Front:
     path:     /
     defaults: { _controller: PublicityUserBundle:Default:index }
+
+#front end routings
+
+Front_sasip:
+    path:     /sasip
+    defaults: { _controller: PublicityUserBundle:Default:sasip }
+
+Front_teachers:
+    path:     /teachers
+    defaults: { _controller: PublicityUserBundle:Default:teacher }
+
+Front_classes:
+    path:     /classes
+    defaults: { _controller: PublicityUserBundle:Default:class }
+
+send_feedback:
+    path:     /sendFeedback
+    defaults: { _controller: PublicityUserBundle:Default:feedback }
+    

@@ -31,6 +31,7 @@
     </div>
     <div class="x_content">
         <canvas id="canvas_bar"></canvas>
+        <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
         <p class="text-center">Month</p>
     </div>
 </div>
@@ -44,7 +45,7 @@
     </div>    
 </div>
 
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+
 <script src="{{asset('js/Profiles/chartjs/chart.min.js')}}"></script>
 <script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
 
@@ -53,11 +54,13 @@
     var canvas = $("#canvas_bar").get(0).getContext("2d");
 
     $('#classes').change(function () {
+        $('#screenSaver').css('display', 'block');
         $.ajax({
             url: "{{path('teacherClassAttendance')}}",
             type: 'POST',
             data: {id: $('#classes').val()},
             success: function (data) {
+                $('#screenSaver').css('display', 'none');
                 examId = data.dataSet_2;
                 dataSet = data.dataSet_1;
                 //delete previous chart brfore create new one

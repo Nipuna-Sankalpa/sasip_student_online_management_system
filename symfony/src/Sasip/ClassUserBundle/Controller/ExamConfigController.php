@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
  *
  * @author Flash
  */
-class ExamConfigController extends Controller{
+class ExamConfigController extends Controller {
 
     //put your code here
     public function examConfigAction(Request $request) {
@@ -96,7 +96,7 @@ class ExamConfigController extends Controller{
         if ($request->getMethod() == 'POST' && $exam != null) {
             if ($request->request->get('fees')) {
                 $exam->setFees($request->request->get('fees'));
-            }
+            }            
             if ($request->request->get('conductDay')) {
                 $exam->setConductDay($request->request->get('conductDay'));
             }

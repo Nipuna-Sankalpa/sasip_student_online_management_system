@@ -43,6 +43,12 @@ class SettingsController extends Controller {
         ));
     }
 
+    //when user login for his first time this method will get executed and registration form will be appeared.
+
+    public function initialSettingAction() {
+        return $this->render("ClassUserBundle:Profiles:AccountSettingsContainer.html.twig");
+    }
+
     public function studentUpdateProfileAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -69,14 +75,14 @@ class SettingsController extends Controller {
             }
         }
 
-        return new \Symfony\Component\HttpFoundation\Response('ERROR');
+        return new Response('ERROR');
     }
 
     public function teacherProfileAction(Request $request) {
         $teacher = new Teacher();
         $form = $this->createForm(new TeacherRegisterForm(), $teacher);
         $form->handleRequest($request);
-        $id = $this->container->get('security.context')->getToken()->getUser()->getUsername();
+        $id = $this->container->get('security.context')->getToken()->getUser()->getId();
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -102,7 +108,7 @@ class SettingsController extends Controller {
 
     public function teacherUpdateProfileAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $id = $this->container->get('security.context')->getToken()->getUser()->getUsername();
+        $id = $this->container->get('security.context')->getToken()->getUser()->getId();
 
         $teacher = $em->getRepository('ClassUserBundle:Teacher')->find($id);
         $form = $this->createForm(new TeacherRegisterForm(), $teacher);
@@ -115,15 +121,7 @@ class SettingsController extends Controller {
             return $this->redirectToRoute('Profile_teacher');
         }
 
-        return new \Symfony\Component\HttpFoundation\Response('ERROR');
-    }
-
-    public function userProfileAction() {
-        
-    }
-
-    public function supAdminProfileAction() {
-        
+        return new Response('ERROR');
     }
 
     public function sendDataAction(Request $request) {

@@ -19,6 +19,15 @@
         display: block;
     }
 </style>
+
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Validation/formValidation.min.js')}}"></script>
+<!-- this bootstrap file is related to form validation-->
+<script src="{{asset('js/Validation/bootstrap.min.js')}}"></script>
+<!-- importsfor build form -->
+<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
+
 <div id="wizard" class="form_wizard wizard_horizontal">
     <ul class="wizard_steps">
         <li>
@@ -68,14 +77,14 @@
                 </label>
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.first_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.first_name,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.last_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.last_name,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}
                 </div>
             </div>            
             <div class="form-group">
@@ -90,7 +99,7 @@
                 <label for="dateOfBirth" class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.date_of_birth,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.date_of_birth,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}
                 </div>
             </div>
 
@@ -98,7 +107,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.address,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.address,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}
 
                 </div>
             </div>
@@ -107,7 +116,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    {{form_widget(form.mobile.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.mobile.contact_number,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required,number'}})}}
                 </div>
             </div>
             <div class="form-group">
@@ -115,14 +124,14 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    {{form_widget(form.parent_name,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.parent_name,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}
                 </div>
             </div>
             <div class="form-group">
                 <label for="parentMobile" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Mobile <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.parent_mobile,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.parent_mobile,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required,number'}})}}
                 </div>
             </div>
             <div style="display: none;">
@@ -136,7 +145,7 @@
                 <label for="school" class="control-label col-md-3 col-sm-3 col-xs-12">School <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{form_widget(form.school,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}                    
+                    {{form_widget(form.school,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required'}})}}                    
                 </div>
             </div>           
 
@@ -144,7 +153,7 @@
                 <label for="yearOfExam" class="control-label col-md-3 col-sm-3 col-xs-12">Year of exam <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                    
-                    {{form_widget(form.year_of_exam,{'attr':{'class':'form-control col-md-7 col-xs-12'}})}}
+                    {{form_widget(form.year_of_exam,{'attr':{'class':'form-control col-md-7 col-xs-12','data-validate':'required,number'}})}}
                 </div>
             </div>          
         </div>
@@ -164,7 +173,7 @@
 
                             <div >
                                 <span style="color: white" class="btn btn-info btn-block btn-file">Browse
-                                    {{form_widget(form.profileImage)}}
+                                    {{form_widget(form.profileImage,{'attr':{'accept':'.jpg,.png,.bmp'}})}}
                                 </span>
                             </div>
                         </div> 
@@ -189,9 +198,6 @@
 
 </div>
 
-<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
-<script src="{{asset('js/Profiles/nicescroll/jquery.nicescroll.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/Profiles/wizard/jquery.smartWizard.js')}}"></script>
 <script>
     function initData() {
         var path = "{{path('studentFormData')}}";
@@ -205,7 +211,7 @@
                 $('#sasip_registration_form_last_name').val(data.profile[0]['last_name']);
                 $('#sasip_registration_form_gender').val(data.profile[0]['gender']);
                 $('#sasip_registration_form_date_of_birth').val(data.profile[0]['date_of_birth']);
-                
+
                 $('#sasip_registration_form_address').val(data.profile[0]['address']);
                 $('#sasip_registration_form_mobile_contact_number').val(data.contact[0]['contact_number']);
                 $('#sasip_registration_form_parent_name').val(data.profile[0]['parent_name']);
@@ -249,6 +255,108 @@
         readURL(this);
     });
 
-
 </script>
 
+<script>
+//form validation
+    $(document).ready(function () {
+        //$('#resetPassword').attr('disabled', true);
+        $('#editForm').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                'sasip_registration_form[first_name]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[last_name]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[date_of_birth]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[mobile][contact_number]': {
+                    validators: {
+                        digits: {
+                            message: 'This value is not valid'
+                        },
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[parent_mobile]': {
+                    validators: {
+                        digits: {
+                            message: 'This value is not valid'
+                        },
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[year_of_exam]': {
+                    validators: {
+                        digits: {
+                            message: 'This value is not valid'
+                        },
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[parent_name]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'sasip_registration_form[address]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'sasip_registration_form[portfolio]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                },
+                'sasip_registration_form[school]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This field is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\/,.]+$/,
+                            message: 'This field can only consist of alphabetical, number, comma, forwardslash , dot and underscore'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+</script>

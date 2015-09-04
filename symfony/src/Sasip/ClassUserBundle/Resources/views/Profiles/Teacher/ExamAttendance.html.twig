@@ -26,7 +26,9 @@
             <p>The result which is shown below belongs to the exam which was held held in DATE OF EXAM</p>
         </div>
     </div>
+    <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
     <div id="resultComponent" class="row" >
+
         <div class="col-md-3">
             <div class="x_content">
                 <div style="text-align: center;">
@@ -49,7 +51,6 @@
                         <span class="percent"></span>
                     </span>
                 </div>
-
                 <h4 class="name_title text-center">Percentage Respect to the students registered</h4>
                 <div class="divider"></div>
             </div>
@@ -85,7 +86,7 @@
                     $(this.el).find('.percent').text(Math.round(percent));
                 }
             });
-            
+
             $('#data_2').easyPieChart({
                 easing: 'easeOutElastic',
                 delay: 3000,
@@ -99,21 +100,25 @@
                     $(this.el).find('.percent').text(Math.round(percent));
                 }
             });
-            
+
         });
     }
 
     initComponent();
 
     $('#examSelect').change(function () {
+
         var examTotCount, examTotEnrolled, studentTotal;//define data variable as globle to use in other methods
         var data_1, data_2;
+        $('#screenSaver').css('display', 'block');
+        $('#resultComponent').css('display', 'none');
         $.ajax({
             url: "{{path('teacherExamAttendance')}}",
             type: 'POST',
             data: {id: $('#examSelect').val()},
             success: function (data, textStatus, jqXHR) {
-
+                $('#screenSaver').css('display', 'none');
+                $('#resultComponent').css('display', 'block');
                 if (chart !== null) {
                     chart.destroy();
                 }

@@ -39,9 +39,9 @@
                 </li>
                 <li><a><i class="fa fa-desktop"></i> Sasip Configurations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none">
-                        <li id="createExam"><a href="javascript:;">Create exam</a>
+                        <li id="createExam"><a href="javascript:;">Exam</a>
                         </li>
-                        <li id="addClass"><a href="javascript:;">Add class</a>
+                        <li id="addClass"><a href="javascript:;">Class</a>
                         </li>
                     </ul>
                 </li>
@@ -78,16 +78,7 @@
                 <h3>Administrator Portal</h3>
             </div>
 
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="clearfix"></div>
 
@@ -123,7 +114,6 @@
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <h3>{{admin.userName}}</h3>
-
                                     <div>
                                         <span><i class="fa fa-envelope"></i> {{admin.email}}</span> | <span><i class="fa fa-wrench"></i> System Adminstrator</span> | <span><i class="fa fa-university"></i> Sasip Institute Nugegoda</span>
                                     </div>
@@ -137,8 +127,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div id="messageInbox" style="padding: 1em;"></div>
+                            <div id="messageInbox" style="padding-right: 1em;" class="container"></div>
+                            <div id="screenSaver" class="text-center" style="margin-top: 10%;margin-bottom: 10%;display: none;"><i class="fa fa-5x fa-spin fa-cog"></i></div>
                         </div>
+
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -174,71 +166,57 @@
 
 
     <script>
+
+        //this function helps to load contents manually when event occurs
+        function loadContentManually(container, route) {
+            $('#screenSaver').css('display', 'block');
+            $(container).empty();
+            $.ajax({
+                url: route,
+                type: 'GET',
+                dataType: 'html',
+                success: function (data) {
+                    $('#screenSaver').css('display', 'none');
+                    $(container).append(data);
+                }
+            });
+        }
+
         $('#addProfiles').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('superAdminCreateProfiles')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('superAdminCreateProfiles')}}");
             $("#messageInbox").css('display', 'none');
-
         });
 
         $('#userProSettings').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('fos_user_resetting_request')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('fos_user_resetting_request')}}");
             $("#messageInbox").css('display', 'none');
-
         });
+
         $('#addClass').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('classConfiguration')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('classConfiguration')}}");
             $("#messageInbox").css('display', 'none');
-
         });
+
         $('#createExam').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('ExamConfiguration')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('ExamConfiguration')}}");
             $("#messageInbox").css('display', 'none');
-
         });
+
         $('#accountSetting,#nav-settings').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('studentAccountSettings')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('studentAccountSettings')}}");
             $("#messageInbox").css('display', 'none');
-
         });
+
         $('#passwordReset').on('click', function () {
-
-            var $whereToLoadContent = $("#contentBody"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('RenderPwResetUserRequest')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#contentBody", "{{path('RenderPwResetUserRequest')}}");
             $("#messageInbox").css('display', 'none');
-
         });
 
         function inbox() {
-            var $whereToLoadContent = $("#messageInbox"); //where you want to load data
-
-            var routeWithPlaceHolder = "{{path('displayForum')}}";
-            $whereToLoadContent.load(routeWithPlaceHolder);
+            loadContentManually("#messageInbox", "{{path('displayForum')}}");
         }
+
         inbox();
-
-
     </script>
 {% endblock %}
 

@@ -1,10 +1,16 @@
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Validation/formValidation.min.js')}}"></script>
+<!-- this bootstrap file is related to form validation-->
+<script src="{{asset('js/Validation/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/Notification/pnotify.custom.min.js')}}"></script>
+
 <div class="x_panel">
     <div class="x_title">
         <h2>Personal Settings</h2>
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form class="form-horizontal form-label-left" id="formChangePassword">
+        <form class="form-horizontal form-label-left" action="{{path('fos_user_change_password')}}" method="POST" id="formChangePassword">
             {{form_start(form)}}
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Current Password</label>
@@ -31,26 +37,94 @@
                 </div>
             </div>
             {{form_end(form)}}
-        </form>
-        <div id="messageId" class="alert alert-success text-center" role="alert" style="display: none;font-size: 12pt;"></div>
+        </form>        
+        <div id="screenSaver_classConfig" class="text-center" style="display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
     </div>
 
 
 </div>
 
 <script>
+
+
     $('#changePassword').on('click', function (e) {
         e.preventDefault();
+
+        $('#formChangePassword').css('display', 'none');
+        $('#screenSaver_classConfig').css('display', 'block');
+
         $.ajax({
             type: 'POST',
             url: "{{path('fos_user_change_password')}}",
             data: $('#formChangePassword').serialize(),
             success: function (data) {
+                $('#formChangePassword').css('display', 'block');
+                $('#screenSaver_classConfig').css('display', 'none');
                 if (data.message !== 'undefined') {
-                    $('#messageId').text(data.message);
-                    $('#messageId').css('display', 'block');
+                    $(function () {
+                        PNotify.prototype.options.styling = "fontawesome";
+                        new PNotify({
+                            title: 'Success',
+                            text: data.message,
+                            remove: true,
+                            delay: 4000,
+                            animation: "fade",
+                            type: 'success',
+                            buttons: {
+                                closer: true,
+                                sticker: true
+                            }
+                        });
+                    });
+                }
+            }
+        });
+
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+        //$('#changePassword').attr('disabled', true);
+        $('#formChangePassword').bootstrapValidator({
+            message: 'This value is not valid',
+            autoFocus: true,
+            button: {
+                selector: '[id="changePassword"]',
+                disabled: ''
+            },
+            fields: {
+                'fos_user_change_password_form[new][first]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required and can\'t be empty'
+                        },
+                        identical: {
+                            field: 'fos_user_change_password_form[new][second]',
+                            message: 'The password and its confirm are not the same'
+                        }
+                    }
+                },
+                'fos_user_change_password_form[current_password]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required and can\'t be empty'
+                        }
+                    }
+                },
+                'fos_user_change_password_form[new][second]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The confirm password is required and can\'t be empty'
+                        },
+                        identical: {
+                            field: 'fos_user_change_password_form[new][first]',
+                            message: 'The password and its confirm are not the same'
+                        }
+                    }
                 }
             }
         });
     });
+
 </script>

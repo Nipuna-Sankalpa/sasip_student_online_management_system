@@ -1,0 +1,21 @@
+Sasip\PublicityUserBundle\Entity\Feedback:
+    type: entity
+    table: feedbacks
+    
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+                
+    fields:
+        firstname:
+            type: text            
+        lastname:
+            type: text   
+        title:
+            type: text       
+        content:
+            type: text
+        
+                

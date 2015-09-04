@@ -35,6 +35,10 @@ class SecurityController extends BaseController {
         if ($error) {
             // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
             $error = $error->getMessage();
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                'message'=>'Incorrect user name or password'
+            ));
+            
         }
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);

@@ -1,0 +1,24 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 2, 2015, 2:51:40 AM
+    Author     : Flash
+*/
+
+.navbar-default {
+    background-color: rgba(0,0,0,0);
+    color: #0074d9;
+    border-color: rgba(0,0,0,0);
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: white;
+    background-color: transparent;
+}

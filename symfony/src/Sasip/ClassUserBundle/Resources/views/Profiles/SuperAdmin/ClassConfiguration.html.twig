@@ -1,3 +1,8 @@
+<script src="{{asset('js/Profiles/jquery.min.js')}}"></script>
+<script src="{{asset('js/Validation/formValidation.min.js')}}"></script>
+<!-- this bootstrap file is related to form validation-->
+<script src="{{asset('js/Validation/bootstrap.min.js')}}"></script>
+
 <h3 class="text-center">Class Configuration</h3>
 
 <div class="container">
@@ -59,6 +64,7 @@
                         </div>
                         {{form_end(form)}}
                     </form>
+                    <div id="screenSaver_classConfig_1" class="text-center" style="display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
@@ -119,6 +125,7 @@
                         </div>
 
                     </form>
+                    <div id="screenSaver_classConfig" class="text-center" style="display: none;"><i class="fa fa-2x fa-spin fa-cog"></i></div>
                 </div>
             </div>
         </div>
@@ -142,14 +149,16 @@
 
     $('#id').change(function () {
         var id = $('#id').val();
-
+        $('#screenSaver_classConfig').css('display', 'block');
+        $('#classUpdate').css('display', 'none');
         $.ajax({
             url: "{{path('classUpdate')}}",
             type: 'GET',
             data: {id: id},
             success: function (data) {
                 var Tution = JSON.parse(data);
-
+                $('#screenSaver_classConfig').css('display', 'none');
+                $('#classUpdate').css('display', 'block');
                 $('#fees').val(Tution.fees);
                 $('#conductDay').val(Tution.conductDay);
                 $('#time').val(Tution.time);
@@ -159,5 +168,133 @@
         });
 
     });
+
+    $('#classCreate').on('submit', function (e) {
+        $('#classCreate').css('display', 'none');
+        $('#screenSaver_classConfig').css('display', 'block');
+        e.preventDefault();
+        $.ajax({
+            url: $('#classCreate').attr('action'),
+            type: 'POST',
+            data: $('#classCreate').serialize(),
+            success: function (data) {
+                $('#classCreate').css('display', 'none');
+                $('#screenSaver_classConfig').css('display', 'block');
+                alert(data.message);
+            }
+        });
+    });
+
+    $('#classUpdate').on('submit', function (e) {
+        $('#screenSaver_classConfig').css('display', 'block');
+        $('#classUpdate').css('display', 'none');
+        e.preventDefault();
+        $.ajax({
+            url: $('#classUpdate').attr('action'),
+            type: 'POST',
+            data: $('#classUpdate').serialize(),
+            success: function (data) {
+                $('#screenSaver_classConfig').css('display', 'none');
+                $('#classUpdate').css('display', 'block');
+                alert(data.message);
+            }
+        });
+    });
+
+</script>
+
+<script>
+//form validation
+    $(document).ready(function () {
+        $('#confirm').attr('disabled', true);
+        $('#classCreate').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                'Sasip_class_form[id]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_class_form[conductDay]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_class_form[teacher_id]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                'Sasip_class_form[time]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                },
+                'Sasip_class_form[fees]': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {}
+                    }
+                }
+            }
+        });
+    });
+    //form no-2
+    $(document).ready(function () {
+        $('#confirmUpdate').attr('disabled', true);
+        $('#classUpdate').bootstrapValidator({
+            message: 'This value is not valid',
+            fields: {
+                fees: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                },
+                conductDay: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                teacher_id: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        }
+                    }
+                },
+                time: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The field is required and can\'t be empty'
+                        },
+                        digits: {
+                            message: 'This value is not valid'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
 </script>
 

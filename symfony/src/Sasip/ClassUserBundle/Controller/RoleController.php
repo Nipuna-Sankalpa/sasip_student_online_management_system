@@ -9,7 +9,7 @@
 namespace Sasip\ClassUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of RoleController
@@ -17,11 +17,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * @author Flash
  */
 class RoleController extends Controller {
-
-//basic user(staff) interface generator
-    public function userAction() {
-        return $this->render("ClassUserBundle:Profiles:user.html.twig");
-    }
 
 //basic Student interface generator
     public function studentAction($student_id) {
@@ -48,6 +43,10 @@ class RoleController extends Controller {
         $resultMobile = $stmtMobile->fetchAll();
         $resultRegClass = $stmtRegClass->fetchAll();
 
+        if ($result == null) {
+            return $this->redirectToRoute('Profile_InitialSettings');
+        }
+
         if ($resultMobile == null) {
             $resultMobile = null;
         }
@@ -62,7 +61,7 @@ class RoleController extends Controller {
 //basic teacher interface generator
     public function teacherAction() {
         $teacher = $this->container->get("security.context")->getToken()->getUser();
-        $id = $teacher->getUsername();
+        $id = $teacher->getId();
 
         $em = $this->getDoctrine()->getManager();
         $teacher = $em->getRepository('ClassUserBundle:Teacher')->find($id);
@@ -72,7 +71,10 @@ class RoleController extends Controller {
         $class = $em->getRepository('ClassUserBundle:TutionClass')->findBy(array(
             'teacher_id' => $id,
         ));
-
+//this line will check whether the use is present in his corresponding personal detail table
+        if ($teacher == null) {
+            return $this->redirectToRoute('Profile_InitialSettings');
+        }
 
         return $this->render("ClassUserBundle:Profiles:teacher.html.twig", array(
                     'teacher' => $teacher,
@@ -98,25 +100,39 @@ class RoleController extends Controller {
 
 //      if role is default then load student student being treated as default role
         if ($roles[0] == 'ROLE_STUDENT') {
-//            return $this->redirect($this->generateUrl('Profile_student'))
-            return new RedirectResponse($this->generateUrl('Profile_student'), array(
-                'student_id' => $userId
+//            return $this->redirect($this->generateUrl('Profile_student'))            
+            return new JsonResponse(array(
+                'message' => $this->generateUrl('Profile_student', array(
+                    'student_id' => $userId
+                ))
             ));
         }
 //        if role is admin then load staff(user) being treated as admin role
         else if ($roles[0] == 'ROLE_USER') {
-            return $this->redirect($this->generateUrl('Profile_user'));
+
 //            return new RedirectResponse($this->generateUrl('Profile_user'));
+            return new JsonResponse(array(
+                'message' => $this->generateUrl('Profile_user')
+            ));
         }
 //        if role is teacher then load student being treated as teacher role
         else if ($roles[0] == 'ROLE_TEACHER') {
-            return new RedirectResponse($this->generateUrl('Profile_teacher'));
+//            return new RedirectResponse($this->generateUrl('Profile_teacher'));
+            return new JsonResponse(array(
+                'message' => $this->generateUrl('Profile_teacher')
+            ));
         }
 //        if role is super admin then load student being treated as super admin role
         else if ($roles[0] == 'ROLE_SUPER_ADMIN') {
-            return new RedirectResponse($this->generateUrl('Profile_superAdmin'));
+//            return new RedirectResponse($this->generateUrl('Profile_superAdmin'));
+            return new JsonResponse(array(
+                'message' => $this->generateUrl('Profile_superAdmin')
+            ));
         } else {
-            return new \Symfony\Component\HttpFoundation\Response('Error');
+//            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse(array(
+                'message' => $this->generateUrl('fos_user_security_logout')
+            ));
         }
     }
 

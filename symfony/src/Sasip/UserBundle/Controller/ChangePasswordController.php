@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 /**
  * Controller managing the password change
